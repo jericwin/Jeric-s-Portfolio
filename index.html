@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jeric's Portfolio</title>
+  <meta name="description" content="Creative coding portfolio showcasing projects, experience, and contact details." />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/me.png" />
+  <style>
+    :root{
+      --bg-0:#0b0f14;      /* deep blue-black */
+      --bg-1:#0e141b;      /* slightly lighter */
+      --bg-2:#111923;
+      --text:#eaf2ff;
+      --muted:#9fb3c8;
+      --blue:#2f8cff;
+      --blue-2:#165dff;
+      --card:#101720cc;    /* translucent cards */
+      --glass:rgba(16, 23, 32, .55);
+      --border:#203042;
+      --success:#2dd4bf;
+      --warning:#fbbf24;
+      --danger:#f43f5e;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text); background:radial-gradient(1200px 600px at 20% -10%, rgba(22,93,255,.25), transparent 60%),
+                         radial-gradient(800px 400px at 120% 10%, rgba(47,140,255,.25), transparent 60%),
+                         linear-gradient(180deg, var(--bg-0), var(--bg-1));
+    }
+
+    /* ====== Layout ====== */
+    .container{width:min(1120px, 92%); margin-inline:auto}
+
+    /* ====== Header/Nav ====== */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
+      background:linear-gradient(180deg, rgba(10,14,20,.9), rgba(10,14,20,.55)); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text)}
+    .brand .logo{width:36px; height:36px; background:linear-gradient(135deg, var(--blue), var(--blue-2));
+      border-radius:10px; display:grid; place-items:center; box-shadow:0 8px 20px rgba(22,93,255,.35)}
+    .brand .logo svg{width:22px; height:22px}
+    .brand span{font-weight:800; letter-spacing:.4px}
+
+    nav ul{list-style:none; display:flex; gap:22px; margin:0; padding:0}
+    nav a{color:var(--muted); text-decoration:none; font-weight:600; font-size:.98rem; padding:10px 12px; border-radius:12px; transition:.2s ease}
+    nav a:hover, nav a.active{color:var(--text); background:rgba(47,140,255,.12)}
+
+    .menu-btn{display:none; background:none; border:0; width:40px; height:40px; border-radius:10px; color:var(--text);
+      align-items:center; justify-content:center}
+    .menu-btn:hover{background:rgba(255,255,255,.06)}
+
+    @media (max-width: 820px){
+      nav ul{display:none; position:absolute; top:64px; right:4%; left:4%; flex-direction:column; gap:6px; padding:12px; background:var(--glass);
+        border:1px solid var(--border); border-radius:16px}
+      nav ul.open{display:flex}
+      .menu-btn{display:flex}
+    }
+
+    /* ====== Hero ====== */
+    .hero{display:grid; grid-template-columns: 1.2fr .8fr; gap:36px; align-items:center; padding:72px 0}
+    .eyebrow{display:inline-flex; gap:8px; align-items:center; font-weight:700; color:#cfe1ff;
+      background:rgba(47,140,255,.12); border:1px solid rgba(47,140,255,.35); padding:6px 10px; border-radius:999px; font-size:.82rem}
+    .eyebrow svg{width:16px; height:16px}
+    .hero h1{font-size: clamp(2rem, 5vw, 3.25rem); line-height:1.08; margin:16px 0}
+    .hero p{color:var(--muted); font-size:1.06rem}
+    .cta{display:flex; gap:14px; margin-top:26px}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 16px; font-weight:700; border-radius:14px; text-decoration:none; transition: transform .15s ease, box-shadow .2s ease}
+    .btn.primary{background:linear-gradient(135deg, var(--blue), var(--blue-2)); color:white; box-shadow:0 12px 24px rgba(22,93,255,.35)}
+    .btn.ghost{border:1px solid var(--border); color:var(--text); background:rgba(255,255,255,.02)}
+    .btn:hover{transform:translateY(-2px)}
+
+    .portrait{
+      justify-self:end; position:relative; width:min(340px, 85%); aspect-ratio:1/1; border-radius:24px; overflow:hidden;
+      box-shadow: var(--shadow), 0 0 0 1px var(--border);
+      background:
+        radial-gradient(120px 120px at 80% 20%, rgba(47,140,255,.35), transparent 60%),
+        radial-gradient(160px 160px at 10% 90%, rgba(22,93,255,.35), transparent 60%),
+        linear-gradient(180deg, #0a0f16, #121a24);
+    }
+    .portrait img{width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.05)}
+    .ring{position:absolute; inset:-18px; border-radius:40px; border:2px dashed rgba(47,140,255,.25); pointer-events:none; animation: spin 18s linear infinite}
+    @keyframes spin{to{transform: rotate(360deg)}}
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr; text-align:left}
+      .portrait{justify-self:start}
+    }
+
+    /* ====== Sections ====== */
+    section{padding:72px 0}
+    .section-header{display:flex; align-items:end; justify-content:space-between; margin-bottom:28px}
+    .section-title{font-size: clamp(1.5rem, 3.6vw, 2.2rem); margin:0}
+    .section-sub{color:var(--muted)}
+
+    /* ====== About ====== */
+    .about{display:grid; grid-template-columns: 1fr 1fr; gap:28px}
+    .card{background:var(--card); border:1px solid var(--border); border-radius: var(--radius); padding:22px; box-shadow:var(--shadow)}
+    .list{display:grid; gap:14px; margin:0; padding:0; list-style:none}
+    .list li{display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:start}
+    .list svg{width:22px; height:22px; margin-top:3px}
+
+    .timeline{position:relative}
+    .timeline::before{content:""; position:absolute; left:18px; top:8px; bottom:8px; width:2px; background:linear-gradient(var(--blue), transparent)}
+    .event{position:relative; padding-left:40px; margin-bottom:18px}
+    .event::before{content:""; position:absolute; left:12px; top:6px; width:12px; height:12px; border-radius:50%; background:var(--blue)}
+    .event h4{margin:0 0 2px; font-size:1.02rem}
+    .event small{color:var(--muted)}
+
+    /* ====== Projects ====== */
+    .projects{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+    .project{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border:1px solid var(--border); border-radius:20px; overflow:hidden; box-shadow:var(--shadow);
+      transition: transform .18s ease, box-shadow .2s ease;
+    }
+    .project:hover{transform: translateY(-6px)}
+    .thumb{height:180px; background:radial-gradient(180px 120px at -10% -10%, rgba(47,140,255,.35), transparent),
+                            radial-gradient(220px 140px at 110% 120%, rgba(22,93,255,.35), transparent),
+                            linear-gradient(180deg, #0f1720, #0a0f16); display:grid; place-items:center}
+    .thumb svg{width:72px; height:72px; opacity:.9}
+    .project .body{padding:16px}
+    .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .tag{font-size:.76rem; padding:6px 8px; border-radius:999px; border:1px solid var(--border); color:#c6daf8}
+    .actions{display:flex; gap:10px; margin-top:12px}
+    .actions a{font-weight:700; font-size:.92rem}
+
+    @media (max-width: 980px){
+      .projects{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .projects{grid-template-columns: 1fr}
+    }
+
+    /* ====== Contact ====== */
+    form{display:grid; gap:14px}
+    label{font-weight:700; font-size:.94rem}
+    input, textarea{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:rgba(12, 18, 26, .65);
+      color:var(--text); outline:none; transition:border-color .15s ease, box-shadow .15s ease
+    }
+    input::placeholder, textarea::placeholder{color:#89a3bf}
+    input:focus, textarea:focus{border-color:var(--blue); box-shadow:0 0 0 3px rgba(47,140,255,.2)}
+
+    .contact-grid{display:grid; grid-template-columns: 1fr .9fr; gap:22px}
+    @media (max-width: 860px){.contact-grid{grid-template-columns:1fr}}
+
+    .address{display:grid; gap:6px}
+    .address a{color:#cfe1ff}
+
+    /* ====== Footer ====== */
+    footer{padding:26px 0 48px; color:var(--muted); border-top:1px solid var(--border)}
+
+    /* ====== Animations (entry) ====== */
+    .reveal{opacity:0; transform: translateY(14px); filter: blur(2px)}
+    .reveal.visible{opacity:1; transform:none; filter:none; transition:opacity .6s ease, transform .6s ease, filter .6s ease}
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important}
+      html{scroll-behavior:auto}
+    }
+    
+   .profile-img {
+  width: 220px;  /* Larger size */
+  height: auto;
+  border-radius: 50%; /* Keeps it circular */
+  animation: float 4s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+}
+
+/* Floating effect */
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Glowing effect */
+@keyframes glow {
+  from { box-shadow: 0 0 10px rgba(0, 255, 255, 0.4); }
+  to   { box-shadow: 0 0 30px rgba(0, 255, 255, 0.9); }
+}
+
+/* Skills Section - Blue & Black Theme */
+#skills {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+#skills .section-title {
+  font-size: 2rem;
+  color: #ffffff; /* white accent */
+  margin-bottom: 10px;
+}
+
+#skills .section-sub {
+  color: #aaa;
+  margin-bottom: 40px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #fff;
+}
+
+.skill-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(13,110,253,0.6); /* blue glow */
+}
+
+.skill-card .icon {
+  margin-bottom: 12px;
+  color: #0d6efd;
+}
+
+.skill-card svg {
+  width: 40px;
+  height: 40px;
+}
+
+.skill-card h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #fff;
+}
+
+.skill-card p.muted {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-top: 6px;
+}
+
+
+.project {
+ 
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.project:hover {
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.6); /* blue shadow */
+  border-color: #007bff; /* optional: make border blue too */
+}
+/* Prevent horizontal overflow on small screens */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Make images always responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 480px) {
+
+  /* Container padding */
+  .container {
+    width: 94%;
+  }
+
+  /* Header */
+  .nav {
+    padding: 10px 0;
+  }
+
+  .brand span {
+    font-size: 0.9rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 48px 0;
+    gap: 24px;
+  }
+
+  .hero h1 {
+    font-size: 1.9rem;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .cta {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Profile Image */
+  .portrait {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .profile-img {
+    width: 160px;
+  }
+
+  /* About */
+  .about {
+    grid-template-columns: 1fr;
+  }
+
+  /* Timeline */
+  .timeline::before {
+    left: 14px;
+  }
+
+  .event {
+    padding-left: 32px;
+  }
+
+  /* Sections */
+  section {
+    padding: 56px 0;
+  }
+
+  /* Skills */
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Projects */
+  .projects {
+    grid-template-columns: 1fr;
+  }
+
+  .thumb {
+    height: 150px;
+  }
+
+  /* Contact */
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 60px 0;
+  }
+
+  .portrait {
+    justify-self: center;
+  }
+
+  /* About */
+  .about {
+    grid-template-columns: 1fr;
+  }
+
+  /* Skills */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Projects */
+  .projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 1024px) {
+
+  /* Hero spacing */
+  .hero {
+    gap: 28px;
+  }
+
+  /* Projects */
+  .projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Skills */
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+/* Increase tap targets on mobile */
+@media (hover: none) {
+  nav a,
+  .btn,
+  .tag {
+    padding: 14px 16px;
+  }
+}
+
+/* Better text wrapping */
+p, h1, h2, h3, h4 {
+  word-wrap: break-word;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img, svg, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+p, h1, h2, h3, h4, h5, h6, a, span {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img, svg, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+p, h1, h2, h3, h4, h5, h6, a, span {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.capability-row img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+
+  /* TRUE COLORS */
+  filter: none;
+  opacity: 0.9;
+
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.capability-row img:hover {
+  transform: translateY(-4px) scale(1.08);
+  opacity: 1;
+}
+.capability-row {
+  display: flex;
+  justify-content: flex-start;   /* LEFT aligned */
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.profile-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* LEFT alignment */
+}
+.cap-item {
+  position: relative;
+  display: inline-flex;
+}
+
+.cap-item > img {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+/* hidden preview */
+.cap-preview {
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 12px;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 50;
+}
+
+.cap-preview img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+/* show on hover */
+.cap-item:hover .cap-preview {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+.cap-item:hover > img {
+  transform: translateY(-2px);
+}
+.cap-item {
+  position: relative;
+  display: inline-flex;
+}
+
+/* SMALL ICON */
+.cap-item > img {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* 🔥 THIS IS THE MISSING PART */
+.cap-item:hover > img {
+  transform: scale(1.35);
+  z-index: 5;
+}
+.cap-item > img {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(.2,.8,.2,1);
+}
+
+/* 🔥 BIG POP */
+.cap-item:hover > img {
+  transform: scale(5);
+  z-index: 100;
+}
+
+.cap-preview {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+
+  /* ❌ REMOVE BOX */
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 15;
+}
+
+.cap-preview img {
+  width: 96px;   /* BIG PREVIEW */
+  height: 96px;
+  object-fit: contain;
+}
+
+.cap-item:hover .cap-preview {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+.capability-row,
+.profile-stack {
+  overflow: visible;
+}
+
+/* ===== Certificates Section ===== */
+#certificates {
+  padding: 72px 0;
+}
+
+.cert-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.cert-viewer {
+  position: relative;
+  width: min(520px, 92%);
+  aspect-ratio: 4 / 3;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.cert-viewer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0b0f14;
+}
+
+.cert-btn {
+  background: rgba(47,140,255,.15);
+  border: 1px solid rgba(47,140,255,.35);
+  color: var(--text);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.cert-btn:hover {
+  transform: scale(1.1);
+  background: rgba(47,140,255,.3);
+}
+
+.cert-counter {
+  margin-top: 14px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .cert-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+/* ===== Certificates Carousel ===== */
+#certificates {
+  padding: 72px 0;
+}
+
+.cert-carousel {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.cert-preview,
+.cert-main {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.cert-preview {
+  opacity: 0.45;
+  transform: scale(0.9);
+}
+
+.cert-preview img,
+.cert-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0b0f14;
+}
+
+.cert-preview {
+  aspect-ratio: 4 / 3;
+}
+
+.cert-main {
+  width: min(520px, 92vw);
+  aspect-ratio: 4 / 3;
+  position: relative;
+}
+
+.cert-controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.cert-btn {
+  background: rgba(47,140,255,.18);
+  border: 1px solid rgba(47,140,255,.35);
+  color: var(--text);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.cert-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(47,140,255,.35);
+}
+
+.cert-counter {
+  margin-top: 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .cert-carousel {
+    grid-template-columns: 1fr;
+  }
+
+  .cert-preview {
+    display: none;
+  }
+}
+/* ===== Certificate Navigation Buttons ===== */
+.cert-controls {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 22px;
+}
+
+.cert-nav {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.18);
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.04)
+  );
+  backdrop-filter: blur(10px);
+  color: var(--text);
+  font-size: 28px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: 
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+.cert-nav span {
+  transform: translateY(-1px);
+}
+
+.cert-nav:hover {
+  transform: scale(1.15);
+  box-shadow:
+    0 0 0 6px rgba(47,140,255,.15),
+    0 12px 30px rgba(0,0,0,.45);
+  background: linear-gradient(
+    145deg,
+    rgba(47,140,255,.35),
+    rgba(47,140,255,.12)
+  );
+}
+
+.cert-nav:active {
+  transform: scale(1.05);
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .cert-nav {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+}
+
+
+
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Home">
+        <div class="logo" aria-hidden="true">
+          <!-- </> icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 9l-4 3 4 3"/><path d="M16 9l4 3-4 3"/><path d="M13 5l-2 14"/>
+          </svg>
+        </div>
+        <span>Jeric</span>
+      </a>
+
+      <nav>
+        <button class="menu-btn" aria-label="Open menu" id="menuBtn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <ul id="menu">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+      <a href="assets/punayjericresume.pdf" download>
+  <span class="eyebrow reveal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 20l9-5-9-5-9 5 9 5z"/>
+      <path d="M12 12l9-5-9-5-9 5 9 5z"/>
+    </svg>
+    Jeric's Resume
+  </span>
+</a>
+
+
+        <h1 class="reveal">
+  Hi, I’m <span style="color:var(--blue)">Jeric Punay</span>! I&nbsp;analyze data and uncover meaningful insights.
+</h1>
+
+<p class="reveal">
+  Data-driven and detail-oriented. I love transforming complex datasets into clear, actionable stories through visualization, reporting, and analytics using tools like Excel, SQL, and Python.
+</p>
+
+        <div class="cta reveal">
+          <a class="btn primary" href="#projects" aria-label="View my projects">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            View Projects
+          </a>
+          <a class="btn ghost" href="#contact" aria-label="Contact me">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Contact
+          </a>
+        </div>
+      </div>
+<div class="profile-stack">
+  <div class="portrait reveal" aria-label="Profile photo container">
+    <img src="assets/me.png" alt="My Profile Picture">
+    <div class="ring" aria-hidden="true"></div>
+  </div>
+
+<div class="capability-row reveal">
+  <span class="cap-item">
+    <img src="assets/ds.png" alt="">
+    <span class="cap-preview">
+      <img src="assets/ds.png" alt="">
+    </span>
+  </span>
+
+  
+
+  <span class="cap-item">
+    <img src="assets/ef.png" alt="">
+    <span class="cap-preview">
+      <img src="assets/ef.png" alt="">
+    </span>
+  </span>
+
+  <span class="cap-item">
+    <img src="assets/ga.png" alt="">
+    <span class="cap-preview">
+      <img src="assets/ga.png" alt="">
+    </span>
+  </span>
+
+    <span class="cap-item">
+    <img src="assets/nss.png" alt="">
+    <span class="cap-preview">
+      <img src="assets/nss.png" alt="">
+    </span>
+  </span>
+
+  <span class="cap-item">
+    <img src="assets/ioc.png" alt="">
+    <span class="cap-preview">
+      <img src="assets/ioc.png" alt="">
+    </span>
+  </span>
+
+  <span class="cap-item">
+    <img src="assets/iot.png" alt="">
+    <span class="cap-preview">
+      <img src="assets/iot.png" alt="">
+    </span>
+  </span>
+
+  <span class="cap-item">
+    <img src="assets/dssa.png" alt="">
+    <span class="cap-preview">
+      <img src="assets/dssa.png" alt="">
+    </span>
+  </span>
+</div>
+
+</div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-header">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-sub">Education, Affiliations, Achievements, Seminars and Workshops</p>
+      </div>
+
+      <div class="about">
+  <!-- Education -->
+  <div class="card reveal timeline">
+    <h3 style="margin-top:0">Education</h3>
+    <div class="event">
+      <h4>College • <span style="color:#cfe1ff">Laguna State Polytechnic University - Siniloan Campus</span></h4>
+      <small>2022-Present</small>
+      <p class="muted">Bachelor of Science in Information Technology Major in Service Management</p>
+    </div>
+    <div class="event">
+      <h4>Senior High School • Siniloan Integrated National High School</h4>
+      <small>2020-2022</small>
+      <p class="muted">Accountancy, Business, and Management</p>
+    </div>
+    <div class="event">
+      <h4>Junior High School • Poten and Eliseo M. Quesada Memorial National High School</h4>
+      <small>2016-2020</small>
+      <p class="muted">Special Program in Science, Technology and Engineering</p>
+    </div>
+    <div class="event">
+      <h4>Elementary • Paete Elementary School</h4>
+      <small>2009-2016</small>
+    </div>
+  </div>
+
+  <!-- Affiliations -->
+<div class="card reveal timeline">
+  <h3 style="margin-top:0">Affiliations</h3>
+
+  <div class="event">
+    <h4>Member of Technical Working Group: Oplan Kalusugan sa DEPED "One Health Week Celebration"</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Member of the Technical Working Group: World AIDS Day</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Auditor of Mathematics Club PEMQMNHS</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>President of Philippine Guidance and Counseling Association Inc. Laguna Chapter</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>President of PEMQMNHS Peer Educators Group</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Facilitator for English, Science, and Mathematics (EnSciMa) Camp - School Based</h4>
+    <small>2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Resource Speaker of Peer Educators (2019) Resource Speaker of School-based Friday Lecture Habit</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Member of Peer Educator</h4>
+    <small>2022-2023</small>
+  </div>
+
+  <div class="event">
+    <h4>KATOTO Member</h4>
+    <small>2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Head of Freedom of Information in KATOTO</h4>
+    <small>2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Student Supreme Council of Laguna State Polytechnic University - Treasurer</h4>
+    <small>2023-2025</small>
+  </div>
+
+  <div class="event">
+    <h4>BUNGA Leader</h4>
+    <small>2014-Present</small>
+  </div>
+</div>
+
+
+  <!-- Seminars and Workshops -->
+  <div class="card reveal timeline">
+  <h3 style="margin-top:0">Seminars and Workshops</h3>
+
+  <div class="event">
+    <h4>Leadership Training Camp: Leaders on the Rise</h4>
+    <small>PEMQMNHS  • 2018</small>
+  </div>
+
+  <div class="event">
+    <h4>Comprehensive Plan for Children Workshop</h4>
+    <small>Paete, Laguna  • 2019</small>
+  </div>
+
+  <div class="event">
+    <h4>Division Leadership Training and Mathematics Camp</h4>
+    <small>Caluan, Laguna  • 2019</small>
+  </div>
+
+  <div class="event">
+    <h4>School-based Friday Lecture Habit</h4>
+    <small>PEMQMNHS  • 2019</small>
+  </div>
+
+  <div class="event">
+    <h4>Philippine Guidance and Counseling Association Inc .- Laguna Chapter: Peer Education Towards Students Empowerment</h4>
+    <small>University of the Philippines Los Baños  • 2020</small>
+  </div>
+
+  <div class="event">
+    <h4>National Seminar-Workshop on Leadership</h4>
+    <small>Baguio City  • 2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Asia Pacific Center for Student Development</h4>
+    <small>Manila  • 2020</small>
+  </div>
+
+    <div class="event">
+    <h4>Synergy :"Momentum" at Woodridge College</h4>
+    <small> Bacoor, Cavite  • 2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Youth Engagement in Agriculture Online Biotechnology Bootcamp Session 3</h4>
+    <small>University of the Philippines Los Baños • 2021</small>
+  </div>
+
+
+  <div class="event">
+    <h4>Discrete Mathematics</h4>
+    <small>Wolfram • July 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Google Analytics Certification</h4>
+    <small>Google • July 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Introduction to Discrete Mathematics</h4>
+    <small>Wolfram • July 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Introduction to IoT</h4>
+    <small>Cisco • July 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>SEO Essentials with SEMrush</h4>
+    <small>SEMrush • July 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>SQL (Basic)</h4>
+    <small>HackerRank • July 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>SQL Injection Attacks</h4>
+    <small>EC-Council • July 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>The Cybersecurity Threat Landscape</h4>
+    <small>LinkedIn • July 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Information Security</h4>
+    <small>Saylor Academy • June 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Information Security</h4>
+    <small>The Open University • June 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Management Information Systems</h4>
+    <small>Saylor Academy • June 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Digital Safety and Security Awareness</h4>
+    <small>Cisco • May 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Introduction to Cybersecurity</h4>
+    <small>Cisco • May 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Network Support and Security</h4>
+    <small>Cisco • May 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Lean Six Sigma Black Belt (ICBB)</h4>
+    <small>Six Sigma PH • April 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Market Research Fundamentals</h4>
+    <small>SMstudy (Global Accreditation Body for Sales & Marketing Certifications) • April 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Scrum Fundamentals Certified (SFC)</h4>
+    <small>Scrum.org • April 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Six Sigma Yellow Belt</h4>
+    <small>6sigmastudy (Global Certification Body for Six Sigma) • April 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Basic Javascript for Web Development</h4>
+    <small>DICT - Philippines • March 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Fundamentals of Pitching and Startup Projects</h4>
+    <small>DICT - Philippines • March 2025</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-DM002 Digital Marketing Channels and Funnel</h4>
+    <small>DICT - Philippines • July 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-GD001 Principles of Design</h4>
+    <small>DICT - Philippines • July 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-ICT006 Introduction to Data Privacy</h4>
+    <small>DICT - Philippines • July 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Programming for Beginners Using Python</h4>
+    <small>DICT - Philippines • July 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>WD005 Project 1: Developing a Static Website</h4>
+    <small>DICT - Philippines • April 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Advanced Level of Cloud Computing</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Advanced Level of Digital Transformation</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Advanced Level of Software Engineering</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Basic Level of Cloud Computing</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Basic Level of Digital Transformation</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Copywriting: Basics, Advertising Copy, Trends in Art and Design</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-GD002 Canva for Graphic Design</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-GD004 Functional Composition</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-ICT001 Digital Innovation in Government</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-ICT003 Internet of Things Using Arduino in TinkerCad</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-ICT004 Big Data Fundamentals</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-ICT018 Basic Level of Software Engineering</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-MAD006 Introduction to Android Application Development</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-MAD007 Basic Building Blocks of the User Interface</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-MAD008 Android Fragments</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-MAD009 Using Firebase as an Application Back End</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-WD003 Basic Javascript for Web Development</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Data Privacy - Good Governance</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Digital Transformation 101: Reimagining Businesses</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Gender Sensitivity Training</h4>
+    <small>UP Open University • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Intermediate Level of Cloud Computing</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Intermediate Level of Digital Transformation</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Intermediate Level of Software Engineering</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Navigating Google Workspace</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Principles of Web Development and Introduction to HTML</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Social Media Marketing</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Trends in Art and Design</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Using HTML and CSS to Design a Website</h4>
+    <small>DICT - Philippines • March 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Basics of Resilience</h4>
+    <small>UP Open University • February 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>DICT-DM001 Fundamentals of Marketing</h4>
+    <small>DICT - Philippines • February 2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Information Technology Specialists - Data Analytics</h4>
+    <small>DPearson, Certiport • December 2025</small>
+  </div>
+</div>
+
+
+ <!-- Achievements -->
+<div class="card reveal timeline">
+  <h3 style="margin-top:0">Achievements</h3>
+
+  <div class="event">
+    <h4>Grade 7 - With Honors</h4>
+    <small>2016-2017</small>
+  </div>
+
+  <div class="event">
+    <h4>Grade 8 - With High Honors</h4>
+    <small>2017-2018</small>
+  </div>
+
+  <div class="event">
+    <h4>Grade 9 - With High Honors</h4>
+    <small>2018-2019</small>
+  </div>
+
+  <div class="event">
+    <h4>D.O.L.E. Awardee</h4>
+    <small>2018-2019</small>
+  </div>
+
+  <div class="event">
+    <h4>Outstanding Performance in TLE</h4>
+    <small>2018-2019</small>
+  </div>
+
+  <div class="event">
+    <h4>Outstanding Performance in ESP</h4>
+    <small>2018-2019</small>
+  </div>
+
+  <div class="event">
+    <h4>Outstanding Performance in MAPEH</h4>
+    <small>2018-2019</small>
+  </div>
+
+  <div class="event">
+    <h4>Outstanding Performance in Filipino</h4>
+    <small>2018-2019</small>
+  </div>
+
+  <div class="event">
+    <h4>1st Place in Debate — School-Based Festival of Talents</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>1st Place in Debate — District Festival of Talents</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>2nd Place in Debate — District Level Pop Quiz & On-the-spot Skills Exhibition in Popdev Debate</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Grade 10 - Batch Valedictorian, PEMQMNHS</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Outstanding Performance in Mathematics, Social Science, Communication Arts, and Science</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Best Club - Peer Educators</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Grade 10 - With High Honors</h4>
+    <small>2019-2020</small>
+  </div>
+
+  <div class="event">
+    <h4>Grade 11 - With High Honors</h4>
+    <small>2020-2021</small>
+  </div>
+
+  <div class="event">
+    <h4>Grade 12 - With High Honors</h4>
+    <small>2021-2022</small>
+  </div>
+
+  <div class="event">
+    <h4>DOST Scholarship Passer</h4>
+    <small>2022</small>
+  </div>
+
+  <div class="event">
+    <h4>Dean's Lister - 1st Year, 1st Semester</h4>
+    <small>2022-2023</small>
+  </div>
+
+  <div class="event">
+    <h4>Dean's Lister - 1st Year, 2nd Semester</h4>
+    <small>2022-2023</small>
+  </div>
+
+  <div class="event">
+    <h4>Dean's Lister - 2nd Year, 1st Semester</h4>
+    <small>2023-2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Dean's Lister - 2nd Year, 2nd Semester</h4>
+    <small>2023-2024</small>
+  </div>
+
+  <div class="event">
+    <h4>Dean’s Lister - 3rd Year, 1st Semester</h4>
+    <small>2024-2025</small>
+  </div>
+
+  <div class="event">
+    <h4>Dean’s Lister - 3rd Year, 2nd Semester</h4>
+    <small>2024-2025</small>
+  </div>
+</div>
+
+</div>
+<!-- Certificates -->
+<section id="certificates">
+  <div class="section-header">
+    <h2 class="section-title">Certificates</h2>
+    <p class="section-sub">Browse Certifications</p>
+  </div>
+
+  <div class="cert-carousel reveal">
+    <!-- Previous preview -->
+    <div class="cert-preview">
+      <img id="prevCertImg" src="assets/47.jpg" alt="Previous certificate">
+    </div>
+
+    <!-- Main certificate -->
+    <div class="cert-main">
+      <img id="mainCertImg" src="assets/1.jpg" alt="Certificate">
+    </div>
+
+    <!-- Next preview -->
+    <div class="cert-preview">
+      <img id="nextCertImg" src="assets/2.jpg" alt="Next certificate">
+    </div>
+  </div>
+
+<div class="cert-controls">
+  <button class="cert-nav" id="prevCert" aria-label="Previous certificate">
+    <span>‹</span>
+  </button>
+
+  <button class="cert-nav" id="nextCert" aria-label="Next certificate">
+    <span>›</span>
+  </button>
+</div>
+
+
+  <div class="cert-counter" id="certCounter">
+    Certificate 1 of 47
+  </div>
+</section>
+
+
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-header">
+    <h2 class="section-title">Skills</h2>
+    <p class="section-sub">Core competencies & professional expertise</p>
+  </div>
+
+  <div class="skills-grid">
+    <!-- CRM -->
+    <div class="skill-card reveal">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="4"/>
+          <path d="M5.5 21a6.5 6.5 0 0 1 13 0"/>
+        </svg>
+      </div>
+      <h3>Customer Relationship Management</h3>
+    </div>
+
+    <!-- Workflow -->
+    <div class="skill-card reveal">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </div>
+      <h3>Software Architecture and Development</h3>
+    </div>
+
+    <!-- Data Entry -->
+    <div class="skill-card reveal">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+        </svg>
+      </div>
+      <h3>Data Entry & Validation</h3>
+    </div>
+
+    <!-- Technical Writing -->
+    <div class="skill-card reveal">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+        </svg>
+      </div>
+      <h3>Technical Writing</h3>
+    </div>
+
+    <!-- Copyreading -->
+    <div class="skill-card reveal">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 12v6h6"/>
+          <path d="M2 20h6V4H2zM12 4h6v6h-6z"/>
+        </svg>
+      </div>
+      <h3>Copyreading & Proofreading</h3>
+    </div>
+
+    <!-- Data Cleaning -->
+    <div class="skill-card reveal">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M15 9l-6 6M9 9h.01M15 15h.01"/>
+        </svg>
+      </div>
+      <h3>Data Cleaning</h3>
+    </div>
+
+    <!-- Grammar -->
+    <div class="skill-card reveal">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20v-6M6 20V10M18 20v-4"/>
+          <circle cx="12" cy="4" r="2"/>
+        </svg>
+      </div>
+      <h3>Quantitative Data Analysis</h3>
+    </div>
+
+    <!-- Excel -->
+    <div class="skill-card reveal">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M9 3v18M3 9h18"/>
+        </svg>
+      </div>
+      <h3>Advanced Microsoft Excel</h3>
+    </div>
+  </div>
+</section>
+
+
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-header">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-sub">Selected work — live links & code</p>
+      </div>
+
+      <div class="projects">
+        <!-- Project Card -->
+        <article class="project reveal">
+          <div class="thumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+          </div>
+          <div class="body">
+            <h3 style="margin:0 0 6px">SPES Portal Prototype</h3>
+            <p class="muted">A streamlined website and verification flow for SPES with audit trails. Submission and examination.</p>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+            </div>
+            <div class="actions">
+              <a class="btn ghost" href="https://digispes.info/" aria-label="View live">Live</a>
+              <a class="btn primary" href="#" aria-label="View code">Code</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project reveal">
+  <div class="thumb">
+    <!-- Excel-like grid with checkmark for done tasks -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>
+      <path d="M7 17l2 2 4-4"/> <!-- checkmark -->
+    </svg>
+  </div>
+  <div class="body">
+    <h3 style="margin:0 0 6px">Excel Task Tracker</h3>
+    <p class="muted">
+      A task management sheet in Excel to track pending and done tasks 
+      using conditional formatting.
+    </p>
+    <div class="tags">
+      <span class="tag">Excel</span><span class="tag">Task Tracker</span><span class="tag">Productivity</span>
+    </div>
+    <div class="actions">
+      <!-- Open preview in new tab -->
+      <a class="btn ghost" 
+         href="https://docs.google.com/spreadsheets/d/1UKLjxSp4xPSBMGx9UozlxwuOpwWD2xK9/edit?gid=547880359#gid=547880359" 
+         target="_blank" rel="noopener noreferrer">
+        Preview
+      </a>
+      <!-- Download file -->
+      <a class="btn primary" href="assets/projecttask.xlsx" download="projecttask.xlsx">
+        Download
+      </a>
+    </div>
+  </div>
+</article>
+    
+
+        <article class="project reveal">
+  <div class="thumb">
+    <!-- UI design icon (grid / layout) -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <path d="M3 9h18M9 3v18"/>
+    </svg>
+  </div>
+  <div class="body">
+    <h3 style="margin:0 0 6px">UI Design Project</h3>
+    <p class="muted">
+      A UI design project created in Figma, showcasing reusable components such as modals, and tooltips.
+    </p>
+    <div class="tags">
+      <span class="tag">UI Design</span><span class="tag">Figma</span><span class="tag">Components</span>
+    </div>
+    <div class="actions">
+      <!-- Figma preview -->
+      <a class="btn ghost" 
+         href="https://www.figma.com/design/CJDLHrnm5hVC8JrxAn4BRf/Untitled?node-id=0-1&p=f&t=C8z86VA7jS2gCBOl-0" 
+         target="_blank" rel="noopener noreferrer">
+        Preview
+      </a>
+      <!-- Optional Code button placeholder -->
+      
+    </div>
+  </div>
+</article>
+
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+  <div class="section-header">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-sub">Let’s build something together</p>
+  </div>
+
+  <div class="contact-grid">
+    <!-- Contact Form -->
+    <div class="card reveal">
+      <form id="contactForm" novalidate>
+        <div>
+          <label for="name">Full Name</label>
+          <input id="name" name="name" type="text" placeholder="Jeric Punay" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="punay.jeric@gmail.com" required />
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+        </div>
+        <button class="btn primary" type="submit" aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          Send Message
+        </button>
+        <p id="formStatus" class="muted" aria-live="polite" style="margin:6px 2px 0"></p>
+      </form>
+    </div>
+
+    <!-- Address & Map -->
+    <div class="card reveal">
+      <h3 style="margin-top:0">Address & Links</h3>
+      <div class="address">
+        <div><strong>Location:</strong> Paete, Laguna, Philippines</div>
+        <div><strong>Email:</strong> <a href="mailto:jeric.dev@example.com">punay.jeric@gmail.com</a></div>
+        <div><strong>Phone:</strong> <a href="tel:+639123456789">+639270196752</a></div>
+      <div><strong>GitHub:</strong> 
+  <a href="https://github.com/jericwin" target="_blank" rel="noopener noreferrer">
+    https://github.com/jericwin
+  </a>
+</div>
+
+<div><strong>LinkedIn:</strong> 
+  <a href="https://www.linkedin.com/in/jericpunay" target="_blank" rel="noopener noreferrer">
+    www.linkedin.com/in/jericpunay
+  </a>
+</div>
+
+      </div>
+      <div class="map-container" style="margin-top:15px; border-radius:12px; overflow:hidden;">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3870.197168404902!2d121.48251721533694!3d14.364327389959672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397e9b16f58b2a1%3A0xb9d38cba6466cb94!2sPaete%2C%20Laguna!5e0!3m2!1sen!2sph!4v1692345678901!5m2!1sen!2sph" 
+          width="100%" 
+          height="250" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+      <div>© <span id="year"></span> Jeric Punay. All rights reserved.</div>
+      <div style="display:flex; gap:10px">
+        <a class="btn ghost" href="#top" aria-label="Back to top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
+
+    // Active nav link on scroll
+    const links = document.querySelectorAll('.nav-link');
+    const sections = [...links].map(a => document.querySelector(a.getAttribute('href')));
+    const setActive = () => {
+      let idx = sections.findIndex(s => s.getBoundingClientRect().top - 120 > 0);
+      if (idx === -1) idx = sections.length - 1; else idx = Math.max(0, idx - 1);
+      links.forEach((a,i) => a.classList.toggle('active', i === idx));
+    };
+    document.addEventListener('scroll', setActive, {passive:true});
+
+    // Reveal on scroll (IntersectionObserver)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      })
+    }, {threshold: .12});
+
+    document.querySelectorAll('.reveal, .project, .card').forEach(el => observer.observe(el));
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple form handler (demo)
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      // Basic validation
+      if(!data.name || !data.email || !data.message){
+        status.textContent = 'Please complete all fields.';
+        status.style.color = '#fbbf24';
+        return;
+      }
+      status.textContent = 'Message sent! I\'ll get back to you soon.';
+      status.style.color = '#2dd4bf';
+      form.reset();
+      
+    });
+
+  const totalCerts = 47;
+  let current = 1;
+
+  const mainImg = document.getElementById("mainCertImg");
+  const prevImg = document.getElementById("prevCertImg");
+  const nextImg = document.getElementById("nextCertImg");
+  const counter = document.getElementById("certCounter");
+
+  function updateCertificates() {
+    const prev = current === 1 ? totalCerts : current - 1;
+    const next = current === totalCerts ? 1 : current + 1;
+
+    mainImg.src = `assets/${current}.jpg`;
+    prevImg.src = `assets/${prev}.jpg`;
+    nextImg.src = `assets/${next}.jpg`;
+
+    counter.textContent = `Certificate ${current} of ${totalCerts}`;
+  }
+
+  document.getElementById("nextCert").onclick = () => {
+    current = current < totalCerts ? current + 1 : 1;
+    updateCertificates();
+  };
+
+  document.getElementById("prevCert").onclick = () => {
+    current = current > 1 ? current - 1 : totalCerts;
+    updateCertificates();
+  };
+
+  /* Keyboard support */
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") document.getElementById("nextCert").click();
+    if (e.key === "ArrowLeft") document.getElementById("prevCert").click();
+  });
+
+
+
+
+  </script>
+</body>
+</html>
