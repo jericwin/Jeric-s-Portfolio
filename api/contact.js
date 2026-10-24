@@ -20,9 +20,13 @@ const hits = new Map();
 let transporter;
 function getTransporter() {
   if (!transporter) {
+    const user = (process.env.GMAIL_USER || '').trim();
+    const pass = (process.env.GMAIL_APP_PASSWORD || '').replace(/\s+/g, '');
     transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_APP_PASSWORD },
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: { user, pass },
     });
   }
   return transporter;
