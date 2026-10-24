@@ -857,6 +857,56 @@
       transform: none;
     }
 
+    /* Cartoon twin of the portrait, cross-faded in when the face is hovered/tapped */
+    html .hero-portrait img.hero-toon {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 32%;
+      transition: opacity .55s var(--ease), scale .7s var(--ease), transform 1.6s var(--ease) .35s, translate .8s var(--ease);
+    }
+
+    .hero-portrait:not(.is-toon) img.hero-toon {
+      opacity: 0;
+      scale: 1.025;
+    }
+
+    html.is-loaded .hero-portrait.is-toon img.hero-toon {
+      opacity: 1;
+      scale: 1;
+    }
+
+    /* Elliptical hit area over the face; coords are % of the square 900×900 photo */
+    .hero-face {
+      position: absolute;
+      z-index: 1;
+      left: 31%;
+      top: 8%;
+      width: 38%;
+      height: 51%;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: none;
+      pointer-events: auto;
+      -webkit-tap-highlight-color: transparent;
+      transition: translate .8s var(--ease);
+    }
+
+    .hero-face:focus-visible {
+      outline: 2px dashed var(--cyan);
+      outline-offset: 4px;
+    }
+
+    html:not(.js) .hero-face {
+      display: none;
+    }
+
+    @media (hover: none) {
+      .hero-face {
+        cursor: pointer;
+      }
+    }
+
     .hero-ring {
       position: absolute;
       left: 50%;
@@ -3580,6 +3630,10 @@
           </svg>
         </div>
         <img src="assets/opt/me.webp" width="900" height="900" alt="Portrait of Jeric Punay" fetchpriority="high">
+        <img class="hero-toon" src="assets/opt/me-toon.webp" width="900" height="900" alt="" aria-hidden="true"
+          decoding="async" fetchpriority="low">
+        <button class="hero-face" id="heroFace" type="button" aria-pressed="false"
+          aria-label="Show cartoon version of my portrait"></button>
       </div>
 
       <div class="wrap hero-lower">
@@ -5022,12 +5076,58 @@
           btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
         });
 
-        const portraitImg = $('#heroPortrait img');
+        const portraitLayers = $$('#heroPortrait img, #heroFace');
         hero.addEventListener('pointermove', e => {
           const nx = e.clientX / innerWidth - 0.5, ny = e.clientY / innerHeight - 0.5;
-          portraitImg.style.translate = `${(nx * -14).toFixed(1)}px ${(ny * -8).toFixed(1)}px`;
+          const t = `${(nx * -14).toFixed(1)}px ${(ny * -8).toFixed(1)}px`;
+          portraitLayers.forEach(el => { el.style.translate = t; });
         });
       }
+
+      /* ---------- Portrait: photo ⇄ cartoon on face hover / tap ---------- */
+      (function () {
+        const portrait = $('#heroPortrait');
+        const face = $('#heroFace');
+        if (!portrait || !face) return;
+        let on = false, raf = 0, lastX = 0, lastY = 0, lastType = '';
+        const set = v => {
+          if (v === on) return;
+          on = v;
+          portrait.classList.toggle('is-toon', v);
+          face.setAttribute('aria-pressed', String(v));
+        };
+        // Normalised elliptical distance from the face centre (<1 = inside). Measured
+        // from the hit area itself, so it tracks the image at every size/breakpoint.
+        const faceDist = (x, y) => {
+          const r = face.getBoundingClientRect();
+          const dx = (x - r.left - r.width / 2) / (r.width / 2);
+          const dy = (y - r.top - r.height / 2) / (r.height / 2);
+          return dx * dx + dy * dy;
+        };
+        // Mouse: geometric test on the hero so overlapping layers can't block it;
+        // small hysteresis band stops flicker on the ellipse edge.
+        const check = () => { raf = 0; const d = faceDist(lastX, lastY); set(on ? d < 1.1 : d < 1); };
+        hero.addEventListener('pointermove', e => {
+          lastType = e.pointerType;
+          if (e.pointerType !== 'mouse') return;
+          lastX = e.clientX; lastY = e.clientY;
+          if (!raf) raf = requestAnimationFrame(check);
+        }, { passive: true });
+        hero.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') set(false); });
+        // Keyboard Enter/Space on the button, or a touch/pen tap inside the face ellipse
+        // (tested geometrically because .hero-lower can overlap the face on tablets): toggle.
+        // Mouse clicks are ignored — hover drives it.
+        hero.addEventListener('pointerdown', e => { lastType = e.pointerType; }, { passive: true });
+        hero.addEventListener('click', e => {
+          if (e.detail === 0) { if (e.target === face) set(!on); return; }
+          if (lastType === 'mouse' || faceDist(e.clientX, e.clientY) >= 1) return;
+          if (e.target !== face && e.target.closest('a, button, input, select, textarea, label')) return;
+          set(!on);
+        });
+        // Leaving the hero on touch resets so the photo is shown next time.
+        new IntersectionObserver(([en]) => { if (!en.isIntersecting && lastType !== 'mouse') set(false); })
+          .observe(portrait);
+      })();
 
       /* ---------- Count-up stats ---------- */
       const countIO = new IntersectionObserver(entries => {
