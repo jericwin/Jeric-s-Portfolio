@@ -1,0 +1,16 @@
+{
+  "name": "jeric-punay-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Jeric Punay's portfolio with a contact-form email backend",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js"
+  },
+  "engines": {
+    "node": ">=22.9"
+  },
+  "dependencies": {
+    "nodemailer": "^10.2.1"
+  }
+}
