@@ -1240,7 +1240,7 @@
 
     .pf-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: clamp(20px, 2.4vw, 32px);
       list-style: none;
       margin: 0;
@@ -1568,15 +1568,13 @@
 
     .pp-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
-      gap: clamp(18px, 2vw, 28px);
+      gap: clamp(40px, 6vw, 88px);
       list-style: none;
       margin: 0;
       padding: 0;
     }
 
     .pp-grid>li {
-      display: flex;
       opacity: 0;
       transform: translate3d(0, 28px, 0);
       transition: opacity .6s var(--ease), transform .7s var(--ease);
@@ -1588,52 +1586,70 @@
       transform: none;
     }
 
-    /* Project card */
+    /* Project showcase: large screenshot beside the write-up, alternating sides */
     .pc {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      overflow: hidden;
-      border: 1px solid var(--line-2);
-      border-radius: 14px;
-      background: linear-gradient(180deg, var(--char), var(--ink));
-      transition: transform .5s var(--ease), border-color .35s, box-shadow .5s;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(28px, 4.5vw, 72px);
+      padding-bottom: clamp(40px, 6vw, 88px);
+      border-bottom: 1px solid var(--line);
     }
 
-    .pc:hover,
-    .pc:focus-within {
-      transform: translateY(-6px);
-      border-color: color-mix(in srgb, var(--acc, var(--blue)) 70%, transparent);
-      box-shadow: 0 28px 60px -30px color-mix(in srgb, var(--acc, var(--blue)) 70%, transparent);
+    .pp-grid>li:last-child .pc {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .pp-grid>li:nth-child(even) .pc {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    }
+
+    .pp-grid>li:nth-child(even) .pc-media {
+      order: 2;
     }
 
     .pc-media {
       position: relative;
-      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      border-radius: 14px;
       background: var(--char-2);
+      box-shadow: 0 40px 80px -48px color-mix(in srgb, var(--acc, var(--blue)) 60%, transparent);
+      transition: transform .6s var(--ease), border-color .35s, box-shadow .6s var(--ease);
+    }
+
+    .pc:hover .pc-media,
+    .pc:focus-within .pc-media {
+      transform: translateY(-6px);
+      border-color: color-mix(in srgb, var(--acc, var(--blue)) 60%, transparent);
+      box-shadow: 0 48px 90px -40px color-mix(in srgb, var(--acc, var(--blue)) 75%, transparent);
     }
 
     .pc-bar {
       display: flex;
       align-items: center;
       gap: 6px;
-      height: 28px;
-      padding-inline: 12px;
+      height: 32px;
+      padding-inline: 14px;
       border-bottom: 1px solid var(--line);
       background: #0c1017;
     }
 
     .pc-bar i {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       flex: none;
       border-radius: 50%;
       background: var(--line-2);
     }
 
     .pc-bar span {
-      margin-left: 8px;
+      margin-inline: auto;
+      padding: 2px 14px;
       overflow: hidden;
+      border-radius: 6px;
+      background: rgba(137, 152, 173, .08);
       color: var(--muted);
       font-family: var(--f-mono);
       font-size: .6875rem;
@@ -1643,7 +1659,9 @@
 
     .pc-shot {
       position: relative;
-      aspect-ratio: 16 / 9;
+      display: block;
+      /* Matches the ~2.2:1 site captures so they aren't cropped at the sides */
+      aspect-ratio: 2.15 / 1;
       overflow: hidden;
     }
 
@@ -1652,20 +1670,12 @@
       height: 100%;
       object-fit: cover;
       object-position: top center;
-      transition: transform 1s var(--ease);
-    }
-
-    .pc-shot::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 55%, rgba(5, 6, 8, .55));
-      pointer-events: none;
+      transition: transform 1.2s var(--ease);
     }
 
     .pc:hover .pc-shot img,
     .pc:focus-within .pc-shot img {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
 
     /* Fallback when a thumbnail fails to load */
@@ -1690,28 +1700,38 @@
       -webkit-text-stroke: 1.5px var(--blue-soft);
     }
 
-    .pc-num {
-      position: absolute;
-      top: 40px;
-      right: 12px;
-      z-index: 1;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: rgba(5, 6, 8, .72);
-      color: var(--muted);
-      font-size: .6875rem;
-    }
-
     .pc-body {
       display: flex;
-      flex: 1;
       flex-direction: column;
-      gap: 10px;
-      padding: 20px 20px 22px;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .pc-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      font-size: .75rem;
+    }
+
+    .pc-idx {
+      color: color-mix(in srgb, var(--acc, var(--blue)) 55%, var(--white));
+    }
+
+    .pc-idx i {
+      margin-left: 4px;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    .pc-rule {
+      width: 32px;
+      height: 1px;
+      background: var(--line-2);
     }
 
     .pc-cat {
-      align-self: flex-start;
       padding: 4px 10px;
       border: 1px solid color-mix(in srgb, var(--acc, var(--blue)) 45%, transparent);
       border-radius: 999px;
@@ -1722,25 +1742,73 @@
     }
 
     .pc-title {
-      margin: 2px 0 0;
+      margin: 0;
       font-family: var(--f-display);
       font-stretch: 112%;
       font-weight: 700;
-      font-size: clamp(1.25rem, 1.8vw, 1.5rem);
-      line-height: 1.1;
-      letter-spacing: -.03em;
+      font-size: clamp(1.625rem, 2.8vw, 2.375rem);
+      line-height: 1.05;
+      letter-spacing: -.035em;
     }
 
     .pc-desc {
-      margin: 0 0 8px;
+      margin: 0;
       color: #b4bfcc;
-      font-size: .9375rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.7;
     }
 
-    .pc-cta {
-      align-self: flex-start;
-      margin-top: auto;
+    .pc-stack {
+      display: grid;
+      gap: 10px;
+      width: 100%;
+      margin: 0;
+      padding: 18px 0 2px;
+      border-top: 1px dashed var(--line-2);
+    }
+
+    .pc-stack>div {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr);
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .pc-stack dt {
+      color: var(--muted);
+      font-size: .625rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .pc-stack dd {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0;
+    }
+
+    .pc-stack span {
+      padding: 2px 9px;
+      border: 1px solid var(--line-2);
+      border-radius: 6px;
+      background: color-mix(in srgb, var(--acc, var(--blue)) 8%, transparent);
+      color: #cdd5df;
+      font-size: .75rem;
+      line-height: 1.5;
+    }
+
+    .pc-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: 6px;
+    }
+
+    .pc-host {
+      color: var(--muted);
+      font-size: .75rem;
     }
 
     .pp-more {
@@ -2345,7 +2413,7 @@
        ========================================================= */
     .stack-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       border-top: 1px solid var(--line);
       border-left: 1px solid var(--line);
     }
@@ -2425,8 +2493,178 @@
       color: var(--muted);
     }
 
+    /* Stack motion: spotlight that follows the pointer, scan line, cascading entrance, floating logos */
+    .stack-col {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .stack-col::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), rgba(53, 200, 255, .12), transparent 70%);
+      opacity: 0;
+      transition: opacity .4s;
+      pointer-events: none;
+    }
+
+    .stack-col::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--blue), transparent);
+      transform: translateX(-100%);
+      pointer-events: none;
+    }
+
+    .stack-col:hover::before {
+      opacity: 1;
+    }
+
+    .stack-col:hover::after {
+      animation: stackScan 1.6s var(--ease) infinite;
+    }
+
+    @keyframes stackScan {
+      to {
+        transform: translateX(100%);
+      }
+    }
+
+    html.js .stack-grid .stack-col h4,
+    html.js .stack-grid .stack-col>p,
+    html.js .stack-grid .stack-col li {
+      opacity: 0;
+      transform: translate3d(0, 14px, 0);
+      transition: opacity .55s var(--ease), transform .7s var(--ease);
+    }
+
+    html.js .stack-grid .stack-col li {
+      transform: translate3d(-16px, 0, 0);
+    }
+
+    html.js .stack-grid.is-in .stack-col h4,
+    html.js .stack-grid.is-in .stack-col>p,
+    html.js .stack-grid.is-in .stack-col li {
+      opacity: 1;
+      transform: none;
+    }
+
+    html.js .stack-grid.is-in .stack-col h4 {
+      transition-delay: calc(var(--ci, 0) * 90ms + 100ms);
+    }
+
+    html.js .stack-grid.is-in .stack-col>p {
+      transition-delay: calc(var(--ci, 0) * 90ms + 180ms);
+    }
+
+    html.js .stack-grid.is-in .stack-col li {
+      transition-delay: calc(var(--ci, 0) * 90ms + var(--li, 0) * 60ms + 260ms);
+    }
+
+    .stack-grid.is-in .stack-col li .lg {
+      animation: lgFloat 4.8s ease-in-out infinite;
+      animation-delay: calc(var(--li, 0) * -.7s - var(--ci, 0) * .35s);
+    }
+
+    @keyframes lgFloat {
+      50% {
+        translate: 0 -4px;
+      }
+    }
+
+    /* Logo river: two rows of every tool, drifting in opposite directions */
+    .stack-river {
+      display: grid;
+      gap: 12px;
+      margin-bottom: clamp(28px, 4vw, 44px);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+
+    .river-row {
+      overflow: hidden;
+      padding-block: 4px;
+    }
+
+    .river-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 70s linear infinite;
+    }
+
+    .river-row.is-rev .river-track {
+      animation-direction: reverse;
+      animation-duration: 80s;
+    }
+
+    .stack-river:hover .river-track {
+      animation-play-state: paused;
+    }
+
+    .river-track ul {
+      display: flex;
+      gap: 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0 12px 0 0;
+    }
+
+    .river-track li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 18px 6px 6px;
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--char), var(--ink));
+      font-size: .875rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: border-color .3s, transform .4s var(--ease), box-shadow .3s;
+    }
+
+    .river-track li:hover {
+      border-color: var(--blue);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px -14px var(--glow);
+    }
+
+    .river-track img {
+      width: 32px;
+      height: 32px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--ink);
+      object-fit: contain;
+    }
+
     .skills {
       margin-top: clamp(72px, 10vw, 140px);
+    }
+
+    .skills-ticker {
+      z-index: 0;
+      margin-bottom: clamp(12px, 2vw, 20px);
+      padding-block: 8px;
+      border-block: 0;
+      background: transparent;
+    }
+
+    .skills-ticker .marquee-track {
+      animation-duration: 64s;
+      animation-direction: reverse;
+    }
+
+    .skills-ticker li {
+      font-size: clamp(1.25rem, 2.6vw, 2.125rem);
     }
 
     .acc {
@@ -2438,6 +2676,63 @@
 
     .acc li {
       border-bottom: 1px solid var(--line);
+    }
+
+    /* Row sweep on hover/open, and a progress line that draws under the open row */
+    .acc>li {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .acc>li::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(90deg, rgba(23, 105, 255, .12), transparent 75%);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .7s var(--ease);
+      pointer-events: none;
+    }
+
+    .acc>li::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .9s var(--ease);
+      pointer-events: none;
+    }
+
+    .acc>li:hover::before,
+    .acc>li:has(>.acc-btn[aria-expanded="true"])::before,
+    .acc>li:has(>.acc-btn[aria-expanded="true"])::after {
+      transform: scaleX(1);
+    }
+
+    .acc-inner p,
+    .acc-inner .chips li {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+      transition: opacity .45s var(--ease), transform .55s var(--ease);
+    }
+
+    .acc-btn[aria-expanded="true"]+.acc-panel .acc-inner p {
+      opacity: 1;
+      transform: none;
+      transition-delay: .12s;
+    }
+
+    .acc-btn[aria-expanded="true"]+.acc-panel .chips li {
+      opacity: 1;
+      transform: none;
+      transition-delay: calc(.22s + var(--k, 0) * 70ms);
     }
 
     .acc-btn {
@@ -2508,6 +2803,7 @@
     .acc-btn[aria-expanded="true"] .acc-icon {
       background: var(--blue);
       border-color: var(--blue);
+      transform: rotate(180deg);
     }
 
     .acc-btn[aria-expanded="true"] .acc-icon::after {
@@ -3217,6 +3513,10 @@
        RESPONSIVE
        ========================================================= */
     @media (max-width: 1180px) {
+      .pf-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
 
       .nav-links,
       .nav-cta {
@@ -3228,7 +3528,7 @@
       }
 
       .stack-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .honor {
@@ -3243,6 +3543,15 @@
     }
 
     @media (max-width: 1023px) {
+      .pc,
+      .pp-grid>li:nth-child(even) .pc {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .pp-grid>li:nth-child(even) .pc-media {
+        order: 0;
+      }
+
       :root {
         --hh: 64px;
       }
@@ -3467,8 +3776,14 @@
         margin: 0;
       }
 
+      .pc-actions,
       .pc-cta {
         align-self: stretch;
+      }
+
+      .pc-stack>div {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 6px;
       }
 
       .hero-cta .btn {
@@ -3509,6 +3824,17 @@
 
       .marquee ul[aria-hidden] {
         display: none;
+      }
+
+      .stack-river {
+        display: none;
+      }
+
+      html.js .stack-grid .stack-col h4,
+      html.js .stack-grid .stack-col>p,
+      html.js .stack-grid .stack-col li {
+        opacity: 1;
+        transform: none;
       }
 
       html.js [data-reveal],
@@ -4133,25 +4459,29 @@
             workflows.</p>
         </header>
 
+        <div class="stack-river" id="stackRiver" aria-hidden="true"></div>
+
         <div class="filters" role="group" aria-label="Filter tech stack" data-filter-group="stack" data-reveal>
-          <button type="button" class="filter" data-filter="all" aria-pressed="true">All stack <sup>25</sup></button>
-          <button type="button" class="filter" data-filter="engineering" aria-pressed="false">Core engineering
-            <sup>4</sup></button>
-          <button type="button" class="filter" data-filter="data" aria-pressed="false">Data &amp; analytics
-            <sup>4</sup></button>
-          <button type="button" class="filter" data-filter="web" aria-pressed="false">Web &amp; DB <sup>5</sup></button>
-          <button type="button" class="filter" data-filter="tools" aria-pressed="false">Dev IDEs <sup>4</sup></button>
-          <button type="button" class="filter" data-filter="ai" aria-pressed="false">AI &amp; productivity
-            <sup>8</sup></button>
+          <button type="button" class="filter" data-filter="all" aria-pressed="true">All stack <sup>50</sup></button>
+          <button type="button" class="filter" data-filter="engineering" aria-pressed="false">Core engineering <sup>5</sup></button>
+          <button type="button" class="filter" data-filter="backend" aria-pressed="false">Backend <sup>6</sup></button>
+          <button type="button" class="filter" data-filter="data" aria-pressed="false">Data &amp; analytics <sup>8</sup></button>
+          <button type="button" class="filter" data-filter="web" aria-pressed="false">Web &amp; frontend <sup>7</sup></button>
+          <button type="button" class="filter" data-filter="viz" aria-pressed="false">Charts &amp; 3D <sup>4</sup></button>
+          <button type="button" class="filter" data-filter="deploy" aria-pressed="false">DB &amp; deploy <sup>7</sup></button>
+          <button type="button" class="filter" data-filter="tools" aria-pressed="false">Dev IDEs <sup>5</sup></button>
+          <button type="button" class="filter" data-filter="ai" aria-pressed="false">AI &amp; productivity <sup>8</sup></button>
         </div>
 
         <div class="stack-grid" data-filter-target="stack" data-reveal>
           <div class="stack-col" data-cat="engineering">
             <h4>Software engineering core</h4>
-            <p>Object-oriented programming, backend frameworks, and systems logic.</p>
+            <p>Object-oriented programming, typed languages, and systems logic.</p>
             <ul>
               <li><img class="lg" src="assets/logos/python.svg" width="28" height="28" alt=""
                   loading="lazy"><b>Python</b><span>Core &amp; scripting</span></li>
+              <li><img class="lg" src="assets/logos/typescript.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>TypeScript</b><span>Typed JavaScript</span></li>
               <li><img class="lg" src="assets/logos/csharp.svg" width="28" height="28" alt=""
                   loading="lazy"><b>C#</b><span>OOP &amp; logic</span></li>
               <li><img class="lg" src="assets/logos/dotnet.svg" width="28" height="28" alt=""
@@ -4160,23 +4490,49 @@
                   loading="lazy"><b>Kotlin</b><span>Modern Android</span></li>
             </ul>
           </div>
+          <div class="stack-col" data-cat="backend">
+            <h4>Backend &amp; APIs</h4>
+            <p>Server frameworks, REST APIs, ORMs, and realtime features.</p>
+            <ul>
+              <li><img class="lg" src="assets/logos/nodedotjs.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Node.js</b><span>JavaScript runtime</span></li>
+              <li><img class="lg" src="assets/logos/express.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Express</b><span>Node web server</span></li>
+              <li><img class="lg" src="assets/logos/fastapi.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>FastAPI</b><span>Async Python APIs</span></li>
+              <li><img class="lg" src="assets/logos/flask.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Flask</b><span>Python web apps</span></li>
+              <li><img class="lg" src="assets/logos/sqlalchemy.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>SQLAlchemy</b><span>ORM &amp; migrations</span></li>
+              <li><img class="lg" src="assets/logos/socketdotio.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Socket.IO</b><span>Realtime messaging</span></li>
+            </ul>
+          </div>
           <div class="stack-col" data-cat="data">
             <h4>Data analytics &amp; BI</h4>
-            <p>Relational querying, BI dashboards, and statistical models.</p>
+            <p>Relational querying, BI dashboards, statistics, and forecasting.</p>
             <ul>
               <li><img class="lg" src="assets/logos/sql.svg" width="28" height="28" alt=""
                   loading="lazy"><b>SQL</b><span>Queries &amp; schema</span></li>
               <li><img class="lg" src="assets/logos/tableau.svg" width="28" height="28" alt=""
                   loading="lazy"><b>Tableau</b><span>BI visualizations</span></li>
-              <li><img class="lg" src="assets/logos/excel.svg" width="28" height="28" alt="" loading="lazy"><b>MS
-                  Excel</b><span>Formulas &amp; modeling</span></li>
-              <li><img class="lg" src="assets/logos/pandas.svg" width="28" height="28" alt="" loading="lazy"><b>Python
-                  for data</b><span>Pandas / analytics</span></li>
+              <li><img class="lg" src="assets/logos/excel.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>MS Excel</b><span>Formulas &amp; modeling</span></li>
+              <li><img class="lg" src="assets/logos/pandas.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Pandas</b><span>Data wrangling</span></li>
+              <li><img class="lg" src="assets/logos/numpy.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>NumPy</b><span>Numerical computing</span></li>
+              <li><img class="lg" src="assets/logos/scikitlearn.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>scikit-learn</b><span>ML &amp; forecasting</span></li>
+              <li><img class="lg" src="assets/logos/polars.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Polars</b><span>Fast dataframes</span></li>
+              <li><img class="lg" src="assets/logos/duckdb.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>DuckDB</b><span>Analytical SQL engine</span></li>
             </ul>
           </div>
           <div class="stack-col" data-cat="web">
-            <h4>Web &amp; databases</h4>
-            <p>Responsive interfaces, semantic structure, and persistence.</p>
+            <h4>Web &amp; frontend</h4>
+            <p>Responsive interfaces, component UIs, and modern build tooling.</p>
             <ul>
               <li><img class="lg" src="assets/logos/javascript.svg" width="28" height="28" alt=""
                   loading="lazy"><b>JavaScript</b><span>Modern ES6+</span></li>
@@ -4184,24 +4540,64 @@
                   loading="lazy"><b>HTML5</b><span>Semantic structure</span></li>
               <li><img class="lg" src="assets/logos/css3.svg" width="28" height="28" alt=""
                   loading="lazy"><b>CSS3</b><span>Modern layouts</span></li>
+              <li><img class="lg" src="assets/logos/react.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>React</b><span>Component UIs</span></li>
+              <li><img class="lg" src="assets/logos/vite.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Vite</b><span>Build tooling</span></li>
+              <li><img class="lg" src="assets/logos/tailwindcss.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Tailwind CSS</b><span>Utility styling</span></li>
+              <li><img class="lg" src="assets/logos/bootstrap.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Bootstrap</b><span>UI framework</span></li>
+            </ul>
+          </div>
+          <div class="stack-col" data-cat="viz">
+            <h4>Charts, maps &amp; 3D</h4>
+            <p>Interactive charts, geographic mapping, and 3D scenes.</p>
+            <ul>
+              <li><img class="lg" src="assets/logos/chartdotjs.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Chart.js</b><span>Dashboard charts</span></li>
+              <li><img class="lg" src="assets/logos/apacheecharts.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>ECharts</b><span>Interactive analytics</span></li>
+              <li><img class="lg" src="assets/logos/leaflet.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Leaflet</b><span>Maps &amp; GIS</span></li>
+              <li><img class="lg" src="assets/logos/threedotjs.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Three.js</b><span>3D &amp; WebGL</span></li>
+            </ul>
+          </div>
+          <div class="stack-col" data-cat="deploy">
+            <h4>Databases &amp; deployment</h4>
+            <p>Persistence, version control, containers, and cloud hosting.</p>
+            <ul>
               <li><img class="lg" src="assets/logos/mysql.svg" width="28" height="28" alt=""
                   loading="lazy"><b>MySQL</b><span>Relational DB</span></li>
+              <li><img class="lg" src="assets/logos/postgresql.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>PostgreSQL</b><span>Production DB</span></li>
+              <li><img class="lg" src="assets/logos/sqlite.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>SQLite</b><span>Embedded DB</span></li>
               <li><img class="lg" src="assets/logos/github.svg" width="28" height="28" alt=""
                   loading="lazy"><b>GitHub</b><span>Git version control</span></li>
+              <li><img class="lg" src="assets/logos/vercel.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Vercel</b><span>Cloud hosting</span></li>
+              <li><img class="lg" src="assets/logos/docker.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Docker</b><span>Containers</span></li>
+              <li><img class="lg" src="assets/logos/render.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Render</b><span>API hosting</span></li>
             </ul>
           </div>
           <div class="stack-col" data-cat="tools">
             <h4>Dev IDEs</h4>
             <p>Workstations and development environments.</p>
             <ul>
-              <li><img class="lg" src="assets/logos/vscode.svg" width="28" height="28" alt="" loading="lazy"><b>VS
-                  Code</b><span>Primary editor</span></li>
+              <li><img class="lg" src="assets/logos/vscode.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>VS Code</b><span>Primary editor</span></li>
               <li><img class="lg" src="assets/logos/antigravity.svg" width="28" height="28" alt=""
                   loading="lazy"><b>Antigravity</b><span>Agentic AI IDE</span></li>
               <li><img class="lg" src="assets/logos/pycharm.svg" width="28" height="28" alt=""
                   loading="lazy"><b>PyCharm</b><span>Python &amp; data IDE</span></li>
               <li><img class="lg" src="assets/logos/androidstudio.svg" width="28" height="28" alt=""
                   loading="lazy"><b>Android Studio</b><span>Mobile suite</span></li>
+              <li><img class="lg" src="assets/logos/robloxstudio.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Roblox Studio</b><span>Game development</span></li>
             </ul>
           </div>
           <div class="stack-col" data-cat="ai">
@@ -4222,8 +4618,8 @@
                   loading="lazy"><b>DeepSeek</b><span>Code AI</span></li>
               <li><img class="lg" src="assets/logos/canva.svg" width="28" height="28" alt=""
                   loading="lazy"><b>Canva</b><span>Graphics &amp; UI</span></li>
-              <li><img class="lg" src="assets/logos/wordppt.svg" width="28" height="28" alt="" loading="lazy"><b>MS Word
-                  &amp; PPT</b><span>Documentation</span></li>
+              <li><img class="lg" src="assets/logos/wordppt.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>MS Word &amp; PPT</b><span>Documentation</span></li>
             </ul>
           </div>
         </div>
@@ -4231,7 +4627,10 @@
         <div class="skills" id="skills">
           <div class="sub-head" data-reveal>
             <h3>Skills &amp; expertise</h3>
-            <p class="mono">8 competencies</p>
+            <p class="mono">13 competencies</p>
+          </div>
+          <div class="marquee skills-ticker" id="skillsTicker" aria-hidden="true">
+            <div class="marquee-track"></div>
           </div>
           <ul class="acc" id="skillsAcc">
             <li data-reveal>
@@ -4267,6 +4666,7 @@
                       <li>Exploratory Analysis</li>
                       <li>KPI Modeling</li>
                       <li>BI Dashboards</li>
+                      <li>Data Profiling</li>
                       <li>Data Storytelling</li>
                     </ul>
                   </div>
@@ -4305,9 +4705,10 @@
                       metrics synthesis.</p>
                     <ul class="chips">
                       <li>Statistical Models</li>
-                      <li>Metrics Synthesis</li>
-                      <li>Correlation Tests</li>
-                      <li>Trend Forecasting</li>
+                      <li>t-Tests &amp; ANOVA</li>
+                      <li>Correlation &amp; Regression</li>
+                      <li>Reliability Analysis</li>
+                      <li>APA Reporting</li>
                     </ul>
                   </div>
                 </div>
@@ -4388,6 +4789,102 @@
                       <li>Editorial Review</li>
                       <li>Content Polish</li>
                       <li>Quality Control</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li data-reveal>
+              <button class="acc-btn" type="button" aria-expanded="false" aria-controls="sk9" id="sk9b">
+                <span class="mono">09</span><span class="acc-title">Full-Stack Web Development</span>
+                <span class="acc-domain mono">Engineering</span><span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-panel" id="sk9" role="region" aria-labelledby="sk9b">
+                <div>
+                  <div class="acc-inner">
+                    <p>Building end-to-end web platforms, from responsive React and Jinja interfaces to Flask, FastAPI, and Express backends with authentication and role-based access.</p>
+                    <ul class="chips">
+                      <li>React &amp; TypeScript</li>
+                      <li>REST APIs</li>
+                      <li>Auth &amp; OAuth</li>
+                      <li>Role-Based Access</li>
+                      <li>Realtime Chat</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li data-reveal>
+              <button class="acc-btn" type="button" aria-expanded="false" aria-controls="sk10" id="sk10b">
+                <span class="mono">10</span><span class="acc-title">Database Design &amp; Management</span>
+                <span class="acc-domain mono">Data</span><span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-panel" id="sk10" role="region" aria-labelledby="sk10b">
+                <div>
+                  <div class="acc-inner">
+                    <p>Modeling relational schemas, writing migrations, and tuning queries across MySQL, PostgreSQL, SQLite, and DuckDB.</p>
+                    <ul class="chips">
+                      <li>Schema Design</li>
+                      <li>Migrations</li>
+                      <li>Query Optimization</li>
+                      <li>Data Integrity</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li data-reveal>
+              <button class="acc-btn" type="button" aria-expanded="false" aria-controls="sk11" id="sk11b">
+                <span class="mono">11</span><span class="acc-title">Machine Learning &amp; Forecasting</span>
+                <span class="acc-domain mono">Analytics</span><span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-panel" id="sk11" role="region" aria-labelledby="sk11b">
+                <div>
+                  <div class="acc-inner">
+                    <p>Training and applying predictive models for sales, production, and demand forecasting inside working applications.</p>
+                    <ul class="chips">
+                      <li>scikit-learn</li>
+                      <li>Time-Series Forecasting</li>
+                      <li>Predictive Models</li>
+                      <li>Model Evaluation</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li data-reveal>
+              <button class="acc-btn" type="button" aria-expanded="false" aria-controls="sk12" id="sk12b">
+                <span class="mono">12</span><span class="acc-title">3D &amp; Interactive Development</span>
+                <span class="acc-domain mono">Interactive</span><span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-panel" id="sk12" role="region" aria-labelledby="sk12b">
+                <div>
+                  <div class="acc-inner">
+                    <p>Creating browser-based 3D architectural walkthroughs, simulations, and games with WebGL and game engines.</p>
+                    <ul class="chips">
+                      <li>Three.js &amp; WebGL</li>
+                      <li>React Three Fiber</li>
+                      <li>3D Modeling</li>
+                      <li>Game Design</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li data-reveal>
+              <button class="acc-btn" type="button" aria-expanded="false" aria-controls="sk13" id="sk13b">
+                <span class="mono">13</span><span class="acc-title">Cloud Deployment &amp; DevOps</span>
+                <span class="acc-domain mono">DevOps</span><span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-panel" id="sk13" role="region" aria-labelledby="sk13b">
+                <div>
+                  <div class="acc-inner">
+                    <p>Shipping applications to production with CI/CD, containers, environment management, and managed databases.</p>
+                    <ul class="chips">
+                      <li>Vercel</li>
+                      <li>Docker</li>
+                      <li>CI/CD</li>
+                      <li>Environment Config</li>
                     </ul>
                   </div>
                 </div>
@@ -4637,13 +5134,18 @@
 
       /* ---------- Projects: data ----------
          Single source of truth for the Projects section. Each project lists its
-         folder, thumbnail (relative to the site root), and live URL. */
+         folder, thumbnail (relative to the site root), live URL, and tech stack. */
       const PROJECT_DATA = {
         folders: [
           {
             id: 'web', title: 'Web Applications & Platforms', accent: '#1769FF',
             desc: 'Full-stack platforms, data-driven systems, and websites built for schools, governments, businesses, and communities.',
             icon: '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M7 21h10M12 18v3"/>'
+          },
+          {
+            id: 'data', title: 'Data Analytics', accent: '#2FD4A3',
+            desc: 'Statistics and business intelligence tools that turn raw spreadsheets into tested results, dashboards, and reports.',
+            icon: '<path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="5" rx=".5"/><rect x="12" y="8" width="3" height="9" rx=".5"/><rect x="17" y="5" width="3" height="12" rx=".5"/>'
           },
           {
             id: 'sim', title: '3D, Architecture & Simulation', accent: '#35C8FF',
@@ -4660,83 +5162,111 @@
           {
             name: 'PoultryConnect', folder: 'web', label: 'Ordering · Forecasting',
             url: 'https://polutry-connect.vercel.app/', img: 'assets/poultryconnect.png',
-            desc: 'An egg-ordering platform that connects customers directly with farm owners and suppliers. Includes sales, production, and mortality forecasting to support poultry operations.'
+            desc: 'An egg-ordering platform that connects customers directly with farm owners and suppliers. Includes sales, production, and mortality forecasting to support poultry operations.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Jinja2'], Backend: ['Python', 'Flask', 'SQLAlchemy', 'Flask-SocketIO'], Database: ['MySQL'], Libraries: ['pandas', 'NumPy', 'scikit-learn', 'Matplotlib', 'Chart.js', 'ReportLab'], Hosting: ['Vercel'] }
           },
           {
             name: 'GreenGuy', folder: 'web', label: 'Video Editing Website',
             url: 'https://greenguy-ten.vercel.app/', img: 'assets/greenguy.png',
-            desc: 'GreenGuy is a video editing portfolio showcasing creative projects, cinematic visuals, and professional editing services for clients. It highlights the editor’s style, storytelling, and skills in transforming raw footage into engaging, high-quality videos.'
+            desc: 'GreenGuy is a video editing portfolio showcasing creative projects, cinematic visuals, and professional editing services for clients. It highlights the editor’s style, storytelling, and skills in transforming raw footage into engaging, high-quality videos.',
+            stack: { Frontend: ['React', 'TypeScript', 'Vite'], Libraries: ['Three.js', 'GSAP', 'Lenis', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
             name: 'DigiSPES', folder: 'web', label: 'Government Platform',
             url: 'https://digispes.info/', img: 'assets/digispes.png',
-            desc: 'A digital platform for the Special Program for the Employment of Students (SPES), supporting applications, examinations, applicant and beneficiary management, and municipal and provincial workflows. Features automated requirement verification, exam checking, and a chatbot.'
+            desc: 'A digital platform for the Special Program for the Employment of Students (SPES), supporting applications, examinations, applicant and beneficiary management, and municipal and provincial workflows. Features automated requirement verification, exam checking, and a chatbot.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5', 'jQuery', 'Jinja2'], Backend: ['Python', 'Flask', 'Flask-SocketIO'], Database: ['MySQL'], Libraries: ['Tesseract OCR', 'Pillow', 'Chart.js', 'Socket.IO', 'docx2pdf'] }
           },
           {
             name: 'CCS Dean\'s List', folder: 'web', label: 'Academic Web App',
             url: 'https://ccs-deans-list.vercel.app/', img: 'assets/ccs.png',
-            desc: 'A web application for the College of Computer Studies at Laguna State Polytechnic University, Siniloan Campus, that allows students to apply for Dean\'s List recognition and automates the checking of application requirements.'
+            desc: 'A web application for the College of Computer Studies at Laguna State Polytechnic University, Siniloan Campus, that allows students to apply for Dean\'s List recognition and automates the checking of application requirements.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Jinja2'], Backend: ['Python', 'Flask', 'Flask-SocketIO', 'Gunicorn'], Database: ['MySQL'], Libraries: ['Chart.js', 'openpyxl', 'ReportLab', 'python-docx', 'Font Awesome'], Hosting: ['Vercel'] }
           },
           {
             name: 'Tailored by Kyla', folder: 'web', label: 'Fashion Business Website',
             url: 'https://tailored-by-kyla.vercel.app/', img: 'assets/tailoredbykyla.png',
-            desc: 'Tailored by Kyla is a website designed to showcase gowns, wardrobe designs, and customized dresses from a business based in Pakil, Laguna. It features automatic background removal for raw product photos, creating a consistent and professional gallery where customers can explore designs and inquire about purchases, rentals, or custom orders.'
+            desc: 'Tailored by Kyla is a website designed to showcase gowns, wardrobe designs, and customized dresses from a business based in Pakil, Laguna. It features automatic background removal for raw product photos, creating a consistent and professional gallery where customers can explore designs and inquire about purchases, rentals, or custom orders.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Nunjucks'], Backend: ['Node.js', 'Express'], Database: ['SQLite'], Libraries: ['Sharp', 'Multer'], Hosting: ['Vercel'] }
           },
           {
             name: 'ECCD', folder: 'web', label: 'Education · Mapping',
             url: 'https://eccd-eight.vercel.app/', img: 'assets/eccd.png',
-            desc: 'An early childhood care and development platform serving parents, teachers, principals, and municipal and provincial administrators, with child development management and geographic mapping features.'
+            desc: 'An early childhood care and development platform serving parents, teachers, principals, and municipal and provincial administrators, with child development management and geographic mapping features.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5'], Backend: ['Python', 'Flask'], Database: ['MySQL'], Libraries: ['Leaflet', 'OpenStreetMap', 'Chart.js'], Hosting: ['Vercel'] }
           },
           {
             name: 'Katoto Project', folder: 'web', label: 'Nonprofit Website',
             url: 'https://katoto-project.vercel.app/', img: 'assets/katoto.png',
-            desc: 'A website for a nonprofit organization in Laguna, showcasing its initiatives, community involvement, and organizational activities.'
+            desc: 'A website for a nonprofit organization in Laguna, showcasing its initiatives, community involvement, and organizational activities.',
+            stack: { Frontend: ['React', 'Vite', 'React Router', 'Motion'], Backend: ['Node.js', 'Express'], Database: ['libSQL (SQLite)'], Libraries: ['Nodemailer', 'Multer', 'Sharp', 'Helmet', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
             name: 'YV2: Ollie Baldemor', folder: 'web', label: 'Book Website',
             url: 'https://yv2-eight.vercel.app/', img: 'assets/yv2.png',
-            desc: 'A website featuring the book by Ollie Baldemor about applying software techniques to real-life situations.'
+            desc: 'A website featuring the book by Ollie Baldemor about applying software techniques to real-life situations.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript'], Backend: ['Python', 'Flask', 'Flask-CORS'], Database: ['MySQL'], Libraries: ['Google Gemini API', 'bcrypt', 'Chart.js', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
             name: 'IVS Premium E-commerce', folder: 'web', label: 'E-commerce · Forecasting',
             url: 'https://ivs-five.vercel.app/', img: 'assets/ivs.png',
-            desc: 'An e-commerce platform based in Parañaque for premium men\'s clothing and accessories, featuring view tracking and forecasting capabilities.'
+            desc: 'An e-commerce platform based in Parañaque for premium men\'s clothing and accessories, featuring view tracking and forecasting capabilities.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Jinja2'], Backend: ['Python', 'Flask', 'SQLAlchemy', 'Flask-Login', 'Authlib (OAuth)'], Database: ['PostgreSQL'], Libraries: ['Chart.js', 'Flask-WTF', 'Flask-Talisman', 'Vercel Speed Insights'], Hosting: ['Vercel'] }
+          },
+          {
+            name: 'StatEase Analytics', folder: 'data', label: 'Research Statistics',
+            url: 'https://statease.vercel.app/', img: 'assets/statease.png',
+            desc: 'A no-code statistics web app for research papers. Upload Excel or CSV data, paste the objectives of the study, and StatEase recommends and runs the right tests (29 procedures, from t-tests and ANOVA to regression and Cronbach\'s alpha), checks assumptions, writes APA-style interpretations, and exports an editable Word or Excel results chapter.',
+            stack: { Frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Radix UI'], Backend: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic'], Database: ['PostgreSQL (Neon)', 'SQLite', 'DuckDB'], Libraries: ['pandas', 'Polars', 'SciPy', 'statsmodels', 'pingouin', 'ECharts', 'TanStack Query', 'CodeMirror', 'python-docx', 'XlsxWriter'], Hosting: ['Vercel', 'Render', 'Docker'] }
+          },
+          {
+            name: 'Aether Analytics', folder: 'data', label: 'Business Intelligence',
+            url: 'https://aetheranalytics.vercel.app/', img: 'assets/aetheranalytics.png',
+            desc: 'A local-first business intelligence platform. Import CSV, Excel, JSON, or Parquet files, profile data quality, query datasets in a sandboxed SQL workbench, and build drag-and-drop dashboards with KPI, bar, line, pie, scatter, heatmap, and table widgets, all without sending data to the cloud.',
+            stack: { Frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Radix UI'], Backend: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic'], Database: ['PostgreSQL', 'SQLite', 'DuckDB', 'Parquet'], Libraries: ['Polars', 'PyArrow', 'sqlglot', 'ECharts', 'Monaco Editor', 'react-grid-layout', 'TanStack Query', 'Argon2'], Hosting: ['Vercel', 'Docker'] }
           },
           {
             name: 'Paete Carving Simulation', folder: 'sim', label: 'Interactive Simulation',
             url: 'https://carvingsimulation.vercel.app/', img: 'assets/ukit.png',
-            desc: 'An interactive carving simulation inspired by Paete, Laguna, the Carving Capital of the Philippines, allowing users to explore carving different materials and shapes using virtual tools.'
+            desc: 'An interactive carving simulation inspired by Paete, Laguna, the Carving Capital of the Philippines, allowing users to explore carving different materials and shapes using virtual tools.',
+            stack: { Frontend: ['JavaScript', 'Vite'], Libraries: ['Three.js'], Hosting: ['Vercel'] }
           },
           {
             name: 'Café Turumba & Coffee Roasters', folder: 'sim', label: '3D Visualization',
             url: 'https://jericwin.github.io/Coffee-Shop-Pakil/', img: 'assets/cafeturumba.png',
-            desc: 'A 3D architectural visualization of a coffee shop in Pakil, Laguna, featuring an interactive architectural environment.'
+            desc: 'A 3D architectural visualization of a coffee shop in Pakil, Laguna, featuring an interactive architectural environment.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript'], Libraries: ['Three.js', 'Leaflet'], Tools: ['Python (OBJ/DXF generation)', 'AutoCAD'], Hosting: ['GitHub Pages'] }
           },
           {
             name: 'Casa Baybay Café', folder: 'sim', label: '3D Visualization',
             url: 'https://casabaybay.vercel.app/', img: 'assets/casabaybay.png',
-            desc: 'Casa Baybay Café is a 3D architectural modeling project located in Pagsanjan, Laguna, inspired by the charm of traditional coffee shops. It features a classic design that blends old-style architecture with a warm and welcoming atmosphere.'
+            desc: 'Casa Baybay Café is a 3D architectural modeling project located in Pagsanjan, Laguna, inspired by the charm of traditional coffee shops. It features a classic design that blends old-style architecture with a warm and welcoming atmosphere.',
+            stack: { Frontend: ['React', 'Vite'], Libraries: ['Three.js', 'React Three Fiber', 'Drei', 'Postprocessing'], Hosting: ['Vercel'] }
           },
           {
             name: 'Caliraya Coffee House', folder: 'sim', label: '3D Visualization',
             url: 'https://caliraya-cafe.vercel.app/', img: 'assets/calirayacafehouse.png',
-            desc: 'Caliraya Coffee House is a two-story 3D architectural modeling project located in Caliraya, Laguna, featuring estimated building dimensions and a functional layout. The model showcases the coffee shop under different weather conditions and times of day, highlighting its architectural design, lighting, and atmosphere.'
+            desc: 'Caliraya Coffee House is a two-story 3D architectural modeling project located in Caliraya, Laguna, featuring estimated building dimensions and a functional layout. The model showcases the coffee shop under different weather conditions and times of day, highlighting its architectural design, lighting, and atmosphere.',
+            stack: { Frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'], Libraries: ['Three.js', 'React Three Fiber', 'Drei', 'Zustand', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
             name: 'Guess the Spy', folder: 'games', label: 'Social Deduction',
             url: 'https://jericwin.github.io/SPYGame-DescribeTheWord/', img: 'assets/guess-the-spy.png',
-            desc: 'A social deduction word-guessing game where players use clues, communication, and deduction to identify the hidden spy.'
+            desc: 'A social deduction word-guessing game where players use clues, communication, and deduction to identify the hidden spy.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript'], Hosting: ['GitHub Pages'] }
           },
           {
             name: 'Mafia Game', folder: 'games', label: 'Social Deduction',
             url: 'https://jericwin.github.io/Mafia-Game/', img: 'assets/mafia-game.png',
-            desc: 'A social deduction game in which players must eliminate the mafia, protect civilians, and make strategic decisions as the doctor to help the town survive.'
+            desc: 'A social deduction game in which players must eliminate the mafia, protect civilians, and make strategic decisions as the doctor to help the town survive.',
+            stack: { Frontend: ['HTML', 'CSS', 'JavaScript (ES modules)'], Tools: ['Node.js (dev server & tests)'], Hosting: ['GitHub Pages'] }
           },
           {
             name: 'Nightshift: Spaceship Survival', folder: 'games', label: 'Roblox Game',
             url: 'https://www.roblox.com/games/104933788225126/Spaceship-Survival',
             img: 'assets/nightshift%20spaceshift%20survival.png',
-            desc: 'A Roblox survival game where the spaceship crew must survive dangerous nights, cooperate, and make it through the night alive.'
+            desc: 'A Roblox survival game where the spaceship crew must survive dangerous nights, cooperate, and make it through the night alive.',
+            stack: { Engine: ['Roblox Studio'], Language: ['Luau'], Platform: ['Roblox'] }
           }
         ]
       };
@@ -4757,6 +5287,8 @@
         const arrow = '<svg class="arr-ne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>';
         const host = url => new URL(url).host.replace(/^www\./, '');
         const initials = name => name.split(/\s+/).filter(w => /^[A-Za-z]/.test(w)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+        const stackList = stack => !stack ? '' : `<dl class="pc-stack">${Object.entries(stack).map(([k, v]) =>
+          `<div><dt class="mono">${esc(k)}</dt><dd>${v.map(t => `<span>${esc(t)}</span>`).join('')}</dd></div>`).join('')}</dl>`;
         const countLabel = n => `<b>${pad(n)}</b> ${n === 1 ? 'project' : 'projects'}`;
 
         $('#projTotal').textContent = `${pad(folders.length)} folders · ${pad(projects.length)} projects`;
@@ -4782,21 +5314,24 @@
         // Same stagger the shared reveal system would assign
         $$('li', list).forEach((li, i) => li.style.setProperty('--i', i));
 
-        const card = (p, i, f) => `<li style="--i:${Math.min(i, 8)}">
+        const card = (p, i, f, total) => `<li style="--i:${Math.min(i, 8)}">
           <article class="pc" style="--acc:${f.accent}">
             <div class="pc-media">
               <div class="pc-bar" aria-hidden="true"><i></i><i></i><i></i><span>${host(p.url)}</span></div>
-              <div class="pc-shot" data-initials="${initials(p.name)}">
-                <img src="${p.img}" width="1600" height="900" loading="lazy" decoding="async" alt="${esc(p.name)} preview">
-              </div>
-              <span class="pc-num mono" aria-hidden="true">${pad(i + 1)}</span>
+              <a class="pc-shot" href="${p.url}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true" data-initials="${initials(p.name)}">
+                <img src="${p.img}" width="1600" height="900" loading="lazy" decoding="async" alt="">
+              </a>
             </div>
             <div class="pc-body">
-              <p class="pc-cat mono">${esc(p.label)}</p>
+              <p class="pc-meta mono"><span class="pc-idx">${pad(i + 1)}<i>/ ${pad(total)}</i></span><span class="pc-rule" aria-hidden="true"></span><span class="pc-cat">${esc(p.label)}</span></p>
               <h4 class="pc-title">${esc(p.name)}</h4>
               <p class="pc-desc">${esc(p.desc)}</p>
-              <a class="btn btn--solid btn--sm pc-cta" href="${p.url}" target="_blank" rel="noopener noreferrer"
-                aria-label="Live Demo: ${esc(p.name)} (opens in a new tab)">Live Demo ${arrow}</a>
+              ${stackList(p.stack)}
+              <div class="pc-actions">
+                <a class="btn btn--solid btn--sm pc-cta" href="${p.url}" target="_blank" rel="noopener noreferrer"
+                  aria-label="Live Demo: ${esc(p.name)} (opens in a new tab)">Live Demo ${arrow}</a>
+                <span class="pc-host mono">${host(p.url)}</span>
+              </div>
             </div>
           </article>
         </li>`;
@@ -4844,7 +5379,7 @@
           $('#ppCrumb').textContent = f.title;
           $('#ppDesc').textContent = f.desc;
           $('#ppCount').innerHTML = countLabel(items.length);
-          grid.innerHTML = items.map((p, i) => card(p, i, f)).join('');
+          grid.innerHTML = items.map((p, i) => card(p, i, f, items.length)).join('');
           $$('.pc-shot img', grid).forEach(img => {
             const broken = () => img.parentElement.classList.add('is-broken');
             if (img.complete && !img.naturalWidth) broken();
@@ -5183,6 +5718,45 @@
           });
         }));
       });
+
+      /* ---------- Stack & skills motion ---------- */
+      (function stackMotion() {
+        const grid = $('.stack-grid');
+        if (!grid) return;
+        const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+        // Cascade order and pointer spotlight per card
+        $$('.stack-col', grid).forEach((col, ci) => {
+          col.style.setProperty('--ci', ci % 4);
+          $$('li', col).forEach((li, k) => li.style.setProperty('--li', k));
+          col.addEventListener('pointermove', e => {
+            const r = col.getBoundingClientRect();
+            col.style.setProperty('--mx', `${e.clientX - r.left}px`);
+            col.style.setProperty('--my', `${e.clientY - r.top}px`);
+          });
+        });
+
+        // Logo river, built from the grid so the two never drift apart
+        const river = $('#stackRiver');
+        if (river) {
+          const tools = $$('.stack-col li', grid).map(li => ({
+            src: $('img', li).getAttribute('src'),
+            name: $('b', li).textContent.replace(/\s+/g, ' ').trim()
+          }));
+          const half = Math.ceil(tools.length / 2);
+          const list = items => `<ul>${items.map(t => `<li><img src="${t.src}" alt="" width="32" height="32" loading="lazy"><span>${esc(t.name)}</span></li>`).join('')}</ul>`;
+          const row = (items, rev) => `<div class="river-row${rev ? ' is-rev' : ''}"><div class="river-track">${list(items)}${list(items)}</div></div>`;
+          river.innerHTML = row(tools.slice(0, half)) + row(tools.slice(half), true);
+        }
+
+        // Skills ticker from the accordion titles; chip stagger order
+        const ticker = $('#skillsTicker .marquee-track');
+        if (ticker) {
+          const words = $$('#skillsAcc .acc-title').map(t => `<li>${esc(t.textContent.trim())}</li>`).join('');
+          ticker.innerHTML = `<ul>${words}</ul><ul aria-hidden="true">${words}</ul>`;
+        }
+        $$('#skillsAcc .chips').forEach(ul => $$('li', ul).forEach((li, k) => li.style.setProperty('--k', k)));
+      })();
 
       /* ---------- Skills accordion ---------- */
       $$('#skillsAcc .acc-btn').forEach(btn => {
