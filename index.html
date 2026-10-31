@@ -3876,13 +3876,13 @@
 
       <nav aria-label="Primary">
         <ul class="nav-links" id="navLinks">
-          <li><a href="#projects">Work</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#recognition">Recognition</a></li>
+          <li><a href="#projects">Work</a></li>
           <li><a href="#tech-stack">Stack</a></li>
           <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
           <li><a href="#certificates">Certificates</a></li>
+          <li><a href="#recognition">Recognition</a></li>
           <li><a href="#contact">Contact</a></li>
           <li aria-hidden="true" class="nav-ind"></li>
         </ul>
@@ -3903,12 +3903,12 @@
 
   <div class="mobile-menu" id="mobileMenu" aria-label="Site menu">
     <ol>
-      <li><a href="#projects">Work</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#recognition">Recognition</a></li>
+      <li><a href="#projects">Work</a></li>
       <li><a href="#tech-stack">Stack &amp; Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#recognition">Recognition</a></li>
       <li><a href="#contact">Contact</a></li>
     </ol>
     <div class="mobile-menu-foot mono">
@@ -4046,75 +4046,12 @@
       </div>
     </div>
 
-    <!-- ===================== WORK ===================== -->
-    <section class="section" id="projects" aria-labelledby="workTitle">
-      <div class="wrap">
-        <header class="sec-head">
-          <div>
-            <p class="sec-idx mono" data-reveal>(01) Projects</p>
-            <h2 class="sec-title split" data-split id="workTitle">
-              <span class="ln"><span>Explore</span></span>
-              <span class="ln" style="--l:1"><span>my <em>work</em></span></span>
-            </h2>
-          </div>
-          <p class="sec-lede" data-reveal>From full-stack platforms and data-driven applications to interactive 3D
-            experiences and games, explore the projects I've built.</p>
-        </header>
-
-        <!-- Folder overview + open folder. Both are rendered from PROJECT_DATA in the script below. -->
-        <div class="pf-stage" id="projStage">
-          <div class="pf-view" id="projFolders">
-            <div class="sub-head" data-reveal>
-              <h3>Project folders</h3>
-              <p class="mono" id="projTotal">Pick a folder to open it</p>
-            </div>
-            <ul class="pf-grid" id="projFolderList"></ul>
-          </div>
-
-          <div class="pf-view pp" id="projPanel" hidden>
-            <div class="pp-bar">
-              <button class="btn btn--sm pp-back" type="button" data-proj-home>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path d="M19 12H5M11 18l-6-6 6-6" />
-                </svg>
-                All folders
-              </button>
-              <nav class="pp-crumbs mono" aria-label="Breadcrumb">
-                <ol>
-                  <li><button type="button" data-proj-home>Projects</button></li>
-                  <li aria-current="page" id="ppCrumb"></li>
-                </ol>
-              </nav>
-            </div>
-            <header class="pp-head">
-              <span class="pp-icon" id="ppIcon" aria-hidden="true"></span>
-              <div>
-                <h3 class="pp-title" id="ppTitle" tabindex="-1"></h3>
-                <p class="pp-desc" id="ppDesc"></p>
-              </div>
-              <p class="pp-count mono" id="ppCount"></p>
-            </header>
-            <ul class="pp-grid" id="ppGrid" aria-labelledby="ppTitle"></ul>
-            <div class="pp-more">
-              <p class="mono">Other folders</p>
-              <div class="pp-more-list" id="ppMore"></div>
-            </div>
-          </div>
-        </div>
-
-        <noscript>
-          <p class="pf-noscript">Enable JavaScript to browse the project folders.</p>
-        </noscript>
-      </div>
-    </section>
-
     <!-- ===================== ABOUT ===================== -->
     <section class="section" id="about" aria-labelledby="aboutTitle">
       <div class="wrap">
         <header class="sec-head">
           <div>
-            <p class="sec-idx mono" data-reveal>(02) About</p>
+            <p class="sec-idx mono" data-reveal>(01) About</p>
             <h2 class="sec-title split" data-split id="aboutTitle">
               <span class="ln"><span>Engineer,</span></span>
               <span class="ln" style="--l:1"><span><em>analyst</em></span></span>
@@ -4215,232 +4152,66 @@
       </div>
     </section>
 
-    <!-- ===================== EXPERIENCE ===================== -->
-    <section class="section" id="experience" aria-labelledby="expTitle">
+    <!-- ===================== WORK ===================== -->
+    <section class="section" id="projects" aria-labelledby="workTitle">
       <div class="wrap">
         <header class="sec-head">
           <div>
-            <p class="sec-idx mono" data-reveal>(03) Experience</p>
-            <h2 class="sec-title split" data-split id="expTitle">
-              <span class="ln"><span>Work</span></span>
-              <span class="ln" style="--l:1"><span><em>experience</em></span></span>
+            <p class="sec-idx mono" data-reveal>(02) Projects</p>
+            <h2 class="sec-title split" data-split id="workTitle">
+              <span class="ln"><span>Explore</span></span>
+              <span class="ln" style="--l:1"><span>my <em>work</em></span></span>
             </h2>
           </div>
-          <p class="sec-lede" data-reveal>Production software engineering, relational system architecture, and
-            financial data intelligence.</p>
+          <p class="sec-lede" data-reveal>From full-stack platforms and data-driven applications to interactive 3D
+            experiences and games, explore the projects I've built.</p>
         </header>
 
-        <article class="exp">
-          <div class="exp-aside" data-reveal>
-            <span class="exp-date">May 2026 — Present</span>
-            <span class="pill is-live mono">Present · Production</span>
-          </div>
-          <div>
-            <h3 class="exp-role" data-reveal>Software Developer</h3>
-            <p class="exp-co" data-reveal>Government Agency</p>
-            <p class="exp-loc mono" data-reveal>Public Sector Enterprise · Web Systems</p>
-            <div class="exp-metrics" data-reveal>
-              <div><b>Enterprise DRRMIS</b><span>Disaster information system</span></div>
-              <div><b>Full-stack</b><span>C# .NET &amp; React Vite</span></div>
-              <div><b>Hardened security</b><span>Role auth &amp; MySQL DB</span></div>
+        <!-- Folder overview + open folder. Both are rendered from PROJECT_DATA in the script below. -->
+        <div class="pf-stage" id="projStage">
+          <div class="pf-view" id="projFolders">
+            <div class="sub-head" data-reveal>
+              <h3>Project folders</h3>
+              <p class="mono" id="projTotal">Pick a folder to open it</p>
             </div>
-            <ul class="exp-points">
-              <li data-reveal>
-                <span>Built and architected a production-ready, web-based <strong>Disaster Risk Management Information
-                    System (DRRMIS)</strong> using C#, React.js, Vite, Bootstrap, and MySQL for regional operational
-                  readiness.</span>
-              </li>
-              <li data-reveal>
-                <span>Engineered normalized database schemas, modular RESTful backend APIs, and responsive frontend
-                  views for reliable data persistence and fast user operations.</span>
-              </li>
-              <li data-reveal>
-                <span>Led vulnerability testing, debugging, and query optimization for secure authentication flows,
-                  safeguarding sensitive civic records and keeping the UX polished.</span>
-              </li>
-            </ul>
-            <ul class="tags" data-reveal aria-label="Technologies">
-              <li>C#</li>
-              <li>.NET</li>
-              <li>React.js</li>
-              <li>Vite</li>
-              <li>MySQL</li>
-              <li>RESTful APIs</li>
-              <li>Bootstrap 5</li>
-              <li>System Security</li>
-            </ul>
+            <ul class="pf-grid" id="projFolderList"></ul>
           </div>
-        </article>
 
-        <article class="exp">
-          <div class="exp-aside" data-reveal>
-            <span class="exp-date">Mar — May 2026</span>
-            <span class="pill mono">Completed</span>
-          </div>
-          <div>
-            <h3 class="exp-role" data-reveal>Finance &amp; Data Analytics Intern</h3>
-            <p class="exp-co" data-reveal>I-Merch Media Incorporated</p>
-            <p class="exp-loc mono" data-reveal>Mandaluyong City, Metro Manila</p>
-            <div class="exp-metrics" data-reveal>
-              <div><b>₱300M+ volume</b><span>Audited &amp; consolidated assets</span></div>
-              <div><b>32 client companies</b><span>Automated executive dashboards</span></div>
-              <div><b>VBA automation</b><span>Macros &amp; pivot analytics</span></div>
+          <div class="pf-view pp" id="projPanel" hidden>
+            <div class="pp-bar">
+              <button class="btn btn--sm pp-back" type="button" data-proj-home>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <path d="M19 12H5M11 18l-6-6 6-6" />
+                </svg>
+                All folders
+              </button>
+              <nav class="pp-crumbs mono" aria-label="Breadcrumb">
+                <ol>
+                  <li><button type="button" data-proj-home>Projects</button></li>
+                  <li aria-current="page" id="ppCrumb"></li>
+                </ol>
+              </nav>
             </div>
-            <ul class="exp-points">
-              <li data-reveal>
-                <span>Engineered automated Microsoft Excel reporting models and built interactive BI dashboards for
-                  <strong>32 corporate client companies</strong> using advanced macros, VBA, and PivotTables.</span>
-              </li>
-              <li data-reveal>
-                <span>Consolidated, reconciled, and audited multi-source financial statements for Q1 2026, accounting
-                  for over <strong>₱300 million in corporate assets</strong> and quarterly transactions.</span>
-              </li>
-              <li data-reveal>
-                <span>Worked with finance and operations leadership to define automated reporting pipelines, cutting
-                  hours of manual data entry and delivering actionable insights.</span>
-              </li>
-            </ul>
-            <ul class="tags" data-reveal aria-label="Technologies">
-              <li>Advanced Excel</li>
-              <li>VBA &amp; Macros</li>
-              <li>PivotTables</li>
-              <li>Financial Modeling</li>
-              <li>ETL Workflows</li>
-              <li>Business Intelligence</li>
-              <li>Ledger Reconciliation</li>
-            </ul>
+            <header class="pp-head">
+              <span class="pp-icon" id="ppIcon" aria-hidden="true"></span>
+              <div>
+                <h3 class="pp-title" id="ppTitle" tabindex="-1"></h3>
+                <p class="pp-desc" id="ppDesc"></p>
+              </div>
+              <p class="pp-count mono" id="ppCount"></p>
+            </header>
+            <ul class="pp-grid" id="ppGrid" aria-labelledby="ppTitle"></ul>
+            <div class="pp-more">
+              <p class="mono">Other folders</p>
+              <div class="pp-more-list" id="ppMore"></div>
+            </div>
           </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===================== RECOGNITION ===================== -->
-    <section class="section" id="recognition" aria-labelledby="recTitle">
-      <div class="wrap">
-        <header class="sec-head">
-          <div>
-            <p class="sec-idx mono" data-reveal>(04) Recognition</p>
-            <h2 class="sec-title split" data-split id="recTitle">
-              <span class="ln"><span>Honors &amp;</span></span>
-              <span class="ln" style="--l:1"><span><em>leadership</em></span></span>
-            </h2>
-          </div>
-          <p class="sec-lede" data-reveal>Eight honors across academics, engineering, research, and student
-            governance — and twelve leadership and community roles.</p>
-        </header>
-
-        <ol class="honors">
-          <li class="honor" data-reveal>
-            <h4>Magna Cum Laude</h4>
-            <p>Recognized for academic excellence, perseverance, and scholastic ranking in BS Information Technology at
-              LSPU.</p>
-            <span class="mono">Highest honor</span>
-          </li>
-          <li class="honor" data-reveal>
-            <h4>DOST-SEI Recipient</h4>
-            <p>Awarded through the Department of Science and Technology – Science Education Institute merit
-              scholarship program.</p>
-            <span class="mono">National merit</span>
-          </li>
-          <li class="honor" data-reveal>
-            <h4>Best in Capstone Project</h4>
-            <p>Honored for system architecture, full-stack implementation, UI/UX polish, and real-world municipal
-              impact.</p>
-            <span class="mono">Capstone</span>
-          </li>
-          <li class="honor" data-reveal>
-            <h4>Outstanding Research International Presentation</h4>
-            <p>Presented and defended empirical research before an international academic conference delegation.</p>
-            <span class="mono">International</span>
-          </li>
-          <li class="honor" data-reveal>
-            <h4>Consistent Dean's Lister</h4>
-            <p>On the Dean's List every semester from first through fourth year of college.</p>
-            <span class="mono">1st — 4th year</span>
-          </li>
-          <li class="honor" data-reveal>
-            <h4>Academic Proficiency Awardee</h4>
-            <p>Conferred for subject mastery, analytical precision, and strong performance across core computer
-              science and IT coursework.</p>
-            <span class="mono">Scholastic merit</span>
-          </li>
-          <li class="honor" data-reveal>
-            <h4>SSC Leadership Service Awardee</h4>
-            <p>Recognized for student governance, financial stewardship, integrity, and initiatives serving the
-              student body.</p>
-            <span class="mono">Executive service</span>
-          </li>
-          <li class="honor" data-reveal>
-            <h4>Consistent High Honors</h4>
-            <p>Maintained High Honors without interruption across Junior High School (STE) and Senior High School
-              (ABM).</p>
-            <span class="mono">Grade 7 — 12</span>
-          </li>
-        </ol>
-
-        <div class="affil">
-          <div class="sub-head" data-reveal>
-            <h3>Affiliations</h3>
-            <p class="mono">12 leadership &amp; community roles</p>
-          </div>
-          <div class="filters" role="group" aria-label="Filter affiliations" data-filter-group="affil" data-reveal>
-            <button type="button" class="filter" data-filter="all" aria-pressed="true">All <sup>12</sup></button>
-            <button type="button" class="filter" data-filter="gov" aria-pressed="false">Governance <sup>3</sup></button>
-            <button type="button" class="filter" data-filter="acad" aria-pressed="false">Academic <sup>5</sup></button>
-            <button type="button" class="filter" data-filter="comm" aria-pressed="false">Community <sup>4</sup></button>
-          </div>
-          <ul class="affil-list" data-filter-target="affil" aria-live="polite">
-            <li class="affil-item" data-cat="gov">
-              <h4>Student Supreme Council — Treasurer</h4>
-              <p>Laguna State Polytechnic University</p><span class="mono">2023 — 2025</span>
-            </li>
-            <li class="affil-item" data-cat="gov">
-              <h4>Head of Freedom of Information</h4>
-              <p>KATOTO Student Organization</p><span class="mono">2024</span>
-            </li>
-            <li class="affil-item" data-cat="gov">
-              <h4>Active Member</h4>
-              <p>KATOTO Student Organization</p><span class="mono">2024</span>
-            </li>
-            <li class="affil-item" data-cat="acad">
-              <h4>President</h4>
-              <p>Philippine Guidance and Counseling Association Inc. — Laguna Chapter</p><span class="mono">2019 —
-                2020</span>
-            </li>
-            <li class="affil-item" data-cat="acad">
-              <h4>President</h4>
-              <p>PEMQMNHS Peer Educators Group</p><span class="mono">2019 — 2020</span>
-            </li>
-            <li class="affil-item" data-cat="acad">
-              <h4>Resource Speaker</h4>
-              <p>Peer Educators · School-based Friday Lecture Habit</p><span class="mono">2019 — 2020</span>
-            </li>
-            <li class="affil-item" data-cat="acad">
-              <h4>Auditor</h4>
-              <p>Mathematics Club · PEMQMNHS</p><span class="mono">2019 — 2020</span>
-            </li>
-            <li class="affil-item" data-cat="acad">
-              <h4>Camp Facilitator</h4>
-              <p>English, Science, and Mathematics (EnSciMa) Camp</p><span class="mono">2020</span>
-            </li>
-            <li class="affil-item" data-cat="comm">
-              <h4>Peer Educator Member</h4>
-              <p>Youth Health &amp; Guidance Advocacy</p><span class="mono">2022 — 2023</span>
-            </li>
-            <li class="affil-item" data-cat="comm">
-              <h4>Technical Working Group Member</h4>
-              <p>World AIDS Day Awareness Campaign</p><span class="mono">2019 — 2020</span>
-            </li>
-            <li class="affil-item" data-cat="comm">
-              <h4>Technical Working Group: Oplan Kalusugan</h4>
-              <p>DepEd “One Health Week Celebration”</p><span class="mono">2019 — 2020</span>
-            </li>
-            <li class="affil-item" data-cat="comm">
-              <h4>BUNGA Leader</h4>
-              <p>Youth Community Development &amp; Civic Leadership</p><span class="mono">2014 — Present</span>
-            </li>
-          </ul>
         </div>
+
+        <noscript>
+          <p class="pf-noscript">Enable JavaScript to browse the project folders.</p>
+        </noscript>
       </div>
     </section>
 
@@ -4449,7 +4220,7 @@
       <div class="wrap">
         <header class="sec-head">
           <div>
-            <p class="sec-idx mono" data-reveal>(05) Capabilities</p>
+            <p class="sec-idx mono" data-reveal>(03) Capabilities</p>
             <h2 class="sec-title split" data-split id="capTitle">
               <span class="ln"><span>Stack &amp;</span></span>
               <span class="ln" style="--l:1"><span><em>skills</em></span></span>
@@ -4462,13 +4233,13 @@
         <div class="stack-river" id="stackRiver" aria-hidden="true"></div>
 
         <div class="filters" role="group" aria-label="Filter tech stack" data-filter-group="stack" data-reveal>
-          <button type="button" class="filter" data-filter="all" aria-pressed="true">All stack <sup>50</sup></button>
+          <button type="button" class="filter" data-filter="all" aria-pressed="true">All stack <sup>52</sup></button>
           <button type="button" class="filter" data-filter="engineering" aria-pressed="false">Core engineering <sup>5</sup></button>
           <button type="button" class="filter" data-filter="backend" aria-pressed="false">Backend <sup>6</sup></button>
           <button type="button" class="filter" data-filter="data" aria-pressed="false">Data &amp; analytics <sup>8</sup></button>
           <button type="button" class="filter" data-filter="web" aria-pressed="false">Web &amp; frontend <sup>7</sup></button>
           <button type="button" class="filter" data-filter="viz" aria-pressed="false">Charts &amp; 3D <sup>4</sup></button>
-          <button type="button" class="filter" data-filter="deploy" aria-pressed="false">DB &amp; deploy <sup>7</sup></button>
+          <button type="button" class="filter" data-filter="deploy" aria-pressed="false">DB &amp; deploy <sup>9</sup></button>
           <button type="button" class="filter" data-filter="tools" aria-pressed="false">Dev IDEs <sup>5</sup></button>
           <button type="button" class="filter" data-filter="ai" aria-pressed="false">AI &amp; productivity <sup>8</sup></button>
         </div>
@@ -4582,6 +4353,10 @@
                   loading="lazy"><b>Docker</b><span>Containers</span></li>
               <li><img class="lg" src="assets/logos/render.svg" width="28" height="28" alt=""
                   loading="lazy"><b>Render</b><span>API hosting</span></li>
+              <li><img class="lg" src="assets/logos/microsoftazure.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Microsoft Azure</b><span>Cloud platform</span></li>
+              <li><img class="lg" src="assets/logos/railway.svg" width="28" height="28" alt=""
+                  loading="lazy"><b>Railway</b><span>App hosting</span></li>
             </ul>
           </div>
           <div class="stack-col" data-cat="tools">
@@ -4895,12 +4670,111 @@
       </div>
     </section>
 
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="section" id="experience" aria-labelledby="expTitle">
+      <div class="wrap">
+        <header class="sec-head">
+          <div>
+            <p class="sec-idx mono" data-reveal>(04) Experience</p>
+            <h2 class="sec-title split" data-split id="expTitle">
+              <span class="ln"><span>Work</span></span>
+              <span class="ln" style="--l:1"><span><em>experience</em></span></span>
+            </h2>
+          </div>
+          <p class="sec-lede" data-reveal>Production software engineering, relational system architecture, and
+            financial data intelligence.</p>
+        </header>
+
+        <article class="exp">
+          <div class="exp-aside" data-reveal>
+            <span class="exp-date">May 2026 — Present</span>
+            <span class="pill is-live mono">Present · Production</span>
+          </div>
+          <div>
+            <h3 class="exp-role" data-reveal>Software Developer</h3>
+            <p class="exp-co" data-reveal>Government Agency</p>
+            <p class="exp-loc mono" data-reveal>Public Sector Enterprise · Web Systems</p>
+            <div class="exp-metrics" data-reveal>
+              <div><b>Enterprise DRRMIS</b><span>Disaster information system</span></div>
+              <div><b>Full-stack</b><span>C# .NET &amp; React Vite</span></div>
+              <div><b>Hardened security</b><span>Role auth &amp; MySQL DB</span></div>
+            </div>
+            <ul class="exp-points">
+              <li data-reveal>
+                <span>Built and architected a production-ready, web-based <strong>Disaster Risk Management Information
+                    System (DRRMIS)</strong> using C#, React.js, Vite, Bootstrap, and MySQL for regional operational
+                  readiness.</span>
+              </li>
+              <li data-reveal>
+                <span>Engineered normalized database schemas, modular RESTful backend APIs, and responsive frontend
+                  views for reliable data persistence and fast user operations.</span>
+              </li>
+              <li data-reveal>
+                <span>Led vulnerability testing, debugging, and query optimization for secure authentication flows,
+                  safeguarding sensitive civic records and keeping the UX polished.</span>
+              </li>
+            </ul>
+            <ul class="tags" data-reveal aria-label="Technologies">
+              <li>C#</li>
+              <li>.NET</li>
+              <li>React.js</li>
+              <li>Vite</li>
+              <li>MySQL</li>
+              <li>RESTful APIs</li>
+              <li>Bootstrap 5</li>
+              <li>System Security</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="exp">
+          <div class="exp-aside" data-reveal>
+            <span class="exp-date">Mar — May 2026</span>
+            <span class="pill mono">Completed</span>
+          </div>
+          <div>
+            <h3 class="exp-role" data-reveal>Finance &amp; Data Analytics Intern</h3>
+            <p class="exp-co" data-reveal>I-Merch Media Incorporated</p>
+            <p class="exp-loc mono" data-reveal>Mandaluyong City, Metro Manila</p>
+            <div class="exp-metrics" data-reveal>
+              <div><b>₱300M+ volume</b><span>Audited &amp; consolidated assets</span></div>
+              <div><b>32 client companies</b><span>Automated executive dashboards</span></div>
+              <div><b>VBA automation</b><span>Macros &amp; pivot analytics</span></div>
+            </div>
+            <ul class="exp-points">
+              <li data-reveal>
+                <span>Engineered automated Microsoft Excel reporting models and built interactive BI dashboards for
+                  <strong>32 corporate client companies</strong> using advanced macros, VBA, and PivotTables.</span>
+              </li>
+              <li data-reveal>
+                <span>Consolidated, reconciled, and audited multi-source financial statements for Q1 2026, accounting
+                  for over <strong>₱300 million in corporate assets</strong> and quarterly transactions.</span>
+              </li>
+              <li data-reveal>
+                <span>Worked with finance and operations leadership to define automated reporting pipelines, cutting
+                  hours of manual data entry and delivering actionable insights.</span>
+              </li>
+            </ul>
+            <ul class="tags" data-reveal aria-label="Technologies">
+              <li>Advanced Excel</li>
+              <li>VBA &amp; Macros</li>
+              <li>PivotTables</li>
+              <li>Financial Modeling</li>
+              <li>ETL Workflows</li>
+              <li>Business Intelligence</li>
+              <li>Ledger Reconciliation</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- ===================== CERTIFICATES ===================== -->
     <section class="section" id="certificates" aria-labelledby="certTitle">
       <div class="wrap">
         <header class="sec-head">
           <div>
-            <p class="sec-idx mono" data-reveal>(06) Certificates</p>
+            <p class="sec-idx mono" data-reveal>(05) Certificates</p>
             <h2 class="sec-title split" data-split id="certTitle">
               <span class="ln"><span>Certificates</span></span>
               <span class="ln" style="--l:1"><span><em>&amp; credentials</em></span></span>
@@ -4955,6 +4829,136 @@
             </ul>
             <p class="kbd-hint mono">Tip: focus the viewer and use <kbd>←</kbd> <kbd>→</kbd></p>
           </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RECOGNITION ===================== -->
+    <section class="section" id="recognition" aria-labelledby="recTitle">
+      <div class="wrap">
+        <header class="sec-head">
+          <div>
+            <p class="sec-idx mono" data-reveal>(06) Recognition</p>
+            <h2 class="sec-title split" data-split id="recTitle">
+              <span class="ln"><span>Honors &amp;</span></span>
+              <span class="ln" style="--l:1"><span><em>leadership</em></span></span>
+            </h2>
+          </div>
+          <p class="sec-lede" data-reveal>Eight honors across academics, engineering, research, and student
+            governance — and twelve leadership and community roles.</p>
+        </header>
+
+        <ol class="honors">
+          <li class="honor" data-reveal>
+            <h4>Magna Cum Laude</h4>
+            <p>Recognized for academic excellence, perseverance, and scholastic ranking in BS Information Technology at
+              LSPU.</p>
+            <span class="mono">Highest honor</span>
+          </li>
+          <li class="honor" data-reveal>
+            <h4>DOST-SEI Recipient</h4>
+            <p>Awarded through the Department of Science and Technology – Science Education Institute merit
+              scholarship program.</p>
+            <span class="mono">National merit</span>
+          </li>
+          <li class="honor" data-reveal>
+            <h4>Best in Capstone Project</h4>
+            <p>Honored for system architecture, full-stack implementation, UI/UX polish, and real-world municipal
+              impact.</p>
+            <span class="mono">Capstone</span>
+          </li>
+          <li class="honor" data-reveal>
+            <h4>Outstanding Research International Presentation</h4>
+            <p>Presented and defended empirical research before an international academic conference delegation.</p>
+            <span class="mono">International</span>
+          </li>
+          <li class="honor" data-reveal>
+            <h4>Consistent Dean's Lister</h4>
+            <p>On the Dean's List every semester from first through fourth year of college.</p>
+            <span class="mono">1st — 4th year</span>
+          </li>
+          <li class="honor" data-reveal>
+            <h4>Academic Proficiency Awardee</h4>
+            <p>Conferred for subject mastery, analytical precision, and strong performance across core computer
+              science and IT coursework.</p>
+            <span class="mono">Scholastic merit</span>
+          </li>
+          <li class="honor" data-reveal>
+            <h4>SSC Leadership Service Awardee</h4>
+            <p>Recognized for student governance, financial stewardship, integrity, and initiatives serving the
+              student body.</p>
+            <span class="mono">Executive service</span>
+          </li>
+          <li class="honor" data-reveal>
+            <h4>Consistent High Honors</h4>
+            <p>Maintained High Honors without interruption across Junior High School (STE) and Senior High School
+              (ABM).</p>
+            <span class="mono">Grade 7 — 12</span>
+          </li>
+        </ol>
+
+        <div class="affil">
+          <div class="sub-head" data-reveal>
+            <h3>Affiliations</h3>
+            <p class="mono">12 leadership &amp; community roles</p>
+          </div>
+          <div class="filters" role="group" aria-label="Filter affiliations" data-filter-group="affil" data-reveal>
+            <button type="button" class="filter" data-filter="all" aria-pressed="true">All <sup>12</sup></button>
+            <button type="button" class="filter" data-filter="gov" aria-pressed="false">Governance <sup>3</sup></button>
+            <button type="button" class="filter" data-filter="acad" aria-pressed="false">Academic <sup>5</sup></button>
+            <button type="button" class="filter" data-filter="comm" aria-pressed="false">Community <sup>4</sup></button>
+          </div>
+          <ul class="affil-list" data-filter-target="affil" aria-live="polite">
+            <li class="affil-item" data-cat="gov">
+              <h4>Student Supreme Council — Treasurer</h4>
+              <p>Laguna State Polytechnic University</p><span class="mono">2023 — 2025</span>
+            </li>
+            <li class="affil-item" data-cat="gov">
+              <h4>Head of Freedom of Information</h4>
+              <p>KATOTO Student Organization</p><span class="mono">2024</span>
+            </li>
+            <li class="affil-item" data-cat="gov">
+              <h4>Active Member</h4>
+              <p>KATOTO Student Organization</p><span class="mono">2024</span>
+            </li>
+            <li class="affil-item" data-cat="acad">
+              <h4>President</h4>
+              <p>Philippine Guidance and Counseling Association Inc. — Laguna Chapter</p><span class="mono">2019 —
+                2020</span>
+            </li>
+            <li class="affil-item" data-cat="acad">
+              <h4>President</h4>
+              <p>PEMQMNHS Peer Educators Group</p><span class="mono">2019 — 2020</span>
+            </li>
+            <li class="affil-item" data-cat="acad">
+              <h4>Resource Speaker</h4>
+              <p>Peer Educators · School-based Friday Lecture Habit</p><span class="mono">2019 — 2020</span>
+            </li>
+            <li class="affil-item" data-cat="acad">
+              <h4>Auditor</h4>
+              <p>Mathematics Club · PEMQMNHS</p><span class="mono">2019 — 2020</span>
+            </li>
+            <li class="affil-item" data-cat="acad">
+              <h4>Camp Facilitator</h4>
+              <p>English, Science, and Mathematics (EnSciMa) Camp</p><span class="mono">2020</span>
+            </li>
+            <li class="affil-item" data-cat="comm">
+              <h4>Peer Educator Member</h4>
+              <p>Youth Health &amp; Guidance Advocacy</p><span class="mono">2022 — 2023</span>
+            </li>
+            <li class="affil-item" data-cat="comm">
+              <h4>Technical Working Group Member</h4>
+              <p>World AIDS Day Awareness Campaign</p><span class="mono">2019 — 2020</span>
+            </li>
+            <li class="affil-item" data-cat="comm">
+              <h4>Technical Working Group: Oplan Kalusugan</h4>
+              <p>DepEd “One Health Week Celebration”</p><span class="mono">2019 — 2020</span>
+            </li>
+            <li class="affil-item" data-cat="comm">
+              <h4>BUNGA Leader</h4>
+              <p>Youth Community Development &amp; Civic Leadership</p><span class="mono">2014 — Present</span>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
