@@ -1394,19 +1394,6 @@
       color: var(--muted);
     }
 
-    .wk-count {
-      margin: 0;
-      padding: 6px 12px;
-      border: 1px solid var(--line-2);
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-
-    .wk-count b {
-      color: color-mix(in srgb, var(--acc, var(--cyan)) 55%, var(--white));
-      font-weight: 500;
-    }
-
     .wk-live {
       position: absolute;
       width: 1px;
@@ -4060,7 +4047,6 @@
                 <h3 class="wk-title" id="wkTitle">All Projects</h3>
                 <p class="wk-desc" id="wkDesc"></p>
               </div>
-              <p class="wk-count mono" id="wkCount"></p>
             </header>
             <ul class="wk-grid" id="projGrid" aria-labelledby="wkTitle"></ul>
             <p class="wk-live" id="wkLive" role="status" aria-live="polite"></p>
@@ -5286,8 +5272,6 @@
         const initials = name => name.split(/\s+/).filter(w => /^[A-Za-z]/.test(w)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
         const stackList = stack => `<dl class="pc-stack">${Object.entries(stack).map(([k, v]) =>
           `<div><dt class="mono">${esc(k)}</dt><dd>${v.map(t => `<span>${esc(t)}</span>`).join('')}</dd></div>`).join('')}</dl>`;
-        const countLabel = n => `<b>${pad(n)}</b> ${n === 1 ? 'project' : 'projects'}`;
-
         filterList.innerHTML = [ALL, ...categories].map(c => `<li>
           <button class="wk-filter" type="button" data-filter="${esc(c.name)}" aria-pressed="false" style="--acc:${c.accent}">
             <span class="wk-ico">${icon(c)}</span><span class="wk-name">${esc(c.name)}</span>
@@ -5348,7 +5332,6 @@
           stage.style.setProperty('--acc', c.accent);
           $('#wkTitle').textContent = c.name;
           $('#wkDesc').textContent = c.desc;
-          $('#wkCount').innerHTML = countLabel(items.length);
           grid.innerHTML = items.map((p, i) => card(p, i, name)).join('');
           $$('.pc-shot img', grid).forEach(img => {
             const broken = () => img.parentElement.classList.add('is-broken');
