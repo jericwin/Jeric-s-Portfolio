@@ -1210,7 +1210,7 @@
     }
 
     /* =========================================================
-       WORK — PROJECT FOLDERS
+       WORK — PROJECTS
        ========================================================= */
     .tags {
       display: flex;
@@ -1229,408 +1229,222 @@
       color: #b4bfcc;
     }
 
-    .pf-view {
-      transition: opacity .32s var(--ease), transform .45s var(--ease);
-    }
-
-    .pf-view.is-out {
-      opacity: 0;
-      transform: translate3d(0, 18px, 0) scale(.985);
-    }
-
-    .pf-grid {
+    /* Category index beside a filtered project grid */
+    .wk {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(20px, 2.4vw, 32px);
+      grid-template-columns: 272px minmax(0, 1fr);
+      align-items: start;
+      gap: clamp(32px, 4vw, 64px);
+    }
+
+    .wk-index {
+      position: sticky;
+      top: calc(var(--hh) + 24px);
+    }
+
+    .wk-index-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .6875rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .wk-filters {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
       list-style: none;
       margin: 0;
       padding: 0;
     }
 
-    .pf-grid>li {
-      display: flex;
+    .wk-filters>li:first-child {
+      margin-bottom: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--line-2);
     }
 
-    /* Folder: back plate with tab, sheets that peek out, glass front flap */
-    .pf {
-      --acc: var(--blue);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      padding-top: 74px;
-      text-align: left;
-      perspective: 1200px;
-      isolation: isolate;
-      transition: transform .5s var(--ease);
-    }
-
-    .pf-backplate {
-      position: absolute;
-      inset: 22px 0 0;
-      z-index: -2;
-      border: 1px solid var(--line-2);
-      border-radius: 0 14px 14px 14px;
-      background: linear-gradient(160deg, color-mix(in srgb, var(--acc) 26%, var(--char)), var(--ink) 70%);
-      transition: border-color .4s;
-    }
-
-    .pf-backplate::before {
-      content: "";
-      position: absolute;
-      left: -1px;
-      bottom: 100%;
-      width: 42%;
-      height: 23px;
-      border: 1px solid var(--line-2);
-      border-bottom: 0;
-      border-radius: 12px 12px 0 0;
-      background: color-mix(in srgb, var(--acc) 30%, var(--char));
-      clip-path: polygon(0 0, 82% 0, 100% 100%, 0 100%);
-      transition: border-color .4s;
-    }
-
-    .pf-sheets {
-      position: absolute;
-      inset: 40px 18px auto;
-      height: 150px;
-      z-index: -1;
-    }
-
-    .pf-sheet {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 62%;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      border: 1px solid var(--line-2);
-      border-radius: 8px;
-      background: var(--char-2);
-      box-shadow: 0 12px 30px -12px rgba(0, 0, 0, .8);
-      translate: -50% 0;
-      transition: transform .6s var(--ease), translate .6s var(--ease);
-    }
-
-    .pf-sheet img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-    }
-
-    .pf-sheet:nth-child(1) {
-      transform: translate(-30%, 10px) rotate(-6deg);
-    }
-
-    .pf-sheet:nth-child(2) {
-      transform: translate(30%, 10px) rotate(6deg);
-    }
-
-    .pf-sheet:nth-child(3) {
-      transform: translate(0, 2px);
-    }
-
-    .pf-front {
-      position: relative;
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      gap: 12px;
-      padding: clamp(20px, 2.2vw, 28px);
-      border: 1px solid rgba(245, 247, 250, .12);
-      border-radius: 14px;
-      background: linear-gradient(165deg, rgba(22, 27, 37, .82), rgba(8, 10, 14, .92));
-      -webkit-backdrop-filter: blur(14px) saturate(140%);
-      backdrop-filter: blur(14px) saturate(140%);
-      box-shadow: 0 -1px 0 rgba(245, 247, 250, .08) inset, 0 24px 60px -30px rgba(0, 0, 0, .9);
-      transform-origin: 50% 100%;
-      transition: transform .55s var(--ease), border-color .4s, box-shadow .4s;
-    }
-
-    .pf-top {
-      display: flex;
+    .wk-filter {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr) auto;
       align-items: center;
-      justify-content: space-between;
       gap: 12px;
+      width: 100%;
+      min-height: 48px;
+      padding: 7px 12px 7px 7px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: #b4bfcc;
+      font-size: .9375rem;
+      line-height: 1.3;
+      text-align: left;
+      transition: background-color .3s, border-color .3s, color .3s;
     }
 
-    .pf-icon,
-    .pp-icon {
+    .wk-filter:hover {
+      background: rgba(137, 152, 173, .07);
+      color: var(--white);
+    }
+
+    .wk-filter[aria-pressed="true"] {
+      border-color: color-mix(in srgb, var(--acc) 50%, transparent);
+      background: color-mix(in srgb, var(--acc) 13%, transparent);
+      color: var(--white);
+    }
+
+    .wk-ico {
       display: grid;
       place-items: center;
-      width: 48px;
-      height: 48px;
-      flex: none;
-      border: 1px solid color-mix(in srgb, var(--acc) 60%, transparent);
-      border-radius: 12px;
-      background: color-mix(in srgb, var(--acc) 16%, transparent);
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: color-mix(in srgb, var(--acc) 15%, transparent);
+      color: color-mix(in srgb, var(--acc) 60%, var(--white));
+      transition: background-color .3s;
+    }
+
+    .wk-filter[aria-pressed="true"] .wk-ico {
+      background: color-mix(in srgb, var(--acc) 30%, transparent);
+    }
+
+    .wk-ico svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .wk-name {
+      min-width: 0;
+    }
+
+    .wk-num {
+      color: var(--muted);
+      font-family: var(--f-mono);
+      font-size: .75rem;
+    }
+
+    .wk-filter[aria-pressed="true"] .wk-num {
       color: color-mix(in srgb, var(--acc) 55%, var(--white));
     }
 
-    .pf-icon svg,
-    .pp-icon svg {
-      width: 24px;
-      height: 24px;
+    .wk-main {
+      min-width: 0;
     }
 
-    .pf-count {
-      padding: 5px 10px;
-      border: 1px solid var(--line-2);
-      border-radius: 999px;
-      color: var(--white);
-      font-size: .75rem;
-      white-space: nowrap;
-    }
-
-    .pf-count b {
-      color: var(--cyan);
-      font-weight: 500;
-    }
-
-    .pf-title {
-      display: block;
-      margin-top: 6px;
-      font-family: var(--f-display);
-      font-stretch: 112%;
-      font-weight: 700;
-      font-size: clamp(1.375rem, 2vw, 1.75rem);
-      line-height: 1.08;
-      letter-spacing: -.03em;
-    }
-
-    .pf-desc {
-      display: block;
-      color: #b4bfcc;
-      font-size: .9375rem;
-      line-height: 1.55;
-    }
-
-    .pf-open {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: auto;
-      padding-top: 10px;
-      color: color-mix(in srgb, var(--acc) 50%, var(--white));
-    }
-
-    .pf-open svg {
-      width: 16px;
-      height: 16px;
-      transition: transform .35s var(--ease);
-    }
-
-    .pf:hover .pf-backplate,
-    .pf:hover .pf-backplate::before,
-    .pf:focus-visible .pf-backplate,
-    .pf:focus-visible .pf-backplate::before {
-      border-color: color-mix(in srgb, var(--acc) 70%, transparent);
-    }
-
-    .pf:hover .pf-front,
-    .pf:focus-visible .pf-front {
-      transform: rotateX(-9deg);
-      border-color: color-mix(in srgb, var(--acc) 55%, transparent);
-      box-shadow: 0 -1px 0 rgba(245, 247, 250, .1) inset, 0 30px 70px -28px color-mix(in srgb, var(--acc) 60%, transparent);
-    }
-
-    .pf:hover .pf-sheet:nth-child(1),
-    .pf:focus-visible .pf-sheet:nth-child(1) {
-      transform: translate(-40%, -26px) rotate(-10deg);
-    }
-
-    .pf:hover .pf-sheet:nth-child(2),
-    .pf:focus-visible .pf-sheet:nth-child(2) {
-      transform: translate(40%, -26px) rotate(10deg);
-    }
-
-    .pf:hover .pf-sheet:nth-child(3),
-    .pf:focus-visible .pf-sheet:nth-child(3) {
-      transform: translate(0, -40px);
-    }
-
-    .pf:hover .pf-open svg,
-    .pf:focus-visible .pf-open svg {
-      transform: translateX(4px);
-    }
-
-    .pf:focus-visible {
-      outline-offset: 6px;
-      border-radius: 14px;
-    }
-
-    /* Click: flap drops open and the sheets lift out */
-    .pf.is-opening .pf-front {
-      transform: rotateX(-28deg);
-    }
-
-    .pf.is-opening .pf-sheet {
-      translate: -50% -60px;
-    }
-
-    /* Open folder */
-    .pp-bar {
+    .wk-head {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
+      justify-content: space-between;
       flex-wrap: wrap;
-      gap: 12px 20px;
+      gap: 12px 24px;
       margin-bottom: 28px;
-    }
-
-    .pp-back svg {
-      transition: transform .35s var(--ease);
-    }
-
-    .pp-back:hover svg {
-      transform: translateX(-4px);
-    }
-
-    .pp-crumbs ol {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      color: var(--muted);
-    }
-
-    .pp-crumbs li+li::before {
-      content: "/";
-      margin-right: 8px;
-      color: var(--line-2);
-    }
-
-    .pp-crumbs button {
-      min-height: 44px;
-      color: var(--muted);
-      transition: color .3s;
-    }
-
-    .pp-crumbs button:hover {
-      color: var(--cyan);
-    }
-
-    .pp-crumbs [aria-current] {
-      color: var(--white);
-    }
-
-    .pp-head {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      align-items: start;
-      gap: 20px;
-      margin-bottom: 32px;
-      padding-bottom: 24px;
+      padding-bottom: 22px;
       border-bottom: 1px solid var(--line);
     }
 
-    .pp-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-    }
-
-    .pp-title {
+    .wk-title {
       margin: 0 0 6px;
       font-family: var(--f-display);
       font-stretch: 112%;
       font-weight: 700;
-      font-size: clamp(1.75rem, 3.2vw, 2.75rem);
-      line-height: 1.02;
+      font-size: clamp(1.625rem, 2.8vw, 2.5rem);
+      line-height: 1.04;
       letter-spacing: -.035em;
     }
 
-    .pp-title:focus {
-      outline: none;
-    }
-
-    .pp-desc {
+    .wk-desc {
       margin: 0;
-      color: var(--muted);
       max-width: 40rem;
+      color: var(--muted);
     }
 
-    .pp-count {
-      margin: 6px 0 0;
+    .wk-count {
+      margin: 0;
       padding: 6px 12px;
       border: 1px solid var(--line-2);
       border-radius: 999px;
       white-space: nowrap;
     }
 
-    .pp-count b {
-      color: var(--cyan);
+    .wk-count b {
+      color: color-mix(in srgb, var(--acc, var(--cyan)) 55%, var(--white));
       font-weight: 500;
     }
 
-    .pp-grid {
+    .wk-live {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .wk-grid {
       display: grid;
-      gap: clamp(40px, 6vw, 88px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(20px, 2.4vw, 32px);
       list-style: none;
       margin: 0;
       padding: 0;
+      transition: opacity .2s var(--ease);
     }
 
-    .pp-grid>li {
+    .wk-grid.is-out {
       opacity: 0;
-      transform: translate3d(0, 28px, 0);
-      transition: opacity .6s var(--ease), transform .7s var(--ease);
-      transition-delay: calc(var(--i, 0) * 70ms);
     }
 
-    .pp.is-in .pp-grid>li {
+    .wk-grid>li {
+      opacity: 0;
+      transform: translate3d(0, 22px, 0);
+      transition: opacity .55s var(--ease), transform .65s var(--ease);
+      transition-delay: calc(var(--i, 0) * 55ms);
+    }
+
+    .wk-grid.is-in>li {
       opacity: 1;
       transform: none;
     }
 
-    /* Project showcase: large screenshot beside the write-up, alternating sides */
+    /* Project card */
     .pc {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      align-items: center;
-      gap: clamp(28px, 4.5vw, 72px);
-      padding-bottom: clamp(40px, 6vw, 88px);
-      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, var(--char) 0%, var(--ink) 100%);
+      transition: border-color .35s, transform .5s var(--ease), box-shadow .5s var(--ease);
     }
 
-    .pp-grid>li:last-child .pc {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
-
-    .pp-grid>li:nth-child(even) .pc {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-    }
-
-    .pp-grid>li:nth-child(even) .pc-media {
-      order: 2;
+    .pc:hover,
+    .pc:focus-within {
+      border-color: color-mix(in srgb, var(--acc, var(--blue)) 50%, transparent);
+      transform: translateY(-4px);
+      box-shadow: 0 36px 70px -44px color-mix(in srgb, var(--acc, var(--blue)) 70%, transparent);
     }
 
     .pc-media {
       position: relative;
       overflow: hidden;
-      border: 1px solid var(--line-2);
-      border-radius: 14px;
+      border-bottom: 1px solid var(--line);
       background: var(--char-2);
-      box-shadow: 0 40px 80px -48px color-mix(in srgb, var(--acc, var(--blue)) 60%, transparent);
-      transition: transform .6s var(--ease), border-color .35s, box-shadow .6s var(--ease);
-    }
-
-    .pc:hover .pc-media,
-    .pc:focus-within .pc-media {
-      transform: translateY(-6px);
-      border-color: color-mix(in srgb, var(--acc, var(--blue)) 60%, transparent);
-      box-shadow: 0 48px 90px -40px color-mix(in srgb, var(--acc, var(--blue)) 75%, transparent);
     }
 
     .pc-bar {
       display: flex;
       align-items: center;
       gap: 6px;
-      height: 32px;
+      height: 30px;
       padding-inline: 14px;
       border-bottom: 1px solid var(--line);
       background: #0c1017;
@@ -1702,43 +1516,43 @@
 
     .pc-body {
       display: flex;
+      flex: 1;
       flex-direction: column;
       align-items: flex-start;
-      gap: 16px;
+      gap: 14px;
+      padding: clamp(18px, 2vw, 26px);
     }
 
-    .pc-meta {
+    .pc-tags {
       display: flex;
-      align-items: center;
       flex-wrap: wrap;
-      gap: 10px 14px;
-      font-size: .75rem;
+      gap: 6px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    .pc-idx {
-      color: color-mix(in srgb, var(--acc, var(--blue)) 55%, var(--white));
-    }
-
-    .pc-idx i {
-      margin-left: 4px;
-      color: var(--muted);
-      font-style: normal;
-    }
-
-    .pc-rule {
-      width: 32px;
-      height: 1px;
-      background: var(--line-2);
-    }
-
-    .pc-cat {
-      padding: 4px 10px;
-      border: 1px solid color-mix(in srgb, var(--acc, var(--blue)) 45%, transparent);
+    .pc-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 28px;
+      padding: 3px 10px;
+      border: 1px solid color-mix(in srgb, var(--acc) 38%, transparent);
       border-radius: 999px;
-      color: color-mix(in srgb, var(--acc, var(--blue)) 45%, var(--white));
+      background: color-mix(in srgb, var(--acc) 9%, transparent);
+      color: color-mix(in srgb, var(--acc) 30%, var(--white));
+      font-family: var(--f-mono);
       font-size: .6875rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
+      line-height: 1.2;
+      letter-spacing: .02em;
+      transition: background-color .25s, border-color .25s;
+    }
+
+    .pc-tag:hover,
+    .pc-tag.is-active {
+      border-color: color-mix(in srgb, var(--acc) 70%, transparent);
+      background: color-mix(in srgb, var(--acc) 20%, transparent);
     }
 
     .pc-title {
@@ -1746,16 +1560,56 @@
       font-family: var(--f-display);
       font-stretch: 112%;
       font-weight: 700;
-      font-size: clamp(1.625rem, 2.8vw, 2.375rem);
-      line-height: 1.05;
-      letter-spacing: -.035em;
+      font-size: clamp(1.375rem, 2vw, 1.75rem);
+      line-height: 1.08;
+      letter-spacing: -.03em;
     }
 
     .pc-desc {
       margin: 0;
       color: #b4bfcc;
-      font-size: 1rem;
+      font-size: .9375rem;
       line-height: 1.7;
+    }
+
+    .pc-more {
+      width: 100%;
+      margin-top: auto;
+      border-top: 1px dashed var(--line-2);
+    }
+
+    .pc-more summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      color: var(--muted);
+      font-family: var(--f-mono);
+      font-size: .6875rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      list-style: none;
+      cursor: pointer;
+      transition: color .25s;
+    }
+
+    .pc-more summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .pc-more summary:hover {
+      color: var(--white);
+    }
+
+    .pc-more summary svg {
+      width: 16px;
+      height: 16px;
+      margin-left: auto;
+      transition: transform .35s var(--ease);
+    }
+
+    .pc-more[open] summary svg {
+      transform: rotate(45deg);
     }
 
     .pc-stack {
@@ -1763,8 +1617,7 @@
       gap: 10px;
       width: 100%;
       margin: 0;
-      padding: 18px 0 2px;
-      border-top: 1px dashed var(--line-2);
+      padding: 2px 0 8px;
     }
 
     .pc-stack>div {
@@ -1803,7 +1656,14 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px 18px;
-      margin-top: 6px;
+    }
+
+    .pc-more+.pc-actions {
+      margin-top: 0;
+    }
+
+    .pc-desc+.pc-actions {
+      margin-top: auto;
     }
 
     .pc-host {
@@ -1811,33 +1671,102 @@
       font-size: .75rem;
     }
 
-    .pp-more {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px 20px;
-      margin-top: clamp(36px, 5vw, 56px);
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
+    @media (max-width: 1180px) {
+      .wk {
+        grid-template-columns: 236px minmax(0, 1fr);
+      }
+
+      .wk-filter {
+        font-size: .875rem;
+      }
     }
 
-    .pp-more p {
-      margin: 0;
-      color: var(--muted);
+    /* Tablet and phone: the index becomes a swipeable chip row above the grid */
+    @media (max-width: 1023px) {
+      .wk {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+      }
+
+      .wk-index {
+        position: static;
+      }
+
+      .wk-index-head {
+        display: none;
+      }
+
+      .wk-filters {
+        flex-direction: row;
+        gap: 8px;
+        margin-inline: calc(-1 * var(--gutter));
+        padding: 2px var(--gutter) 6px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+      }
+
+      .wk-filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      .wk-filters>li {
+        flex: none;
+        scroll-snap-align: start;
+        scroll-margin-inline: var(--gutter);
+      }
+
+      .wk-filters>li:first-child {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      .wk-filter {
+        grid-template-columns: 28px auto auto;
+        gap: 9px;
+        width: auto;
+        min-height: 44px;
+        padding: 5px 14px 5px 6px;
+        border-color: var(--line-2);
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .wk-ico {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+      }
+
+      .wk-ico svg {
+        width: 15px;
+        height: 15px;
+      }
     }
 
-    .pp-more-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    @media (max-width: 680px) {
+      .wk-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .wk-head {
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+      }
     }
 
-    .pp-more-list .btn {
-      border-radius: 999px;
-    }
+    @media (max-width: 520px) {
+      .pc-actions,
+      .pc-cta {
+        align-self: stretch;
+      }
 
-    .pp-more-list .btn svg {
-      color: color-mix(in srgb, var(--acc) 55%, var(--white));
+      .pc-stack>div {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 6px;
+      }
     }
 
     .pf-noscript {
@@ -3513,9 +3442,6 @@
        RESPONSIVE
        ========================================================= */
     @media (max-width: 1180px) {
-      .pf-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
 
 
       .nav-links,
@@ -3543,14 +3469,7 @@
     }
 
     @media (max-width: 1023px) {
-      .pc,
-      .pp-grid>li:nth-child(even) .pc {
-        grid-template-columns: minmax(0, 1fr);
-      }
 
-      .pp-grid>li:nth-child(even) .pc-media {
-        order: 0;
-      }
 
       :root {
         --hh: 64px;
@@ -3560,13 +3479,7 @@
         grid-template-columns: minmax(0, 1fr);
       }
 
-      .pf-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
 
-      .pf-grid>li:last-child:nth-child(odd) {
-        grid-column: 1 / -1;
-      }
 
       .about-grid,
       .cert-layout,
@@ -3756,35 +3669,11 @@
         grid-template-columns: minmax(0, 1fr);
       }
 
-      .pf-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
 
-      .pp-head {
-        grid-template-columns: auto minmax(0, 1fr);
-        gap: 14px 16px;
-      }
 
-      .pp-icon {
-        width: 48px;
-        height: 48px;
-      }
 
-      .pp-count {
-        grid-column: 2;
-        justify-self: start;
-        margin: 0;
-      }
 
-      .pc-actions,
-      .pc-cta {
-        align-self: stretch;
-      }
 
-      .pc-stack>div {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 6px;
-      }
 
       .hero-cta .btn {
         flex: 1 1 auto;
@@ -3840,7 +3729,7 @@
       html.js [data-reveal],
       html.js .split .ln>span,
       html.js .hero-portrait img,
-      .pp-grid>li {
+      .wk-grid>li {
         opacity: 1;
         transform: none;
         clip-path: none;
@@ -4117,50 +4006,28 @@
             experiences and games, explore the projects I've built.</p>
         </header>
 
-        <!-- Folder overview + open folder. Both are rendered from PROJECT_DATA in the script below. -->
-        <div class="pf-stage" id="projStage">
-          <div class="pf-view" id="projFolders">
-            <div class="sub-head" data-reveal>
-              <h3>Project folders</h3>
-              <p class="mono" id="projTotal">Pick a folder to open it</p>
-            </div>
-            <ul class="pf-grid" id="projFolderList"></ul>
-          </div>
+        <!-- Category index + filtered grid. Both are rendered from PROJECT_DATA in the script below. -->
+        <div class="wk" id="projStage">
+          <aside class="wk-index" aria-label="Project categories" data-reveal>
+            <p class="wk-index-head mono"><span>Categories</span><span id="projTotal"></span></p>
+            <ul class="wk-filters" id="projFilters"></ul>
+          </aside>
 
-          <div class="pf-view pp" id="projPanel" hidden>
-            <div class="pp-bar">
-              <button class="btn btn--sm pp-back" type="button" data-proj-home>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" aria-hidden="true">
-                  <path d="M19 12H5M11 18l-6-6 6-6" />
-                </svg>
-                All folders
-              </button>
-              <nav class="pp-crumbs mono" aria-label="Breadcrumb">
-                <ol>
-                  <li><button type="button" data-proj-home>Projects</button></li>
-                  <li aria-current="page" id="ppCrumb"></li>
-                </ol>
-              </nav>
-            </div>
-            <header class="pp-head">
-              <span class="pp-icon" id="ppIcon" aria-hidden="true"></span>
+          <div class="wk-main">
+            <header class="wk-head">
               <div>
-                <h3 class="pp-title" id="ppTitle" tabindex="-1"></h3>
-                <p class="pp-desc" id="ppDesc"></p>
+                <h3 class="wk-title" id="wkTitle">All Projects</h3>
+                <p class="wk-desc" id="wkDesc"></p>
               </div>
-              <p class="pp-count mono" id="ppCount"></p>
+              <p class="wk-count mono" id="wkCount"></p>
             </header>
-            <ul class="pp-grid" id="ppGrid" aria-labelledby="ppTitle"></ul>
-            <div class="pp-more">
-              <p class="mono">Other folders</p>
-              <div class="pp-more-list" id="ppMore"></div>
-            </div>
+            <ul class="wk-grid" id="projGrid" aria-labelledby="wkTitle"></ul>
+            <p class="wk-live" id="wkLive" role="status" aria-live="polite"></p>
           </div>
         </div>
 
         <noscript>
-          <p class="pf-noscript">Enable JavaScript to browse the project folders.</p>
+          <p class="pf-noscript">Enable JavaScript to browse and filter the projects.</p>
         </noscript>
       </div>
     </section>
@@ -5178,142 +5045,161 @@
       }
 
       /* ---------- Projects: data ----------
-         Single source of truth for the Projects section. Each project lists its
-         folder, thumbnail (relative to the site root), live URL, and tech stack. */
+         Single source of truth for the Projects section.
+         CATEGORIES is the only list of approved categories. A project's
+         `categories` array may only use these exact names; anything else is
+         ignored (and logged) by the renderer below. */
+      const CATEGORIES = Object.freeze([
+        {
+          name: 'SEO & Digital Marketing', accent: '#FFB547',
+          desc: 'Business websites built to be found, win customers, and support online orders and promotions.',
+          icon: '<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>'
+        },
+        {
+          name: 'SaaS & Analytics', accent: '#2FD4A3',
+          desc: 'Data-driven platforms with dashboards, statistics, and reporting that turn raw data into decisions.',
+          icon: '<path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="5" rx=".5"/><rect x="12" y="8" width="3" height="9" rx=".5"/><rect x="17" y="5" width="3" height="12" rx=".5"/>'
+        },
+        {
+          name: 'Government & Enterprise', accent: '#4F8DFF',
+          desc: 'Systems for public offices, schools, and organizations that manage records, applications, and workflows.',
+          icon: '<path d="M3 21h18M5 21V10M19 21V10M9 21v-6h6v6M2 10l10-6 10 6"/>'
+        },
+        {
+          name: 'AI & Automation', accent: '#C084FC',
+          desc: 'Projects that take manual work off people’s hands, from automated checking and OCR to predictive models.',
+          icon: '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>'
+        },
+        {
+          name: 'Games & Interactive', accent: '#FF6B9A',
+          desc: 'Party games, hands-on simulations, and a cooperative Roblox survival experience.',
+          icon: '<rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4"/><circle cx="16" cy="12" r="1"/><circle cx="18" cy="15" r="1"/>'
+        },
+        {
+          name: '3D & Visualization', accent: '#35C8FF',
+          desc: 'Interactive 3D architectural models and environments rooted in Laguna places.',
+          icon: '<path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/>'
+        },
+        {
+          name: 'Creative Websites', accent: '#FF8A5B',
+          desc: 'Expressive, story-driven websites for creators, brands, and organizations.',
+          icon: '<path d="m12 19 7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 7.586 7.586"/><circle cx="11" cy="11" r="2"/>'
+        }
+      ].map(c => Object.freeze(c)));
+
       const PROJECT_DATA = {
-        folders: [
-          {
-            id: 'web', title: 'Web Applications & Platforms', accent: '#1769FF',
-            desc: 'Full-stack platforms, data-driven systems, and websites built for schools, governments, businesses, and communities.',
-            icon: '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M7 21h10M12 18v3"/>'
-          },
-          {
-            id: 'data', title: 'Data Analytics', accent: '#2FD4A3',
-            desc: 'Statistics and business intelligence tools that turn raw spreadsheets into tested results, dashboards, and reports.',
-            icon: '<path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="5" rx=".5"/><rect x="12" y="8" width="3" height="9" rx=".5"/><rect x="17" y="5" width="3" height="12" rx=".5"/>'
-          },
-          {
-            id: 'sim', title: '3D, Architecture & Simulation', accent: '#35C8FF',
-            desc: 'Interactive 3D environments and hands-on simulations rooted in Laguna places and crafts.',
-            icon: '<path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/>'
-          },
-          {
-            id: 'games', title: 'Games & Interactive Experiences', accent: '#8A7DFF',
-            desc: 'Social deduction party games and a cooperative Roblox survival experience.',
-            icon: '<rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4"/><circle cx="16" cy="12" r="1"/><circle cx="18" cy="15" r="1"/>'
-          }
-        ],
+        categories: CATEGORIES,
         projects: [
           {
-            name: 'PoultryConnect', folder: 'web', label: 'Ordering · Forecasting',
+            name: 'PoultryConnect', categories: ['SaaS & Analytics', 'AI & Automation'],
             url: 'https://polutry-connect.vercel.app/', img: 'assets/poultryconnect.png',
             desc: 'An egg-ordering platform that connects customers directly with farm owners and suppliers. Includes sales, production, and mortality forecasting to support poultry operations.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Jinja2'], Backend: ['Python', 'Flask', 'SQLAlchemy', 'Flask-SocketIO'], Database: ['MySQL'], Libraries: ['pandas', 'NumPy', 'scikit-learn', 'Matplotlib', 'Chart.js', 'ReportLab'], Hosting: ['Vercel'] }
           },
           {
-            name: 'GreenGuy', folder: 'web', label: 'Video Editing Website',
+            name: 'GreenGuy', categories: ['Creative Websites'],
             url: 'https://greenguy-ten.vercel.app/', img: 'assets/greenguy.png',
             desc: 'GreenGuy is a video editing portfolio showcasing creative projects, cinematic visuals, and professional editing services for clients. It highlights the editor’s style, storytelling, and skills in transforming raw footage into engaging, high-quality videos.',
             stack: { Frontend: ['React', 'TypeScript', 'Vite'], Libraries: ['Three.js', 'GSAP', 'Lenis', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
-            name: 'DigiSPES', folder: 'web', label: 'Government Platform',
+            name: 'DigiSPES', categories: ['Government & Enterprise', 'AI & Automation'],
             url: 'https://digispes.info/', img: 'assets/digispes.png',
             desc: 'A digital platform for the Special Program for the Employment of Students (SPES), supporting applications, examinations, applicant and beneficiary management, and municipal and provincial workflows. Features automated requirement verification, exam checking, and a chatbot.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5', 'jQuery', 'Jinja2'], Backend: ['Python', 'Flask', 'Flask-SocketIO'], Database: ['MySQL'], Libraries: ['Tesseract OCR', 'Pillow', 'Chart.js', 'Socket.IO', 'docx2pdf'] }
           },
           {
-            name: 'CCS Dean\'s List', folder: 'web', label: 'Academic Web App',
+            name: 'CCS Dean\'s List', categories: ['Government & Enterprise', 'AI & Automation'],
             url: 'https://ccs-deans-list.vercel.app/', img: 'assets/ccs.png',
             desc: 'A web application for the College of Computer Studies at Laguna State Polytechnic University, Siniloan Campus, that allows students to apply for Dean\'s List recognition and automates the checking of application requirements.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Jinja2'], Backend: ['Python', 'Flask', 'Flask-SocketIO', 'Gunicorn'], Database: ['MySQL'], Libraries: ['Chart.js', 'openpyxl', 'ReportLab', 'python-docx', 'Font Awesome'], Hosting: ['Vercel'] }
           },
           {
-            name: 'Tailored by Kyla', folder: 'web', label: 'Fashion Business Website',
+            name: 'Tailored by Kyla', categories: ['SEO & Digital Marketing', 'AI & Automation', 'Creative Websites'],
             url: 'https://tailored-by-kyla.vercel.app/', img: 'assets/tailoredbykyla.png',
             desc: 'Tailored by Kyla is a website designed to showcase gowns, wardrobe designs, and customized dresses from a business based in Pakil, Laguna. It features automatic background removal for raw product photos, creating a consistent and professional gallery where customers can explore designs and inquire about purchases, rentals, or custom orders.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Nunjucks'], Backend: ['Node.js', 'Express'], Database: ['SQLite'], Libraries: ['Sharp', 'Multer'], Hosting: ['Vercel'] }
           },
           {
-            name: 'ECCD', folder: 'web', label: 'Education · Mapping',
+            name: 'ECCD', categories: ['Government & Enterprise'],
             url: 'https://eccd-eight.vercel.app/', img: 'assets/eccd.png',
             desc: 'An early childhood care and development platform serving parents, teachers, principals, and municipal and provincial administrators, with child development management and geographic mapping features.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5'], Backend: ['Python', 'Flask'], Database: ['MySQL'], Libraries: ['Leaflet', 'OpenStreetMap', 'Chart.js'], Hosting: ['Vercel'] }
           },
           {
-            name: 'Katoto Project', folder: 'web', label: 'Nonprofit Website',
+            name: 'Katoto Project', categories: ['Government & Enterprise', 'Creative Websites'],
             url: 'https://katoto-project.vercel.app/', img: 'assets/katoto.png',
             desc: 'A website for a nonprofit organization in Laguna, showcasing its initiatives, community involvement, and organizational activities.',
             stack: { Frontend: ['React', 'Vite', 'React Router', 'Motion'], Backend: ['Node.js', 'Express'], Database: ['libSQL (SQLite)'], Libraries: ['Nodemailer', 'Multer', 'Sharp', 'Helmet', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
-            name: 'YV2: Ollie Baldemor', folder: 'web', label: 'Book Website',
+            name: 'YV2: Ollie Baldemor', categories: ['Creative Websites', 'SEO & Digital Marketing'],
             url: 'https://yv2-eight.vercel.app/', img: 'assets/yv2.png',
             desc: 'A website featuring the book by Ollie Baldemor about applying software techniques to real-life situations.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript'], Backend: ['Python', 'Flask', 'Flask-CORS'], Database: ['MySQL'], Libraries: ['Google Gemini API', 'bcrypt', 'Chart.js', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
-            name: 'IVS Premium E-commerce', folder: 'web', label: 'E-commerce · Forecasting',
+            name: 'IVS Premium E-commerce', categories: ['SEO & Digital Marketing'],
             url: 'https://ivs-five.vercel.app/', img: 'assets/ivs.png',
             desc: 'An e-commerce platform based in Parañaque for premium men\'s clothing and accessories, featuring view tracking and forecasting capabilities.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Jinja2'], Backend: ['Python', 'Flask', 'SQLAlchemy', 'Flask-Login', 'Authlib (OAuth)'], Database: ['PostgreSQL'], Libraries: ['Chart.js', 'Flask-WTF', 'Flask-Talisman', 'Vercel Speed Insights'], Hosting: ['Vercel'] }
           },
           {
-            name: 'NAZ Coffee', folder: 'web', label: 'Online Ordering · Rewards',
+            name: 'NAZ Coffee', categories: ['SEO & Digital Marketing', 'Creative Websites'],
             url: 'https://nazcoffee.vercel.app/order', img: 'assets/nazcoffee.png',
             desc: 'An online ordering website for NAZ Coffee in Pangil, Laguna. Customers browse the menu, customize drinks, and check out for delivery, pickup, or dine-in with cash or GCash payment. Includes Naz Rewards loyalty points, live menu availability, and server-side order validation that re-prices every cart and blocks duplicate orders.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript (ES modules)'], Backend: ['Node.js (no dependencies)'], Libraries: ['Google Forms integration', 'GA4', 'Meta Pixel'], Tools: ['node:test'], Hosting: ['Vercel'] }
           },
           {
-            name: 'StatEase Analytics', folder: 'data', label: 'Research Statistics',
+            name: 'StatEase Analytics', categories: ['SaaS & Analytics', 'AI & Automation'],
             url: 'https://statease.vercel.app/', img: 'assets/statease.png',
             desc: 'A no-code statistics web app for research papers. Upload Excel or CSV data, paste the objectives of the study, and StatEase recommends and runs the right tests (29 procedures, from t-tests and ANOVA to regression and Cronbach\'s alpha), checks assumptions, writes APA-style interpretations, and exports an editable Word or Excel results chapter.',
             stack: { Frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Radix UI'], Backend: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic'], Database: ['PostgreSQL (Neon)', 'SQLite', 'DuckDB'], Libraries: ['pandas', 'Polars', 'SciPy', 'statsmodels', 'pingouin', 'ECharts', 'TanStack Query', 'CodeMirror', 'python-docx', 'XlsxWriter'], Hosting: ['Vercel', 'Render', 'Docker'] }
           },
           {
-            name: 'Aether Analytics', folder: 'data', label: 'Business Intelligence',
+            name: 'Aether Analytics', categories: ['SaaS & Analytics'],
             url: 'https://aetheranalytics.vercel.app/', img: 'assets/aetheranalytics.png',
             desc: 'A local-first business intelligence platform. Import CSV, Excel, JSON, or Parquet files, profile data quality, query datasets in a sandboxed SQL workbench, and build drag-and-drop dashboards with KPI, bar, line, pie, scatter, heatmap, and table widgets, all without sending data to the cloud.',
             stack: { Frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Radix UI'], Backend: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic'], Database: ['PostgreSQL', 'SQLite', 'DuckDB', 'Parquet'], Libraries: ['Polars', 'PyArrow', 'sqlglot', 'ECharts', 'Monaco Editor', 'react-grid-layout', 'TanStack Query', 'Argon2'], Hosting: ['Vercel', 'Docker'] }
           },
           {
-            name: 'Paete Carving Simulation', folder: 'sim', label: 'Interactive Simulation',
+            name: 'Paete Carving Simulation', categories: ['Games & Interactive', '3D & Visualization'],
             url: 'https://carvingsimulation.vercel.app/', img: 'assets/ukit.png',
             desc: 'An interactive carving simulation inspired by Paete, Laguna, the Carving Capital of the Philippines, allowing users to explore carving different materials and shapes using virtual tools.',
             stack: { Frontend: ['JavaScript', 'Vite'], Libraries: ['Three.js'], Hosting: ['Vercel'] }
           },
           {
-            name: 'Café Turumba & Coffee Roasters', folder: 'sim', label: '3D Visualization',
+            name: 'Café Turumba & Coffee Roasters', categories: ['3D & Visualization'],
             url: 'https://jericwin.github.io/Coffee-Shop-Pakil/', img: 'assets/cafeturumba.png',
             desc: 'A 3D architectural visualization of a coffee shop in Pakil, Laguna, featuring an interactive architectural environment.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript'], Libraries: ['Three.js', 'Leaflet'], Tools: ['Python (OBJ/DXF generation)', 'AutoCAD'], Hosting: ['GitHub Pages'] }
           },
           {
-            name: 'Casa Baybay Café', folder: 'sim', label: '3D Visualization',
+            name: 'Casa Baybay Café', categories: ['3D & Visualization'],
             url: 'https://casabaybay.vercel.app/', img: 'assets/casabaybay.png',
             desc: 'Casa Baybay Café is a 3D architectural modeling project located in Pagsanjan, Laguna, inspired by the charm of traditional coffee shops. It features a classic design that blends old-style architecture with a warm and welcoming atmosphere.',
             stack: { Frontend: ['React', 'Vite'], Libraries: ['Three.js', 'React Three Fiber', 'Drei', 'Postprocessing'], Hosting: ['Vercel'] }
           },
           {
-            name: 'Caliraya Coffee House', folder: 'sim', label: '3D Visualization',
+            name: 'Caliraya Coffee House', categories: ['3D & Visualization'],
             url: 'https://caliraya-cafe.vercel.app/', img: 'assets/calirayacafehouse.png',
             desc: 'Caliraya Coffee House is a two-story 3D architectural modeling project located in Caliraya, Laguna, featuring estimated building dimensions and a functional layout. The model showcases the coffee shop under different weather conditions and times of day, highlighting its architectural design, lighting, and atmosphere.',
             stack: { Frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'], Libraries: ['Three.js', 'React Three Fiber', 'Drei', 'Zustand', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
-            name: 'Guess the Spy', folder: 'games', label: 'Social Deduction',
+            name: 'Guess the Spy', categories: ['Games & Interactive'],
             url: 'https://jericwin.github.io/SPYGame-DescribeTheWord/', img: 'assets/guess-the-spy.png',
             desc: 'A social deduction word-guessing game where players use clues, communication, and deduction to identify the hidden spy.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript'], Hosting: ['GitHub Pages'] }
           },
           {
-            name: 'Mafia Game', folder: 'games', label: 'Social Deduction',
+            name: 'Mafia Game', categories: ['Games & Interactive'],
             url: 'https://jericwin.github.io/Mafia-Game/', img: 'assets/mafia-game.png',
             desc: 'A social deduction game in which players must eliminate the mafia, protect civilians, and make strategic decisions as the doctor to help the town survive.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript (ES modules)'], Tools: ['Node.js (dev server & tests)'], Hosting: ['GitHub Pages'] }
           },
           {
-            name: 'Nightshift: Spaceship Survival', folder: 'games', label: 'Roblox Game',
+            name: 'Nightshift: Spaceship Survival', categories: ['Games & Interactive'],
             url: 'https://www.roblox.com/games/104933788225126/Spaceship-Survival',
             img: 'assets/nightshift%20spaceshift%20survival.png',
             desc: 'A Roblox survival game where the spaceship crew must survive dangerous nights, cooperate, and make it through the night alive.',
@@ -5322,51 +5208,60 @@
         ]
       };
 
-      /* ---------- Projects: folders ---------- */
-      (function projectFolders() {
+      /* ---------- Projects: category filter ---------- */
+      (function projectFilters() {
         const stage = $('#projStage');
         if (!stage) return;
-        const folderView = $('#projFolders');
-        const panel = $('#projPanel');
-        const list = $('#projFolderList');
-        const grid = $('#ppGrid');
-        const { folders, projects } = PROJECT_DATA;
-        const inFolder = id => projects.filter(p => p.folder === id);
+        const filterList = $('#projFilters');
+        const grid = $('#projGrid');
+        const { categories, projects } = PROJECT_DATA;
+        const ALL = {
+          name: 'All Projects', accent: '#1769FF',
+          desc: 'Every project in one place. Pick a category to narrow it down; a project can belong to more than one.',
+          icon: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'
+        };
+        const byName = new Map(categories.map(c => [c.name, c]));
+
+        // Only approved categories are ever shown or filtered on
+        projects.forEach(p => {
+          const bad = (p.categories || []).filter(n => !byName.has(n));
+          if (bad.length) console.warn(`[projects] "${p.name}" uses unapproved categories, ignored:`, bad);
+        });
+        const catsOf = p => (p.categories || []).filter(n => byName.has(n));
+        const inCat = name => name === ALL.name ? projects : projects.filter(p => catsOf(p).includes(name));
+        const find = name => name === ALL.name ? ALL : byName.get(name);
+
         const pad = n => String(n).padStart(2, '0');
         const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-        const icon = f => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${f.icon}</svg>`;
+        const icon = c => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${c.icon}</svg>`;
         const arrow = '<svg class="arr-ne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>';
+        const plus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>';
         const host = url => new URL(url).host.replace(/^www\./, '');
         const initials = name => name.split(/\s+/).filter(w => /^[A-Za-z]/.test(w)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
-        const stackList = stack => !stack ? '' : `<dl class="pc-stack">${Object.entries(stack).map(([k, v]) =>
+        const stackList = stack => `<dl class="pc-stack">${Object.entries(stack).map(([k, v]) =>
           `<div><dt class="mono">${esc(k)}</dt><dd>${v.map(t => `<span>${esc(t)}</span>`).join('')}</dd></div>`).join('')}</dl>`;
         const countLabel = n => `<b>${pad(n)}</b> ${n === 1 ? 'project' : 'projects'}`;
 
-        $('#projTotal').textContent = `${pad(folders.length)} folders · ${pad(projects.length)} projects`;
+        $('#projTotal').textContent = `${pad(projects.length)} projects`;
 
-        list.innerHTML = folders.map(f => {
-          const items = inFolder(f.id);
-          const sheets = items.slice(0, 3).map(p => `<span class="pf-sheet"><img src="${p.img}" alt="" loading="lazy" decoding="async"></span>`).join('');
-          return `<li data-reveal>
-            <button class="pf" type="button" data-folder="${f.id}" style="--acc:${f.accent}"
-              aria-label="Open ${esc(f.title)} folder, ${items.length} projects">
-              <span class="pf-backplate" aria-hidden="true"></span>
-              <span class="pf-sheets" aria-hidden="true">${sheets}</span>
-              <span class="pf-front">
-                <span class="pf-top"><span class="pf-icon">${icon(f)}</span><span class="pf-count mono">${countLabel(items.length)}</span></span>
-                <span class="pf-title">${esc(f.title)}</span>
-                <span class="pf-desc">${esc(f.desc)}</span>
-                <span class="pf-open mono">Open folder <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span>
-              </span>
-            </button>
-          </li>`;
-        }).join('');
+        filterList.innerHTML = [ALL, ...categories].map(c => `<li>
+          <button class="wk-filter" type="button" data-filter="${esc(c.name)}" aria-pressed="false" style="--acc:${c.accent}">
+            <span class="wk-ico">${icon(c)}</span><span class="wk-name">${esc(c.name)}</span><span class="wk-num">${pad(inCat(c.name).length)}</span>
+          </button>
+        </li>`).join('');
 
-        // Same stagger the shared reveal system would assign
-        $$('li', list).forEach((li, i) => li.style.setProperty('--i', i));
+        const tag = (name, active) => {
+          const c = byName.get(name);
+          return `<li><button class="pc-tag${name === active ? ' is-active' : ''}" type="button" data-filter="${esc(name)}" style="--acc:${c.accent}"
+            title="Show all ${esc(name)} projects">${esc(name)}</button></li>`;
+        };
 
-        const card = (p, i, f, total) => `<li style="--i:${Math.min(i, 8)}">
-          <article class="pc" style="--acc:${f.accent}">
+        const card = (p, i, active) => {
+          const cats = catsOf(p);
+          const acc = (byName.get(cats[0]) || ALL).accent;
+          const techCount = p.stack ? Object.values(p.stack).reduce((n, v) => n + v.length, 0) : 0;
+          return `<li style="--i:${Math.min(i, 8)}">
+          <article class="pc" style="--acc:${acc}">
             <div class="pc-media">
               <div class="pc-bar" aria-hidden="true"><i></i><i></i><i></i><span>${host(p.url)}</span></div>
               <a class="pc-shot" href="${p.url}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true" data-initials="${initials(p.name)}">
@@ -5374,10 +5269,10 @@
               </a>
             </div>
             <div class="pc-body">
-              <p class="pc-meta mono"><span class="pc-idx">${pad(i + 1)}<i>/ ${pad(total)}</i></span><span class="pc-rule" aria-hidden="true"></span><span class="pc-cat">${esc(p.label)}</span></p>
+              <ul class="pc-tags" aria-label="Categories">${cats.map(n => tag(n, active)).join('')}</ul>
               <h4 class="pc-title">${esc(p.name)}</h4>
               <p class="pc-desc">${esc(p.desc)}</p>
-              ${stackList(p.stack)}
+              ${p.stack ? `<details class="pc-more"><summary>Tech stack · ${pad(techCount)} ${plus}</summary>${stackList(p.stack)}</details>` : ''}
               <div class="pc-actions">
                 <a class="btn btn--solid btn--sm pc-cta" href="${p.url}" target="_blank" rel="noopener noreferrer"
                   aria-label="Live Demo: ${esc(p.name)} (opens in a new tab)">Live Demo ${arrow}</a>
@@ -5386,98 +5281,81 @@
             </div>
           </article>
         </li>`;
-
-        let current = null;
-        let busy = false;
-        const OUT_MS = 320;
-
-        // Bring the stage into view when switching leaves it above the fold
-        const keepInView = () => {
-          const top = stage.getBoundingClientRect().top;
-          const offset = ($('#siteHeader') || {}).offsetHeight || 72 + 16;
-          if (top < offset || top > window.innerHeight * .6) {
-            window.scrollTo({ top: window.scrollY + top - offset, behavior: reduce() ? 'auto' : 'smooth' });
-          }
         };
 
-        // Fade one view out, swap, fade the other in
-        function swap(from, to, prepare, after) {
-          if (busy) return;
-          busy = true;
-          const finish = () => {
-            from.hidden = true;
-            from.classList.remove('is-out');
-            prepare();
-            to.classList.add('is-out');
-            to.hidden = false;
-            keepInView();
-            void to.offsetWidth;
-            to.classList.remove('is-out');
-            busy = false;
-            after();
-          };
-          if (reduce()) { finish(); return; }
-          from.classList.add('is-out');
-          setTimeout(finish, OUT_MS);
+        let current = ALL.name;
+        let timer = 0;
+        const OUT_MS = 200;
+
+        function setPressed(name) {
+          $$('.wk-filter', filterList).forEach(b => {
+            const on = b.dataset.filter === name;
+            b.setAttribute('aria-pressed', String(on));
+            // Keep the active chip visible in the swipeable row (tablet/phone)
+            if (on && filterList.scrollWidth > filterList.clientWidth) {
+              const left = b.parentElement.offsetLeft - (filterList.clientWidth - b.offsetWidth) / 2;
+              filterList.scrollTo({ left, behavior: reduce() ? 'auto' : 'smooth' });
+            }
+          });
         }
 
-        function renderPanel(id) {
-          const f = folders.find(x => x.id === id);
-          const items = inFolder(id);
-          panel.style.setProperty('--acc', f.accent);
-          $('#ppIcon').innerHTML = icon(f);
-          $('#ppTitle').textContent = f.title;
-          $('#ppCrumb').textContent = f.title;
-          $('#ppDesc').textContent = f.desc;
-          $('#ppCount').innerHTML = countLabel(items.length);
-          grid.innerHTML = items.map((p, i) => card(p, i, f, items.length)).join('');
+        function paint(name) {
+          const c = find(name);
+          const items = inCat(name);
+          stage.style.setProperty('--acc', c.accent);
+          $('#wkTitle').textContent = c.name;
+          $('#wkDesc').textContent = c.desc;
+          $('#wkCount').innerHTML = countLabel(items.length);
+          grid.innerHTML = items.map((p, i) => card(p, i, name)).join('');
           $$('.pc-shot img', grid).forEach(img => {
             const broken = () => img.parentElement.classList.add('is-broken');
             if (img.complete && !img.naturalWidth) broken();
             else img.addEventListener('error', broken, { once: true });
           });
-          $('#ppMore').innerHTML = folders.filter(x => x.id !== id).map(x =>
-            `<button class="btn btn--sm" type="button" data-folder="${x.id}" style="--acc:${x.accent}">${icon(x)}${esc(x.title)}</button>`).join('');
         }
 
-        function open(id, opener) {
-          if (busy || id === current) return;
-          const fromView = current ? panel : folderView;
-          if (opener && opener.classList.contains('pf') && !reduce()) opener.classList.add('is-opening');
-          panel.classList.remove('is-in');
-          swap(fromView, panel, () => {
-            current = id;
-            renderPanel(id);
-            if (opener) opener.classList.remove('is-opening');
-          }, () => {
-            requestAnimationFrame(() => panel.classList.add('is-in'));
-            $('#ppTitle').focus({ preventScroll: true });
-          });
+        // After a switch, bring the top of the list back if the visitor had scrolled past it
+        const keepInView = () => {
+          const top = stage.getBoundingClientRect().top;
+          const offset = (($('#siteHeader') || {}).offsetHeight || 72) + 16;
+          if (top < offset) window.scrollTo({ top: window.scrollY + top - offset, behavior: reduce() ? 'auto' : 'smooth' });
+        };
+
+        function select(name) {
+          if (!find(name) || name === current) return;
+          current = name;
+          setPressed(name);
+          const n = inCat(name).length;
+          $('#wkLive').textContent = `Showing ${n} ${n === 1 ? 'project' : 'projects'} in ${name}.`;
+          clearTimeout(timer);
+          const show = () => {
+            paint(name);
+            grid.classList.remove('is-out', 'is-in');
+            keepInView();
+            void grid.offsetWidth;
+            grid.classList.add('is-in');
+          };
+          if (reduce()) { show(); return; }
+          grid.classList.add('is-out');
+          timer = setTimeout(show, OUT_MS);
         }
 
-        function close() {
-          if (busy || !current) return;
-          const last = current;
-          swap(panel, folderView, () => {
-            current = null;
-            panel.classList.remove('is-in');
-            grid.innerHTML = '';
-            $$('[data-reveal]', folderView).forEach(el => el.classList.add('is-in'));
-          }, () => {
-            const btn = $(`.pf[data-folder="${last}"]`, list);
-            if (btn) btn.focus({ preventScroll: true });
-          });
-        }
+        paint(ALL.name);
+        setPressed(ALL.name);
+
+        // First entrance plays when the grid scrolls into view
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver(entries => {
+            if (!entries.some(e => e.isIntersecting)) return;
+            grid.classList.add('is-in');
+            io.disconnect();
+          }, { threshold: 0.05 });
+          io.observe(grid);
+        } else grid.classList.add('is-in');
 
         stage.addEventListener('click', e => {
-          const folderBtn = e.target.closest('[data-folder]');
-          if (folderBtn) { open(folderBtn.dataset.folder, folderBtn); return; }
-          if (e.target.closest('[data-proj-home]')) close();
-        });
-
-        // Escape returns to the folder overview while focus is inside the open folder
-        panel.addEventListener('keydown', e => {
-          if (e.key === 'Escape' && current) { e.stopPropagation(); close(); }
+          const btn = e.target.closest('[data-filter]');
+          if (btn) select(btn.dataset.filter);
         });
       })();
 
