@@ -1232,7 +1232,7 @@
     /* Category index beside a filtered project grid */
     .wk {
       display: grid;
-      grid-template-columns: 272px minmax(0, 1fr);
+      grid-template-columns: 304px minmax(0, 1fr);
       align-items: start;
       gap: clamp(32px, 4vw, 64px);
     }
@@ -1240,6 +1240,43 @@
     .wk-index {
       position: sticky;
       top: calc(var(--hh) + 24px);
+      transition: top .5s var(--ease);
+    }
+
+    /* The site header slides away on scroll-down; let the pinned categories move up with it */
+    body:has(.site-header.is-hidden:not(:focus-within)) .wk-index {
+      top: 24px;
+    }
+
+    /* Short desktop screens: tighter rows so the whole list stays pinned and visible */
+    @media (min-width: 1024px) and (max-height: 720px) {
+      .wk-index .wk-index-head {
+        margin-bottom: 6px;
+        padding-bottom: 6px;
+      }
+
+      .wk-index .wk-filters>li:first-child {
+        margin-bottom: 4px;
+        padding-bottom: 4px;
+      }
+
+      .wk-index .wk-filter {
+        grid-template-columns: 32px minmax(0, 1fr);
+        min-height: 42px;
+        padding: 4px 10px 4px 6px;
+        font-size: 1.125rem;
+      }
+
+      .wk-index .wk-ico {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+      }
+
+      .wk-index .wk-ico svg {
+        width: 18px;
+        height: 18px;
+      }
     }
 
     .wk-index-head {
@@ -1247,8 +1284,8 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      margin: 0 0 12px;
-      padding-bottom: 12px;
+      margin: 0 0 10px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--line);
       color: var(--muted);
       font-size: .6875rem;
@@ -1260,30 +1297,30 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
       list-style: none;
       margin: 0;
       padding: 0;
     }
 
     .wk-filters>li:first-child {
-      margin-bottom: 8px;
-      padding-bottom: 12px;
+      margin-bottom: 6px;
+      padding-bottom: 8px;
       border-bottom: 1px dashed var(--line-2);
     }
 
     .wk-filter {
       display: grid;
-      grid-template-columns: 32px minmax(0, 1fr) auto;
+      grid-template-columns: 38px minmax(0, 1fr);
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       width: 100%;
-      min-height: 48px;
-      padding: 7px 12px 7px 7px;
+      min-height: 52px;
+      padding: 6px 12px 6px 7px;
       border: 1px solid transparent;
       border-radius: 12px;
       color: #b4bfcc;
-      font-size: .9375rem;
+      font-size: 1.1875rem;
       line-height: 1.3;
       text-align: left;
       transition: background-color .3s, border-color .3s, color .3s;
@@ -1303,36 +1340,28 @@
     .wk-ico {
       display: grid;
       place-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      background: color-mix(in srgb, var(--acc) 15%, transparent);
-      color: color-mix(in srgb, var(--acc) 60%, var(--white));
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--blue) 16%, transparent);
+      color: var(--blue-soft);
       transition: background-color .3s;
     }
 
     .wk-filter[aria-pressed="true"] .wk-ico {
-      background: color-mix(in srgb, var(--acc) 30%, transparent);
+      background: color-mix(in srgb, var(--blue) 32%, transparent);
     }
 
     .wk-ico svg {
-      width: 17px;
-      height: 17px;
+      width: 21px;
+      height: 21px;
     }
 
     .wk-name {
       min-width: 0;
     }
 
-    .wk-num {
-      color: var(--muted);
-      font-family: var(--f-mono);
-      font-size: .75rem;
-    }
 
-    .wk-filter[aria-pressed="true"] .wk-num {
-      color: color-mix(in srgb, var(--acc) 55%, var(--white));
-    }
 
     .wk-main {
       min-width: 0;
@@ -1538,10 +1567,10 @@
       gap: 7px;
       min-height: 28px;
       padding: 3px 10px;
-      border: 1px solid color-mix(in srgb, var(--acc) 38%, transparent);
+      border: 1px solid color-mix(in srgb, var(--blue) 45%, transparent);
       border-radius: 999px;
-      background: color-mix(in srgb, var(--acc) 9%, transparent);
-      color: color-mix(in srgb, var(--acc) 30%, var(--white));
+      background: color-mix(in srgb, var(--blue) 12%, transparent);
+      color: color-mix(in srgb, var(--blue-soft) 45%, var(--white));
       font-family: var(--f-mono);
       font-size: .6875rem;
       line-height: 1.2;
@@ -1551,8 +1580,8 @@
 
     .pc-tag:hover,
     .pc-tag.is-active {
-      border-color: color-mix(in srgb, var(--acc) 70%, transparent);
-      background: color-mix(in srgb, var(--acc) 20%, transparent);
+      border-color: color-mix(in srgb, var(--blue) 80%, transparent);
+      background: color-mix(in srgb, var(--blue) 26%, transparent);
     }
 
     .pc-title {
@@ -1673,11 +1702,11 @@
 
     @media (max-width: 1180px) {
       .wk {
-        grid-template-columns: 236px minmax(0, 1fr);
+        grid-template-columns: 284px minmax(0, 1fr);
       }
 
       .wk-filter {
-        font-size: .875rem;
+        font-size: 1.125rem;
       }
     }
 
@@ -1688,8 +1717,20 @@
         gap: 24px;
       }
 
+      /* Category row stays pinned to the top while the projects scroll */
       .wk-index {
-        position: static;
+        top: var(--hh);
+        z-index: 20;
+        margin-inline: calc(-1 * var(--gutter));
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+        background: rgba(5, 6, 8, .86);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+      }
+
+      body:has(.site-header.is-hidden:not(:focus-within)) .wk-index {
+        top: 0;
       }
 
       .wk-index-head {
@@ -1699,8 +1740,7 @@
       .wk-filters {
         flex-direction: row;
         gap: 8px;
-        margin-inline: calc(-1 * var(--gutter));
-        padding: 2px var(--gutter) 6px;
+        padding: 0 var(--gutter);
         overflow-x: auto;
         overscroll-behavior-x: contain;
         scroll-snap-type: x proximity;
@@ -1724,8 +1764,9 @@
       }
 
       .wk-filter {
-        grid-template-columns: 28px auto auto;
-        gap: 9px;
+        grid-template-columns: 32px auto;
+        gap: 10px;
+        font-size: 1.0625rem;
         width: auto;
         min-height: 44px;
         padding: 5px 14px 5px 6px;
@@ -1735,14 +1776,14 @@
       }
 
       .wk-ico {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
       }
 
       .wk-ico svg {
-        width: 15px;
-        height: 15px;
+        width: 18px;
+        height: 18px;
       }
     }
 
@@ -4009,7 +4050,7 @@
         <!-- Category index + filtered grid. Both are rendered from PROJECT_DATA in the script below. -->
         <div class="wk" id="projStage">
           <aside class="wk-index" aria-label="Project categories" data-reveal>
-            <p class="wk-index-head mono"><span>Categories</span><span id="projTotal"></span></p>
+            <p class="wk-index-head mono"><span>Categories</span></p>
             <ul class="wk-filters" id="projFilters"></ul>
           </aside>
 
@@ -5084,6 +5125,11 @@
           name: 'Creative Websites', accent: '#FF8A5B',
           desc: 'Expressive, story-driven websites for creators, brands, and organizations.',
           icon: '<path d="m12 19 7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 7.586 7.586"/><circle cx="11" cy="11" r="2"/>'
+        },
+        {
+          name: 'CRM', accent: '#A3E635',
+          desc: 'Systems that manage the people behind a service: customers, applicants, members, and their records.',
+          icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>'
         }
       ].map(c => Object.freeze(c)));
 
@@ -5091,7 +5137,7 @@
         categories: CATEGORIES,
         projects: [
           {
-            name: 'PoultryConnect', categories: ['SaaS & Analytics', 'AI & Automation'],
+            name: 'PoultryConnect', categories: ['SaaS & Analytics', 'AI & Automation', 'CRM'],
             url: 'https://polutry-connect.vercel.app/', img: 'assets/poultryconnect.png',
             desc: 'An egg-ordering platform that connects customers directly with farm owners and suppliers. Includes sales, production, and mortality forecasting to support poultry operations.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Jinja2'], Backend: ['Python', 'Flask', 'SQLAlchemy', 'Flask-SocketIO'], Database: ['MySQL'], Libraries: ['pandas', 'NumPy', 'scikit-learn', 'Matplotlib', 'Chart.js', 'ReportLab'], Hosting: ['Vercel'] }
@@ -5103,7 +5149,7 @@
             stack: { Frontend: ['React', 'TypeScript', 'Vite'], Libraries: ['Three.js', 'GSAP', 'Lenis', 'Lucide'], Hosting: ['Vercel'] }
           },
           {
-            name: 'DigiSPES', categories: ['Government & Enterprise', 'AI & Automation'],
+            name: 'DigiSPES', categories: ['Government & Enterprise', 'AI & Automation', 'CRM'],
             url: 'https://digispes.info/', img: 'assets/digispes.png',
             desc: 'A digital platform for the Special Program for the Employment of Students (SPES), supporting applications, examinations, applicant and beneficiary management, and municipal and provincial workflows. Features automated requirement verification, exam checking, and a chatbot.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5', 'jQuery', 'Jinja2'], Backend: ['Python', 'Flask', 'Flask-SocketIO'], Database: ['MySQL'], Libraries: ['Tesseract OCR', 'Pillow', 'Chart.js', 'Socket.IO', 'docx2pdf'] }
@@ -5121,13 +5167,13 @@
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Nunjucks'], Backend: ['Node.js', 'Express'], Database: ['SQLite'], Libraries: ['Sharp', 'Multer'], Hosting: ['Vercel'] }
           },
           {
-            name: 'ECCD', categories: ['Government & Enterprise'],
+            name: 'ECCD', categories: ['Government & Enterprise', 'CRM'],
             url: 'https://eccd-eight.vercel.app/', img: 'assets/eccd.png',
             desc: 'An early childhood care and development platform serving parents, teachers, principals, and municipal and provincial administrators, with child development management and geographic mapping features.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Bootstrap 5'], Backend: ['Python', 'Flask'], Database: ['MySQL'], Libraries: ['Leaflet', 'OpenStreetMap', 'Chart.js'], Hosting: ['Vercel'] }
           },
           {
-            name: 'Katoto Project', categories: ['Government & Enterprise', 'Creative Websites'],
+            name: 'Katoto Project', categories: ['Government & Enterprise', 'Creative Websites', 'CRM'],
             url: 'https://katoto-project.vercel.app/', img: 'assets/katoto.png',
             desc: 'A website for a nonprofit organization in Laguna, showcasing its initiatives, community involvement, and organizational activities.',
             stack: { Frontend: ['React', 'Vite', 'React Router', 'Motion'], Backend: ['Node.js', 'Express'], Database: ['libSQL (SQLite)'], Libraries: ['Nodemailer', 'Multer', 'Sharp', 'Helmet', 'Lucide'], Hosting: ['Vercel'] }
@@ -5145,7 +5191,7 @@
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript', 'Jinja2'], Backend: ['Python', 'Flask', 'SQLAlchemy', 'Flask-Login', 'Authlib (OAuth)'], Database: ['PostgreSQL'], Libraries: ['Chart.js', 'Flask-WTF', 'Flask-Talisman', 'Vercel Speed Insights'], Hosting: ['Vercel'] }
           },
           {
-            name: 'NAZ Coffee', categories: ['SEO & Digital Marketing', 'Creative Websites'],
+            name: 'NAZ Coffee', categories: ['SEO & Digital Marketing', 'Creative Websites', 'CRM'],
             url: 'https://nazcoffee.vercel.app/order', img: 'assets/nazcoffee.png',
             desc: 'An online ordering website for NAZ Coffee in Pangil, Laguna. Customers browse the menu, customize drinks, and check out for delivery, pickup, or dine-in with cash or GCash payment. Includes Naz Rewards loyalty points, live menu availability, and server-side order validation that re-prices every cart and blocks duplicate orders.',
             stack: { Frontend: ['HTML', 'CSS', 'JavaScript (ES modules)'], Backend: ['Node.js (no dependencies)'], Libraries: ['Google Forms integration', 'GA4', 'Meta Pixel'], Tools: ['node:test'], Hosting: ['Vercel'] }
@@ -5242,17 +5288,14 @@
           `<div><dt class="mono">${esc(k)}</dt><dd>${v.map(t => `<span>${esc(t)}</span>`).join('')}</dd></div>`).join('')}</dl>`;
         const countLabel = n => `<b>${pad(n)}</b> ${n === 1 ? 'project' : 'projects'}`;
 
-        $('#projTotal').textContent = `${pad(projects.length)} projects`;
-
         filterList.innerHTML = [ALL, ...categories].map(c => `<li>
           <button class="wk-filter" type="button" data-filter="${esc(c.name)}" aria-pressed="false" style="--acc:${c.accent}">
-            <span class="wk-ico">${icon(c)}</span><span class="wk-name">${esc(c.name)}</span><span class="wk-num">${pad(inCat(c.name).length)}</span>
+            <span class="wk-ico">${icon(c)}</span><span class="wk-name">${esc(c.name)}</span>
           </button>
         </li>`).join('');
 
         const tag = (name, active) => {
-          const c = byName.get(name);
-          return `<li><button class="pc-tag${name === active ? ' is-active' : ''}" type="button" data-filter="${esc(name)}" style="--acc:${c.accent}"
+          return `<li><button class="pc-tag${name === active ? ' is-active' : ''}" type="button" data-filter="${esc(name)}"
             title="Show all ${esc(name)} projects">${esc(name)}</button></li>`;
         };
 
