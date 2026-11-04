@@ -1,0 +1,4 @@
+# Full-size masters: the site loads the web versions in assets/opt/ (see scripts/optimize-images.py)
+/assets/*.png
+/assets/*.jpg
+/scripts
