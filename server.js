@@ -1,12 +1,13 @@
-// Minimal Node server: serves the static portfolio and the /api/contact endpoint.
+// Minimal Node server: serves the static portfolio and the /api/contact and /api/chat endpoints.
 // Used for local development (`npm start`) and for hosts like Render.
-// On Vercel this file is not needed — Vercel serves index.html and api/contact.js directly.
+// On Vercel this file is not needed — Vercel serves index.html and the api/ functions directly.
 
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import contact from './api/contact.js';
+import chat from './api/chat.js';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -36,6 +37,11 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname === '/api/contact') {
       await contact(req, res);
+      return;
+    }
+
+    if (pathname === '/api/chat') {
+      await chat(req, res);
       return;
     }
 

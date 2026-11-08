@@ -5164,6 +5164,773 @@
         display: none;
       }
     }
+
+    /* ---------- Testimonials carousel ---------- */
+    .tm {
+      --tm-per: 1;
+      --tm-gap: 20px;
+      outline: none;
+    }
+
+    .tm-viewport {
+      overflow: hidden;
+      margin: -10px;
+      padding: 10px;
+    }
+
+    .tm-track {
+      display: flex;
+      gap: var(--tm-gap);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      transition: transform .9s var(--ease);
+      will-change: transform;
+      touch-action: pan-y;
+    }
+
+    .tm-slide {
+      flex: 0 0 calc((100% - (var(--tm-per) - 1) * var(--tm-gap)) / var(--tm-per));
+      min-width: 0;
+      display: flex;
+      transition: opacity .6s var(--ease), transform .9s var(--ease);
+    }
+
+    .tm-slide:not(.is-active) {
+      opacity: .38;
+      transform: scale(.97);
+    }
+
+    .tm-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin: 0;
+      padding: clamp(18px, 2.4vw, 28px);
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      border-radius: 18px;
+      background:
+        radial-gradient(70% 70% at 0% 0%, rgb(var(--blue-rgb) / .14), transparent 70%),
+        var(--ink);
+      transition: border-color .35s;
+    }
+
+    .tm-mark {
+      position: absolute;
+      top: -.12em;
+      right: .12em;
+      font-family: var(--f-display);
+      font-size: clamp(4.5rem, 9vw, 6.5rem);
+      line-height: 1;
+      color: rgb(var(--blue-rgb) / .2);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .tm-card blockquote {
+      position: relative;
+      flex: 1;
+      margin: 0 0 16px;
+    }
+
+    .tm-card blockquote p {
+      margin: 0;
+      font-family: var(--f-body);
+      font-size: clamp(.875rem, 1vw, .9688rem);
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--white);
+      text-wrap: pretty;
+    }
+
+    .tm-who {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .tm-who img {
+      flex: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--line-2);
+      box-shadow: 0 0 0 3px rgb(var(--blue-rgb) / .12);
+    }
+
+    .tm-who>span {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .tm-who strong {
+      font-family: var(--f-display);
+      font-size: .9375rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .tm-who .mono {
+      font-size: .5625rem;
+      color: var(--cyan);
+    }
+
+    .tm-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .tm-dots {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .tm-dot {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+    }
+
+    .tm-dot::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      margin: -4px 0 0 -4px;
+      border-radius: 999px;
+      background: var(--line-2);
+      transition: width .5s var(--ease), margin .5s var(--ease), background-color .3s;
+    }
+
+    .tm-dot[aria-selected="true"]::before {
+      width: 24px;
+      margin-left: -12px;
+      background: var(--blue);
+    }
+
+    .tm-count {
+      margin: 0;
+    }
+
+    .tm-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tm-arrow {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line-2);
+      border-radius: 50%;
+      background: rgb(var(--bg-rgb) / .65);
+      color: var(--white);
+      transition: background-color .35s, border-color .35s, color .35s;
+    }
+
+    .tm-arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .tm-arrow:hover {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .tm:focus-visible .tm-slide.is-active .tm-card {
+      border-color: var(--blue);
+    }
+
+    @media (min-width: 900px) {
+      .tm {
+        --tm-per: 2;
+        --tm-gap: 18px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .tm-bar {
+        gap: 12px;
+      }
+
+      .tm-count {
+        display: none;
+      }
+
+      .tm-arrow {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .tm-track,
+      .tm-slide {
+        transition: none;
+      }
+    }
+
+    /* ---------- Ask-about-Jeric chatbot ---------- */
+    :root {
+      --fab-gap: clamp(14px, 3vw, 32px);
+      --chat-fab: 56px;
+    }
+
+    /* The contact pill sits to the left of the chat button */
+    .email-fab {
+      right: calc(var(--fab-gap) + var(--chat-fab) + 12px);
+      bottom: calc(var(--fab-gap) + 2px);
+    }
+
+    /* JP logo mark (same as the favicon), coloured per theme */
+    :root {
+      --jp-bg: #05060a;
+      --jp-dot: #2f6bff;
+      --jp-badge: #2f6bff;
+    }
+
+    :root[data-theme="morning"] {
+      --jp-bg: #f05a12;
+      --jp-dot: #0b0b0c;
+      --jp-badge: #0b0b0c;
+    }
+
+    .jp-logo .jp-bg {
+      fill: var(--jp-bg);
+    }
+
+    .jp-logo .jp-ln {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 5;
+    }
+
+    .jp-logo .jp-dot {
+      fill: var(--jp-dot);
+    }
+
+    .chat-fab {
+      position: fixed;
+      right: var(--fab-gap);
+      bottom: var(--fab-gap);
+      z-index: 245;
+      display: grid;
+      place-items: center;
+      width: var(--chat-fab);
+      height: var(--chat-fab);
+      padding: 0;
+      border: 1px solid rgb(255 255 255 / .14);
+      border-radius: 28%;
+      background: var(--jp-bg);
+      color: #fff;
+      box-shadow: 0 16px 36px -12px var(--glow), 0 0 0 1px rgb(var(--blue-rgb) / .25);
+      cursor: pointer;
+      transition: transform .5s var(--ease), box-shadow .35s;
+    }
+
+    .chat-fab .jp-logo {
+      width: 100%;
+      height: 100%;
+    }
+
+    .chat-fab-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      background: var(--jp-badge);
+      color: #fff;
+      transition: opacity .3s, transform .4s var(--ease);
+    }
+
+    .chat-fab-badge svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    .chat-fab[aria-expanded="true"] .chat-fab-badge {
+      opacity: 0;
+      transform: scale(.4);
+    }
+
+    .chat-fab::before {
+      content: "";
+      position: absolute;
+      inset: -5px;
+      border-radius: 32%;
+      border: 1px solid rgb(var(--blue-rgb) / .45);
+      animation: chatPing 2.8s var(--ease) infinite;
+      pointer-events: none;
+    }
+
+    .chat-fab[aria-expanded="true"]::before {
+      animation: none;
+      opacity: 0;
+    }
+
+    @keyframes chatPing {
+      0% { transform: scale(.9); opacity: .9; }
+      70%, 100% { transform: scale(1.35); opacity: 0; }
+    }
+
+    .chat-fab:hover {
+      transform: translateY(-2px) scale(1.04);
+    }
+
+    .chat-fab>svg {
+      grid-area: 1 / 1;
+      transition: opacity .3s, transform .5s var(--ease);
+    }
+
+    .chat-fab .chat-ico-close {
+      width: 24px;
+      height: 24px;
+    }
+
+    .chat-fab .chat-ico-close,
+    .chat-fab[aria-expanded="true"] .chat-ico-open {
+      opacity: 0;
+      transform: rotate(-90deg) scale(.6);
+    }
+
+    .chat-fab[aria-expanded="true"] .chat-ico-close {
+      opacity: 1;
+      transform: none;
+    }
+
+    .chat-fab-tip {
+      position: absolute;
+      right: calc(100% + 12px);
+      top: 50%;
+      padding: 7px 12px;
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      background: rgb(var(--surface-rgb) / .92);
+      color: var(--white);
+      font-size: .75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translate(6px, -50%);
+      transition: opacity .3s, transform .4s var(--ease);
+      pointer-events: none;
+    }
+
+    .chat-fab:hover .chat-fab-tip,
+    .chat-fab:focus-visible .chat-fab-tip {
+      opacity: 1;
+      transform: translate(0, -50%);
+    }
+
+    /* Hide the tip when the contact pill is beside the button */
+    body:has(.email-fab.is-on) .chat-fab-tip,
+    .chat-fab[aria-expanded="true"] .chat-fab-tip {
+      display: none;
+    }
+
+    .chat {
+      position: fixed;
+      right: var(--fab-gap);
+      bottom: calc(var(--fab-gap) + var(--chat-fab) + 14px);
+      z-index: 244;
+      display: flex;
+      flex-direction: column;
+      width: min(400px, calc(100vw - 2 * var(--fab-gap)));
+      height: min(600px, calc(100dvh - var(--fab-gap) * 2 - var(--chat-fab) - 30px));
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      border-radius: 22px;
+      background:
+        radial-gradient(90% 40% at 100% 0%, rgb(var(--blue-rgb) / .16), transparent 70%),
+        rgb(var(--surface-rgb) / .97);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 40px 80px -30px rgb(0 0 0 / .7), 0 0 0 1px rgb(var(--blue-rgb) / .06);
+      color: var(--text);
+      transform-origin: bottom right;
+      animation: chatIn .45s var(--ease);
+    }
+
+    .chat[hidden] {
+      display: none;
+    }
+
+    @keyframes chatIn {
+      from { opacity: 0; transform: translateY(14px) scale(.96); }
+    }
+
+    .chat-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 16px 14px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .chat-head .chat-avatar,
+    .chat-mini {
+      flex: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      /* Dark mode: Jeric's real photo. Light mode: his Roblox-style avatar. */
+      background: url("assets/opt/me-face.webp?v=2") center / cover no-repeat, var(--char-2);
+      box-shadow: 0 0 0 1px var(--line-2);
+    }
+
+    [data-theme="morning"] .chat-head .chat-avatar,
+    [data-theme="morning"] .chat-mini {
+      background:
+        url("assets/opt/me-roblox-head.svg?v=2") center / cover no-repeat,
+        radial-gradient(circle at 50% 40%, rgb(var(--blue-rgb) / .28), rgb(var(--blue-rgb) / .08));
+    }
+
+    .chat-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      align-self: flex-start;
+      max-width: 94%;
+    }
+
+    .chat-row .chat-msg {
+      max-width: none;
+      min-width: 0;
+    }
+
+    .chat-mini {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+    }
+
+    .chat-head div {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chat-head h2 {
+      margin: 0 0 3px;
+      font-family: var(--f-display);
+      font-size: 1.0625rem;
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: 0;
+      color: var(--white);
+    }
+
+    .chat-head p {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0;
+      font-size: .5625rem;
+      color: var(--muted);
+    }
+
+    .chat-head p i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgb(34 197 94 / .18);
+    }
+
+    .chat-x {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line-2);
+      border-radius: 50%;
+      color: var(--white);
+      transition: border-color .3s, background-color .3s;
+    }
+
+    .chat-x:hover {
+      border-color: var(--blue);
+      background: rgb(var(--blue-rgb) / .12);
+    }
+
+    .chat-x svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .chat-log {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 18px 16px 8px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+
+    .chat-msg {
+      max-width: 88%;
+      padding: 11px 14px;
+      border-radius: 16px;
+      font-size: .875rem;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+      animation: chatMsg .4s var(--ease);
+    }
+
+    @keyframes chatMsg {
+      from { opacity: 0; transform: translateY(6px); }
+    }
+
+    .chat-msg.bot {
+      align-self: flex-start;
+      border: 1px solid var(--line);
+      border-bottom-left-radius: 5px;
+      background: rgb(var(--accent-rgb) / .05);
+      color: var(--text);
+    }
+
+    .chat-msg.me {
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+      background: var(--blue);
+      color: #fff;
+      white-space: pre-wrap;
+    }
+
+    .chat-msg p {
+      margin: 0;
+    }
+
+    .chat-msg p+p,
+    .chat-msg p+ul,
+    .chat-msg ul+p {
+      margin-top: 8px;
+    }
+
+    .chat-msg ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .chat-msg li+li {
+      margin-top: 3px;
+    }
+
+    .chat-msg strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .chat-msg a {
+      color: var(--cyan);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .chat-msg.is-error {
+      border-color: rgb(239 68 68 / .4);
+    }
+
+    .chat-typing {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px 0;
+    }
+
+    .chat-typing i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: chatDot 1.2s infinite ease-in-out;
+    }
+
+    .chat-wait {
+      margin-left: 10px;
+      color: var(--muted);
+      font-size: .8125rem;
+    }
+
+    .chat-typing i:nth-child(2) { animation-delay: .15s; }
+    .chat-typing i:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes chatDot {
+      0%, 60%, 100% { transform: none; opacity: .4; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .chat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 4px 16px 12px;
+    }
+
+    .chat-chips[hidden] {
+      display: none;
+    }
+
+    .chat-chips button {
+      padding: 7px 12px;
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      color: var(--white);
+      font-size: .75rem;
+      text-align: left;
+      transition: border-color .3s, background-color .3s;
+    }
+
+    .chat-chips button:hover {
+      border-color: var(--blue);
+      background: rgb(var(--blue-rgb) / .12);
+    }
+
+    .chat-form {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      margin: 0 12px;
+      padding: 6px 6px 6px 14px;
+      border: 1px solid var(--line-2);
+      border-radius: 18px;
+      background: rgb(var(--bg-rgb) / .5);
+      transition: border-color .3s;
+    }
+
+    .chat-form:focus-within {
+      border-color: var(--blue);
+    }
+
+    .chat-form textarea {
+      flex: 1;
+      min-width: 0;
+      max-height: 120px;
+      padding: 9px 0;
+      border: 0;
+      background: none;
+      color: var(--white);
+      font: inherit;
+      font-size: 16px;
+      line-height: 1.4;
+      resize: none;
+      outline: none;
+    }
+
+    .chat-form textarea::placeholder {
+      color: var(--muted);
+    }
+
+    .chat-send {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--blue);
+      color: #fff;
+      transition: opacity .3s, transform .3s var(--ease);
+    }
+
+    .chat-send:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
+    .chat-send:not(:disabled):hover {
+      transform: translateX(2px);
+    }
+
+    .chat-send svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .chat-note {
+      margin: 0;
+      padding: 8px 16px 12px;
+      color: var(--muted);
+      font-size: .6875rem;
+      text-align: center;
+    }
+
+    .chat-note a {
+      color: var(--cyan);
+    }
+
+    @media (min-width: 761px) {
+      .chat-form textarea {
+        font-size: .875rem;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --chat-fab: 52px;
+      }
+    }
+
+    /* Phones: the chat takes the whole screen */
+    @media (max-width: 520px) {
+      .chat {
+        inset: 0;
+        width: 100%;
+        height: 100dvh;
+        border: 0;
+        border-radius: 0;
+      }
+
+      body.chat-open .chat-fab,
+      body.chat-open .email-fab {
+        display: none;
+      }
+
+      body.chat-open {
+        overflow: hidden;
+      }
+
+      .chat-head {
+        padding-top: max(16px, env(safe-area-inset-top));
+      }
+
+      .chat-note {
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .chat,
+      .chat-msg,
+      .chat-fab::before,
+      .chat-typing i {
+        animation: none;
+      }
+    }
   </style>
 </head>
 
@@ -5193,6 +5960,7 @@
         <ul class="nav-links" id="navLinks">
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Work</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#tech-stack">Stack</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#experience">Experience</a></li>
@@ -5225,6 +5993,7 @@
     <ol>
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Work</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
       <li><a href="#tech-stack">Stack &amp; Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#certificates">Certificates</a></li>
@@ -5273,7 +6042,7 @@
           </svg>
         </div>
         <img src="assets/opt/me.webp" width="900" height="900" alt="Portrait of Jeric Punay" fetchpriority="high">
-        <img class="hero-toon" src="assets/opt/me-toon.webp" width="900" height="900" alt="" aria-hidden="true"
+        <img class="hero-toon" src="assets/opt/me-roblox.svg" width="900" height="900" alt="" aria-hidden="true"
           decoding="async" fetchpriority="low">
       </div>
 
@@ -5486,6 +6255,93 @@
         <noscript>
           <p class="pf-noscript">Enable JavaScript to explore the project constellation.</p>
         </noscript>
+      </div>
+    </section>
+
+    <!-- ===================== TESTIMONIALS ===================== -->
+    <section class="section" id="testimonials" aria-labelledby="tmTitle">
+      <div class="wrap">
+        <header class="sec-head">
+          <div>
+            <p class="sec-idx mono" data-reveal>Testimonials</p>
+            <h2 class="sec-title split" data-split id="tmTitle">
+              <span class="ln"><span>Kind words</span></span>
+              <span class="ln" style="--l:1"><span>from <em>clients</em></span></span>
+            </h2>
+          </div>
+        </header>
+
+        <div class="tm" id="tm" data-reveal role="region" aria-roledescription="carousel"
+          aria-label="Client testimonials" tabindex="0">
+          <div class="tm-viewport">
+            <ul class="tm-track" id="tmTrack">
+              <li class="tm-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
+                <figure class="tm-card">
+                  <span class="tm-mark" aria-hidden="true">&ldquo;</span>
+                  <blockquote>
+                    <p>Jeric did an excellent job developing our website. He understood our needs, transformed our
+                      ideas into a well-designed website, and made sure everything worked smoothly. His creativity,
+                      technical skills, and dedication really stood out.</p>
+                  </blockquote>
+                  <figcaption class="tm-who">
+                    <img src="assets/opt/testimonials/alvin.webp" width="240" height="240" loading="lazy"
+                      decoding="async" alt="Alvin Fresnido">
+                    <span><strong>Alvin Fresnido</strong><span class="mono">Website project</span></span>
+                  </figcaption>
+                </figure>
+              </li>
+              <li class="tm-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+                <figure class="tm-card">
+                  <span class="tm-mark" aria-hidden="true">&ldquo;</span>
+                  <blockquote>
+                    <p>Jeric delivered impressive 3D modeling work for our project. The models were detailed, visually
+                      appealing, and well-integrated into the website. He was creative, attentive to our requirements,
+                      and committed to delivering quality results.</p>
+                  </blockquote>
+                  <figcaption class="tm-who">
+                    <img src="assets/opt/testimonials/aaron.webp" width="240" height="240" loading="lazy"
+                      decoding="async" alt="Aaron Katigbak">
+                    <span><strong>Aaron Katigbak</strong><span class="mono">3D Modeling Website</span></span>
+                  </figcaption>
+                </figure>
+              </li>
+              <li class="tm-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+                <figure class="tm-card">
+                  <span class="tm-mark" aria-hidden="true">&ldquo;</span>
+                  <blockquote>
+                    <p>I highly recommend Jeric's services! He was responsive, creative, and committed to delivering
+                      quality results. He paid attention to the details and made sure the final website matched what
+                      we envisioned. Definitely someone I would work with again.</p>
+                  </blockquote>
+                  <figcaption class="tm-who">
+                    <img src="assets/opt/testimonials/philip.webp" width="240" height="240" loading="lazy"
+                      decoding="async" alt="Philip Zambrano">
+                    <span><strong>Philip Zambrano</strong><span class="mono">Website project</span></span>
+                  </figcaption>
+                </figure>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tm-bar">
+            <div class="tm-dots" id="tmDots" role="tablist" aria-label="Choose testimonial"></div>
+            <p class="cert-count tm-count" id="tmCount" aria-live="polite">01 <span>/ 03</span></p>
+            <div class="tm-nav">
+              <button class="tm-arrow" id="tmPrev" type="button" aria-label="Previous testimonial">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button class="tm-arrow" id="tmNext" type="button" aria-label="Next testimonial">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -6391,6 +7247,60 @@
     </svg>
     <span>Contact me</span>
   </a>
+
+  <!-- Ask-about-Jeric chatbot (answers come from /api/chat) -->
+  <button class="chat-fab" id="chatFab" type="button" aria-expanded="false" aria-controls="chatPanel"
+    aria-label="Ask about Jeric — open chat">
+    <svg class="jp-logo chat-ico-open" viewBox="0 0 64 64" aria-hidden="true">
+      <rect class="jp-bg" width="64" height="64" rx="15" />
+      <path class="jp-ln" d="M24 14v28a8 8 0 0 1-8 8h-4" />
+      <path class="jp-ln" d="M36 50V14m0 2.5h7a8 8 0 0 1 0 16h-7" />
+      <circle class="jp-dot" cx="49" cy="46" r="3.5" />
+    </svg>
+    <span class="chat-fab-badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.2 3.6c-.6.5-1.3.1-1.3-.6V16A2.5 2.5 0 0 1 4 13.5v-8Z" /></svg>
+    </span>
+    <svg class="chat-ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+    <span class="chat-fab-tip" aria-hidden="true">Ask about me</span>
+  </button>
+
+  <section class="chat" id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
+    <header class="chat-head">
+      <span class="chat-avatar" role="img" aria-label="Jeric's assistant"></span>
+      <div>
+        <h2 id="chatTitle">Ask about Jeric</h2>
+        <p class="mono"><i aria-hidden="true"></i>AI assistant</p>
+      </div>
+      <button class="chat-x" id="chatClose" type="button" aria-label="Close chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </header>
+    <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <div class="chat-chips" id="chatChips">
+      <button type="button">What projects has he built?</button>
+      <button type="button">What's his tech stack?</button>
+      <button type="button">Where has he worked?</button>
+      <button type="button">How can I hire him?</button>
+    </div>
+    <form class="chat-form" id="chatForm" autocomplete="off">
+      <label class="sr-only" for="chatInput">Your question about Jeric</label>
+      <textarea id="chatInput" rows="1" maxlength="1000" placeholder="Ask anything about Jeric…"></textarea>
+      <button class="chat-send" id="chatSend" type="submit" aria-label="Send question">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </button>
+    </form>
+    <p class="chat-note">AI answers can be imperfect. For hiring, email <a
+        href="mailto:punay.jeric@gmail.com">punay.jeric@gmail.com</a>.</p>
+  </section>
 
   <!-- Project details (opened from the constellation) -->
   <div class="pm" id="projModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" aria-hidden="true">
@@ -7700,6 +8610,80 @@
         }, { passive: true });
       }
 
+      /* ---------- Testimonials ---------- */
+      (function testimonials() {
+        const tm = $('#tm');
+        if (!tm) return;
+        const track = $('#tmTrack'), dotsWrap = $('#tmDots'), count = $('#tmCount');
+        const slides = [...track.children];
+        const TOTAL = slides.length;
+        const pad = n => String(n).padStart(2, '0');
+        let current = 0, timer = 0, paused = false, visible = false, per = 0, dots = [];
+        const perView = () => parseInt(getComputedStyle(tm).getPropertyValue('--tm-per'), 10) || 1;
+        const positions = () => Math.max(1, TOTAL - per + 1);
+
+        // One dot per scroll position (3 on phones, 2 when two cards fit side by side)
+        function buildDots() {
+          dotsWrap.textContent = '';
+          dots = Array.from({ length: positions() }, (_, i) => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'tm-dot';
+            b.setAttribute('role', 'tab');
+            b.setAttribute('aria-label', per > 1 ? `Testimonials ${i + 1} and ${i + per}` : `Testimonial ${i + 1}`);
+            b.addEventListener('click', () => { go(i); restart(); });
+            dotsWrap.appendChild(b);
+            return b;
+          });
+        }
+
+        function go(n) {
+          const p = perView();
+          if (p !== per) { per = p; buildDots(); }
+          const total = positions();
+          current = ((n % total) + total) % total;
+          track.style.transform = `translate3d(${-slides[current].offsetLeft}px,0,0)`;
+          slides.forEach((el, i) => {
+            const on = i >= current && i < current + per;
+            el.classList.toggle('is-active', on);
+            el.setAttribute('aria-hidden', String(!on));
+          });
+          dots.forEach((d, i) => d.setAttribute('aria-selected', String(i === current)));
+          count.innerHTML = `${pad(current + 1)} <span>/ ${pad(total)}</span>`;
+        }
+
+        function restart() {
+          clearInterval(timer);
+          if (!paused && visible && !reduce()) timer = setInterval(() => go(current + 1), 7000);
+        }
+        const step = d => { go(current + d); restart(); };
+
+        $('#tmPrev').addEventListener('click', () => step(-1));
+        $('#tmNext').addEventListener('click', () => step(1));
+        addSwipe(tm, step);
+        tm.addEventListener('keydown', e => {
+          if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+          if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+        });
+        tm.addEventListener('mouseenter', () => { paused = true; restart(); });
+        tm.addEventListener('mouseleave', () => { paused = false; restart(); });
+        tm.addEventListener('focusin', () => { paused = true; restart(); });
+        tm.addEventListener('focusout', () => { paused = false; restart(); });
+        new IntersectionObserver(es => { visible = es[0].isIntersecting; restart(); }, { threshold: .3 }).observe(tm);
+
+        let rz = 0;
+        window.addEventListener('resize', () => {
+          cancelAnimationFrame(rz);
+          rz = requestAnimationFrame(() => {
+            track.style.transition = 'none';
+            go(current);
+            void track.offsetWidth;
+            track.style.transition = '';
+          });
+        });
+        go(0);
+      })();
+
       /* ---------- Certificates ---------- */
       (function certs() {
         const TOTAL = 47;
@@ -7896,6 +8880,145 @@
           new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; sync(); }).observe($('.hero'));
           new IntersectionObserver(([e]) => { atContact = e.isIntersecting; sync(); }, { threshold: 0.15 }).observe($('#contact'));
         }
+      })();
+
+      /* ---------- Ask-about-Jeric chatbot ---------- */
+      (function chatbot() {
+        const fab = $('#chatFab'), panel = $('#chatPanel'), log = $('#chatLog'), form = $('#chatForm'),
+          input = $('#chatInput'), sendBtn = $('#chatSend'), chips = $('#chatChips');
+        if (!fab || !panel) return;
+        const KEY = 'jp-chat';
+        const GREETING = "Hi, I'm Jeric's assistant. Ask me about his projects, skills, experience, or how to work with him. Pwede rin sa Tagalog!";
+        let history = [], busy = false;
+
+        try { history = JSON.parse(sessionStorage.getItem(KEY) || '[]'); } catch { history = []; }
+        const save = () => { try { sessionStorage.setItem(KEY, JSON.stringify(history.slice(-20))); } catch { } };
+
+        const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+        // Tiny, safe markdown: escape first, then **bold**, links, emails and "- " bullet lists.
+        // Replies are plain text: no emoji, and no hidden "thinking" some models emit.
+        const clean = t => t.replace(/<think>[\s\S]*?(<\/think>|$)/g, '')
+          .replace(/[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}\u{1F3FB}-\u{1F3FF}]️?|‍|️/gu, '')
+          .replace(/[ \t]{2,}/g, ' ');
+        function md(text) {
+          text = clean(text);
+          const inline = s => esc(s)
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+            .replace(/(^|[\s(])(https?:\/\/[^\s<)]+[^\s<).,;:!?])/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>')
+            .replace(/(^|[\s(])([\w.+-]+@[\w-]+\.[\w.]+[a-z])/gi, '$1<a href="mailto:$2">$2</a>');
+          const out = [];
+          let list = null;
+          text.split('\n').forEach(raw => {
+            const line = raw.trim();
+            const item = line.match(/^(?:[-*•]|\d+\.)\s+(.*)$/);
+            if (item) { (list ||= []).push(`<li>${inline(item[1])}</li>`); return; }
+            if (list) { out.push(`<ul>${list.join('')}</ul>`); list = null; }
+            if (line) out.push(`<p>${inline(line)}</p>`);
+          });
+          if (list) out.push(`<ul>${list.join('')}</ul>`);
+          return out.join('');
+        }
+
+        function bubble(role, text) {
+          const el = document.createElement('div');
+          el.className = `chat-msg ${role === 'user' ? 'me' : 'bot'}`;
+          if (role === 'user') { el.textContent = text; log.appendChild(el); }
+          else {
+            el.innerHTML = md(text);
+            const row = document.createElement('div');
+            row.className = 'chat-row';
+            row.innerHTML = '<span class="chat-mini" aria-hidden="true"></span>';
+            row.appendChild(el);
+            log.appendChild(row);
+          }
+          log.scrollTop = log.scrollHeight;
+          return el;
+        }
+
+        function renderAll() {
+          log.textContent = '';
+          bubble('assistant', GREETING);
+          history.forEach(m => bubble(m.role, m.content));
+          chips.hidden = history.length > 0;
+        }
+
+        function setOpen(open) {
+          panel.hidden = !open;
+          fab.setAttribute('aria-expanded', String(open));
+          fab.setAttribute('aria-label', open ? 'Close chat' : 'Ask about Jeric — open chat');
+          document.body.classList.toggle('chat-open', open);
+          if (open) {
+            if (!log.childElementCount) renderAll();
+            log.scrollTop = log.scrollHeight;
+            if (matchMedia('(hover: hover)').matches) input.focus();
+          } else fab.focus({ preventScroll: true });
+        }
+
+        const autosize = () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 120) + 'px'; };
+        const syncSend = () => { sendBtn.disabled = busy || !input.value.trim(); };
+
+        async function ask(question) {
+          question = question.trim();
+          if (!question || busy) return;
+          busy = true;
+          chips.hidden = true;
+          history.push({ role: 'user', content: question });
+          save();
+          bubble('user', question);
+          input.value = ''; autosize(); syncSend();
+
+          const out = bubble('assistant', '');
+          out.innerHTML = '<span class="chat-typing" aria-label="Typing"><i></i><i></i><i></i></span>';
+          // Free AI can queue for a while: say so, so a slow answer doesn't look broken.
+          const slow = setTimeout(() => {
+            const t = out.querySelector('.chat-typing');
+            if (t) t.insertAdjacentHTML('afterend', '<span class="chat-wait">Thinking…</span>');
+          }, 4000);
+          let text = '';
+          try {
+            const res = await fetch('/api/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ messages: history }),
+            });
+            if (!res.body) throw new Error('No response');
+            const reader = res.body.getReader();
+            const dec = new TextDecoder();
+            for (; ;) {
+              const { value, done } = await reader.read();
+              if (done) break;
+              text += dec.decode(value, { stream: true });
+              out.innerHTML = md(text);
+              log.scrollTop = log.scrollHeight;
+            }
+            text = text.trim();
+            if (!res.ok) { out.classList.add('is-error'); }
+            if (!text) throw new Error('Empty response');
+            if (res.ok) { history.push({ role: 'assistant', content: text }); save(); }
+            else { history.pop(); save(); }
+          } catch {
+            history.pop(); save();
+            out.classList.add('is-error');
+            out.innerHTML = md("Sorry, I couldn't connect just now. Please try again, or email Jeric at punay.jeric@gmail.com.");
+          } finally {
+            clearTimeout(slow);
+            busy = false;
+            syncSend();
+            log.scrollTop = log.scrollHeight;
+          }
+        }
+
+        fab.addEventListener('click', () => setOpen(panel.hidden));
+        $('#chatClose').addEventListener('click', () => setOpen(false));
+        chips.addEventListener('click', e => { const b = e.target.closest('button'); if (b) ask(b.textContent); });
+        form.addEventListener('submit', e => { e.preventDefault(); ask(input.value); });
+        input.addEventListener('input', () => { autosize(); syncSend(); });
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); ask(input.value); }
+        });
+        panel.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopPropagation(); setOpen(false); } });
+        syncSend();
       })();
 
       /* ---------- Footer year ---------- */

@@ -5,7 +5,7 @@
   "description": "Jeric Punay's portfolio with a contact-form email backend",
   "type": "module",
   "scripts": {
-    "start": "node --env-file-if-exists=.env server.js"
+    "start": "node --env-file-if-exists=.env --env-file-if-exists=.env.local server.js"
   },
   "engines": {
     "node": ">=22.9"
