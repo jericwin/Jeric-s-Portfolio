@@ -5597,7 +5597,7 @@
       height: 42px;
       border-radius: 12px;
       /* Dark mode: Jeric's real photo. Light mode: his Roblox-style avatar. */
-      background: url("assets/opt/me-face.webp?v=3") center / cover no-repeat, var(--char-2);
+      background: url("assets/opt/me-face.webp?v=4") center / cover no-repeat, var(--char-2);
       box-shadow: 0 0 0 1px var(--line-2);
     }
 
@@ -8638,17 +8638,20 @@
         const pad = n => String(n).padStart(2, '0');
         let current = 0, timer = 0, paused = false, visible = false, per = 0, dots = [];
         const perView = () => parseInt(getComputedStyle(tm).getPropertyValue('--tm-per'), 10) || 1;
-        const positions = () => Math.max(1, TOTAL - per + 1);
+        // Move a full page at a time so no card repeats between steps
+        const positions = () => Math.max(1, Math.ceil(TOTAL / per));
+        const startOf = page => Math.max(0, Math.min(page * per, TOTAL - per));
 
-        // One dot per scroll position (3 on phones, 2 when two cards fit side by side)
+        // One dot per page (one card per page on phones, two when cards sit side by side)
         function buildDots() {
           dotsWrap.textContent = '';
           dots = Array.from({ length: positions() }, (_, i) => {
             const b = document.createElement('button');
+            const s = startOf(i);
             b.type = 'button';
             b.className = 'tm-dot';
             b.setAttribute('role', 'tab');
-            b.setAttribute('aria-label', per > 1 ? `Testimonials ${i + 1} and ${i + per}` : `Testimonial ${i + 1}`);
+            b.setAttribute('aria-label', per > 1 ? `Testimonials ${s + 1} to ${s + per}` : `Testimonial ${s + 1}`);
             b.addEventListener('click', () => { go(i); restart(); });
             dotsWrap.appendChild(b);
             return b;
@@ -8657,12 +8660,18 @@
 
         function go(n) {
           const p = perView();
-          if (p !== per) { per = p; buildDots(); }
+          if (p !== per) {
+            // Keep the first visible card in view when the layout switches between 1 and 2 per page
+            if (per) n = Math.floor(startOf(current) / p);
+            per = p;
+            buildDots();
+          }
           const total = positions();
           current = ((n % total) + total) % total;
-          track.style.transform = `translate3d(${-slides[current].offsetLeft}px,0,0)`;
+          const start = startOf(current);
+          track.style.transform = `translate3d(${-slides[start].offsetLeft}px,0,0)`;
           slides.forEach((el, i) => {
-            const on = i >= current && i < current + per;
+            const on = i >= start && i < start + per;
             el.classList.toggle('is-active', on);
             el.setAttribute('aria-hidden', String(!on));
           });
