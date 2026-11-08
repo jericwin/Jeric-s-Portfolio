@@ -87,6 +87,7 @@ export const PROFILE = `
 - President, PEMQMNHS Peer Educators Group (2019–2020)
 
 ## Client testimonials
+- Yuri Alfonso (PoultryConnect website): the website is excellent, visually appealing, professional, and user friendly — well developed, clearly organized, easy to navigate; Jeric is approachable, consistent, and delivers his work quickly and efficiently.
 - Alvin Fresnido (website project): Jeric did an excellent job developing their website — understood their needs, turned ideas into a well-designed site, made sure everything worked; creativity, technical skills, and dedication stood out.
 - Aaron Katigbak (3D modeling website): impressive, detailed 3D models well-integrated into the website; creative, attentive to requirements, committed to quality.
 - Philip Zambrano (website project): highly recommends him — responsive, creative, detail-oriented, final website matched their vision; would work with him again.
